@@ -18,15 +18,12 @@ def parse_qasm(*args):
 
 def main(UDP_IP="127.0.0.1", RECEIVE_PORT=1416, SEND_PORT=1417):
     global client
-    #Default UDP settings
-    # UDP_IP = "127.0.0.1"
-    # RECEIVE_PORT = 1416
-    # SEND_PORT = 1417
+
     if UDP_IP=="localhost":
         UDP_IP="127.0.0.1"
         pass
-    #OSC server and client
 
+    #OSC server and client
     callback = dispatcher.Dispatcher()
     server = osc_server.ThreadingOSCUDPServer((UDP_IP, RECEIVE_PORT), callback)
     client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
