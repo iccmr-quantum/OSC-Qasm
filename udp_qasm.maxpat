@@ -152,7 +152,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 41.0, 359.75, 135.0, 22.0 ],
-					"text" : "join 3 @triggers -1"
+					"text" : "join 3 @triggers 0"
 				}
 
 			}
