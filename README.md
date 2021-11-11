@@ -9,14 +9,14 @@ In order to try our example maxpatch, make sure you also have [Max](http://cycli
 
 Clone or [download](https://github.com/iccmr-quantum/UDP-Qasm/archive/refs/heads/main.zip) and unzip this repo.
 
-Open the terminal and navigate to the folder  where you saved the repo.
-- see here a refresher on how to navigate using the terminal [1](https://computers.tutsplus.com/tutorials/navigating-the-terminal-a-gentle-introduction--mac-3855)[2](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html)
+Open the Terminal (Mac) or Command Prompt (Windows) and navigate to the folder  where you saved the repo.
+- see here a refresher on how to navigate using the terminal [[1](https://computers.tutsplus.com/tutorials/navigating-the-terminal-a-gentle-introduction--mac-3855)][[2](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html)]
 
 Create a python virtual environment
 - on the terminal, type: `python3 -m venv UDPQasm`
 
 Enter your new python virtual environment
-- on macos: `source UDPQasm/bin/activate`
+- on mac: `source UDPQasm/bin/activate`
 - on windows: `source UDPQasm\script\activate.bat`
 
 Update pip and setuptools
