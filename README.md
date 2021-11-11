@@ -14,7 +14,7 @@ Open the Terminal (Mac) or Command Prompt (Windows) and navigate to the folder  
 
 Create a python virtual environment
 - on the terminal, type: `python3 -m venv UDPQasm`
-- depending on your system, you simply use: `python -m venv UDPQasm`
+- depending on your system, you may simply use: `python -m venv UDPQasm`
 
 Enter your new python virtual environment
 - on mac: `source UDPQasm/bin/activate`
@@ -23,15 +23,13 @@ Enter your new python virtual environment
 Update pip and setuptools
 - `pip install --upgrade pip setuptools`
 - Note: if for some reason you don't have pip, please [install it](https://phoenixnap.com/kb/install-pip-windows)
-    
+
 Install qiskit and python-osc
 - `pip install qiskit python-osc`
 
 ## Running
 
 First, open a Terminal (Mac) or Command Prompt (Windows) and start you python environment.
-{-starting python}
-{-python venv}
 
 Then run the python module: `python udp_qasm.py`
 Wait until the program outputs the following lines:
@@ -42,6 +40,8 @@ Server Sending back on x.x.x.x port QQQQ
 ```
 Now you can open the [udp_qasm.maxpat](udp_qasm.maxpat) in Max 8 and start sending messages with _The QAC Toolkit_.
 
+When you're done working with udp_qasm.py you can leave the virtual environment with
+- on mac & windows: `deactivate`
 
 ### Additional arguments
 You can also set some additional arguments and flags in front of `python udp_qasm.py`:
