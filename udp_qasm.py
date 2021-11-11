@@ -17,8 +17,8 @@ def run_circuit(qc, shots, backend_name):
     print("Running circuit on {}...".format(backend_name))
     if backend_name != 'qasm_simulator':
         if not provider:
-            client.send_message("error", "You need to start UDP-Qasm with the following arguments: --token (--hub, --group, --project).")
-            raise ValueError('You need to start UDP-Qasm with the following arguments: --token (--hub, --group, --project).')
+            client.send_message("error", "You need to start udp_qasm.py with the following arguments: --token (--hub, --group, --project).")
+            raise ValueError('You need to start udp_qasm.py with the following arguments: --token (--hub, --group, --project).')
         backend = provider.get_backend(backend_name)
         job = execute(qc, shots=shots, backend=backend)
         job_monitor(job)
@@ -86,13 +86,13 @@ if __name__ == '__main__':
 
     p = argparse.ArgumentParser()
 
-    p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the UDP-Qasm Server will listen for incoming messages')
-    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that UDP-Qasm will use to send messages back to Max')
+    p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the udp_qasm.py Server will listen for incoming messages')
+    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that udp_qasm.py will use to send messages back to Max')
     p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address where the client (Max/MSP) is located')
     p.add_argument('--token', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
-    p.add_argument('--hub')
-    p.add_argument('--group')
-    p.add_argument('--project')
+    p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
+    p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
+    p.add_argument('--project', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Project')
 
     args = p.parse_args()
 
