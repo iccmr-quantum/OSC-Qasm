@@ -14,14 +14,16 @@ Open the Terminal (Mac) or Command Prompt (Windows) and navigate to the folder  
 
 Create a python virtual environment
 - on the terminal, type: `python3 -m venv UDPQasm`
+- depending on your system, you simply use: `python -m venv UDPQasm`
 
 Enter your new python virtual environment
 - on mac: `source UDPQasm/bin/activate`
-- on windows: `source UDPQasm\script\activate.bat`
+- on windows: `UDPQasm\Scripts\activate`
 
 Update pip and setuptools
 - `pip install --upgrade pip setuptools`
-
+- Note: if for some reason you don't have pip, please [install it](https://phoenixnap.com/kb/install-pip-windows)
+    
 Install qiskit and python-osc
 - `pip install qiskit python-osc`
 
