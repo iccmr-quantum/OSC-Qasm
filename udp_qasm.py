@@ -19,10 +19,12 @@ def run_circuit(qc, shots, backend_name):
             client.send_message("error", "You need to start UDP-Qasm with the following arguments: --token (--hub, --group, --project).")
             raise ValueError('You need to start UDP-Qasm with the following arguments: --token (--hub, --group, --project).')
         backend = provider.get_backend(backend_name)
+        job = execute(qc, shots=shots, backend=backend)
     else:
         backend = Aer.get_backend('qasm_simulator')
+        job = execute(qc, shots=shots, backend=backend)
     print("Running circuit on {}...".format(backend_name))
-    job = execute(qc, shots=shots, backend=backend)
+    #job = execute(qc, shots=shots, backend=backend)
     job_monitor(job)
     print("Done!")
     return job.result().get_counts()
