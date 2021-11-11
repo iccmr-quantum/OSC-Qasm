@@ -197,11 +197,12 @@
 					"bubblepoint" : 0.0,
 					"bubbleside" : 2,
 					"id" : "obj-10",
+					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 150.0, 69.5, 135.0, 39.0 ],
-					"text" : "retrieve qasm definition"
+					"patching_rect" : [ 150.0, 68.5, 152.0, 52.0 ],
+					"text" : "2 - retrieve qasm definition \n(click again to resend !)"
 				}
 
 			}
@@ -237,7 +238,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 403.0, 185.5, 97.0, 35.0 ],
-					"text" : "counts \"00 469 11 531\""
+					"text" : "counts \"00 502 11 498\""
 				}
 
 			}
@@ -286,8 +287,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 150.0, 35.0, 92.0, 30.0 ],
-					"text" : "build circuit"
+					"patching_rect" : [ 150.0, 35.0, 109.0, 30.0 ],
+					"text" : "1 - build circuit"
 				}
 
 			}
@@ -320,12 +321,12 @@
 					"bubble" : 1,
 					"bubblepoint" : 0.1,
 					"id" : "obj-17",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 307.0, 109.0, 166.0, 51.0 ],
-					"text" : "click here first to recreate circuit if you'd like to build and send a new circuit"
+					"patching_rect" : [ 338.0, 109.0, 139.0, 64.0 ],
+					"text" : "click here to recreate circuit if you'd like to build and send another circuit"
 				}
 
 			}
@@ -336,7 +337,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 177.0, 109.0, 128.0, 22.0 ],
+					"patching_rect" : [ 208.0, 111.0, 128.0, 22.0 ],
 					"text" : "QuantumCircuit qc 2 2"
 				}
 
@@ -457,7 +458,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
-					"midpoints" : [ 186.5, 146.0, 50.5, 146.0 ],
+					"midpoints" : [ 217.5, 146.0, 50.5, 146.0 ],
 					"source" : [ "obj-14", 0 ]
 				}
 
