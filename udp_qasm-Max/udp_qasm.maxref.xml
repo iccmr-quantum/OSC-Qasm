@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+
+
+<!-- GO AHEAD EDIT THIS FILE ... YOU MIGHT KEEP YOUR WORK -->
+
+
+<c74object name='udp_qasm' category='utilities'>
+
+	<digest>A simple UDP Python interface for executing Qasm code. </digest>
+	<description>A simple UDP Python interface for executing Qasm code. (or a simple bridge to connect <a href="https://quantumland.art/qac">The QAC Toolkit</a> with real quantum hardware) </description>
+
+
+	<!--METADATA-->
+
+	<metadatalist>
+		<metadata name='author'>Omar Costa Hamido </metadata>
+		<metadata name='tag'>utilities</metadata>
+	</metadatalist>
+
+
+	<!--ARGUMENTS-->
+
+	<objarglist>
+
+		<objarg name='receive_port' optional='1' type='int'>
+			<digest>Receive port </digest>
+			<description>The port where the udp_qasm abstraction will listen for. <br/>This defaults to 1417. <br/>Note: this should be the "send_port" in udp_qasm.py! </description>
+		</objarg>
+
+		<objarg name='send_port' optional='1' type='int'>
+			<digest>Send port </digest>
+			<description>The port that udp_qasm will use to send the qasm code to udp_qasm.py. <br/>This defaults to 1416. <br/>Note: this should be the "receive_port" in udp_qasm.py! </description>
+		</objarg>
+
+		<objarg name='ip' optional='1' type='symbol'>
+			<digest>IP address </digest>
+			<description>The IP address where the server (Python) is located. <br/>This defaults to localhost. </description>
+		</objarg>
+
+		<objarg name='shots' optional='1' type='int'>
+			<digest>Shots </digest>
+			<description>The number of shots to use when executing the Qasm code. <br/>This defaults to 1024. </description>
+		</objarg>
+
+		<objarg name='backend' optional='1' type='symbol'>
+			<digest>IP address </digest>
+			<description>The IP address where the server (Python) is located. <br/>This defaults to qasm_simulator. </description>
+		</objarg>
+
+	</objarglist>
+
+
+	<!--MESSAGES-->
+
+	<methodlist>
+
+		<method name='list'>
+			<digest>Qasm code </digest>
+			<description>udp_qasm is expecting to receive a list of 2 symbols. The first one "qasm" and the second one containing all the Qasm code. </description>
+		</method>
+
+	</methodlist>
+
+
+	<!--ATTRIBUTES-->
+
+	<attributelist>
+
+		<attribute name='receive_port' get='1' set='1' type='int' size='1'>
+			<digest>Receive port </digest>
+			<description>The port where the udp_qasm abstraction will listen for. <br/>This defaults to 1417. <br/>Note: this should be the "send_port" in udp_qasm.py! </description>
+		</attribute>
+
+		<attribute name='send_port' get='1' set='1' type='int' size='1'>
+			<digest>Send port </digest>
+			<description>The port that udp_qasm will use to send the qasm code to udp_qasm.py. <br/>This defaults to 1416. <br/>Note: this should be the "receive_port" in udp_qasm.py! </description>
+		</attribute>
+
+		<attribute name='ip' get='1' set='1' type='symbol' size='1'>
+			<digest>IP address </digest>
+			<description>The IP address where the server (Python) is located. <br/>This defaults to localhost. </description>
+		</attribute>
+
+		<attribute name='shots' get='1' set='1' type='int' size='1'>
+			<digest>Shots </digest>
+			<description>The number of shots to use when executing the Qasm code. <br/>This defaults to 1024. </description>
+		</attribute>
+
+		<attribute name='backend' get='1' set='1' type='symbol' size='1'>
+			<digest>IP address </digest>
+			<description>The IP address where the server (Python) is located. <br/>This defaults to qasm_simulator. </description>
+		</attribute>
+
+	</attributelist>
+
+
+	<!--RELATED-->
+
+	<seealsolist>
+		<seealso name='och.microqiskit' />
+		<seealso name='udpreceive' />
+		<seealso name='udpsend' />
+	</seealsolist>
+
+	<misc name = "Output">
+		<entry name ="list">
+			<digest>Execution counts </digest>
+			<description>Outputs a list containing 2 symbols. The first one "counts" and the second one containing all the execution counts in the format "bitstring counts bitstring counts ...".  </description>
+		</entry>
+	</misc>
+
+
+</c74object>

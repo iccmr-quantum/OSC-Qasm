@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 8,
 			"minor" : 2,
-			"revision" : 0,
+			"revision" : 1,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
@@ -201,7 +201,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 150.0, 68.5, 152.0, 52.0 ],
+					"patching_rect" : [ 150.0, 68.5, 155.0, 52.0 ],
 					"text" : "2 - retrieve qasm definition \n(click again to resend !)"
 				}
 
@@ -325,7 +325,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 338.0, 109.0, 139.0, 64.0 ],
+					"patching_rect" : [ 338.0, 109.0, 140.0, 64.0 ],
 					"text" : "click here to recreate circuit if you'd like to build and send another circuit"
 				}
 
@@ -388,21 +388,6 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 41.0, 162.0, 286.0, 22.0 ],
 					"text" : "och.microqiskit qc 2 2 sim 100 1 @console_output 0"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"angle" : 270.0,
-					"background" : 1,
-					"bgcolor" : [ 0.658823529411765, 0.705882352941177, 0.905882352941176, 1.0 ],
-					"id" : "obj-27",
-					"maxclass" : "panel",
-					"mode" : 0,
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 6.0, 9.0, 532.0, 476.0 ],
-					"proportion" : 0.5
 				}
 
 			}
@@ -536,7 +521,9 @@
 				"type" : "iLaX"
 			}
  ],
-		"autosave" : 0
+		"autosave" : 0,
+		"bgcolor" : [ 0.682352941176471, 0.709803921568627, 0.870588235294118, 1.0 ],
+		"editing_bgcolor" : [ 0.682352941176471, 0.709803921568627, 0.870588235294118, 1.0 ]
 	}
 
 }
