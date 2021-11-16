@@ -53,10 +53,11 @@ usage: udp_qasm.py [-h] [--token TOKEN] [--hub HUB] [--group GROUP]
 
 positional arguments:
   receive_port       The port where the udp_qasm.py Server will listen for
-                     incoming messages
+                     incoming messages. Default port is 1416
   send_port          The port that udp_qasm.py will use to send messages back
-                     to Max
-  ip                 The IP address where the client (Max/MSP) is located
+                     to Max. Default port is 1417
+  ip                 The IP address where the client (Max/MSP) is located.
+                     Default IP is 127.0.0.1 (localhost)
 
 optional arguments:
   -h, --help         show this help message and exit

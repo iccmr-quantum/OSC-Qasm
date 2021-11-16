@@ -36,7 +36,7 @@ def parse_qasm(*args):
         shots = args[2]
         pass
     else:
-        shots=1000
+        shots=1024
 
     if len(args)>3:
         backend_name = args[3]
@@ -86,9 +86,9 @@ if __name__ == '__main__':
 
     p = argparse.ArgumentParser()
 
-    p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the udp_qasm.py Server will listen for incoming messages')
-    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that udp_qasm.py will use to send messages back to Max')
-    p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address where the client (Max/MSP) is located')
+    p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the udp_qasm.py Server will listen for incoming messages. Default port is 1416')
+    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that udp_qasm.py will use to send messages back to Max. Default port is 1417')
+    p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address where the client (Max/MSP) is located. Default IP is 127.0.0.1 (localhost)')
     p.add_argument('--token', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
     p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
