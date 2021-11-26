@@ -1,9 +1,9 @@
-# UDP-Qasm
-# A simple UDP Python interface for executing Qasm code.
+# OSC-Qasm
+# A simple OSC Python interface for executing Qasm code.
 # Or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware.
 #
-# Omar Costa Hamido / Paulo Vitor Itaboraí (2021-11-09)
-# https://github.com/iccmr-quantum/UDP-Qasm
+# Omar Costa Hamido / Paulo Vitor Itaboraí (2021-11-25)
+# https://github.com/iccmr-quantum/OSC-Qasm
 #
 
 from pythonosc import dispatcher, osc_server, udp_client
@@ -17,8 +17,8 @@ def run_circuit(qc, shots, backend_name):
     print("Running circuit on {}...".format(backend_name))
     if backend_name != 'qasm_simulator':
         if not provider:
-            client.send_message("error", "You need to start udp_qasm.py with the following arguments: --token (--hub, --group, --project).")
-            raise ValueError('You need to start udp_qasm.py with the following arguments: --token (--hub, --group, --project).')
+            client.send_message("error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
+            raise ValueError('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
         backend = provider.get_backend(backend_name)
         job = execute(qc, shots=shots, backend=backend)
         job_monitor(job)
@@ -86,8 +86,8 @@ if __name__ == '__main__':
 
     p = argparse.ArgumentParser()
 
-    p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the udp_qasm.py Server will listen for incoming messages. Default port is 1416')
-    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that udp_qasm.py will use to send messages back to Max. Default port is 1417')
+    p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the osc_qasm.py Server will listen for incoming messages. Default port is 1416')
+    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that osc_qasm.py will use to send messages back to Max. Default port is 1417')
     p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address where the client (Max/MSP) is located. Default IP is 127.0.0.1 (localhost)')
     p.add_argument('--token', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
@@ -109,7 +109,7 @@ if __name__ == '__main__':
                 args.group=None
                 args.project=None
 
-    print('UDP_QASM')
+    print('OSC_QASM')
     #if len(sys.argv) > 1:
     #print(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project)
     main(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project)

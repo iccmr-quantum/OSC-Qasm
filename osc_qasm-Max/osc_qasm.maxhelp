@@ -73,8 +73,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 275.0, 380.0, 203.0, 35.0 ],
-					"text" : ";\rmax showdoc udp_qasm.maxref.xml"
+					"patching_rect" : [ 275.0, 380.0, 202.0, 35.0 ],
+					"text" : ";\rmax showdoc osc_qasm.maxref.xml"
 				}
 
 			}
@@ -115,7 +115,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 171.0, 227.0, 143.0, 35.0 ],
-					"text" : "udp_qasm @shots 818 @backend ibmq_belem"
+					"text" : "osc_qasm @shots 818 @backend ibmq_belem"
 				}
 
 			}
@@ -139,8 +139,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 41.0, 227.0, 65.0, 22.0 ],
-					"text" : "udp_qasm"
+					"patching_rect" : [ 41.0, 227.0, 63.0, 22.0 ],
+					"text" : "osc_qasm"
 				}
 
 			}
@@ -202,7 +202,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 41.0, 294.5, 91.0, 35.0 ],
-					"presentation_linecount" : 2,
 					"text" : "counts \"00 526 11 498\""
 				}
 
@@ -216,7 +215,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 41.0, 403.0, 212.0, 47.0 ],
-					"text" : "UDP-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2021-11-09)"
+					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2021-11-09)"
 				}
 
 			}
@@ -373,8 +372,8 @@
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "udp_qasm.maxpat",
-				"bootpath" : "~/Documents/GitHub/UDP-Qasm/udp_qasm-Max",
+				"name" : "osc_qasm.maxpat",
+				"bootpath" : "~/Documents/GitHub/OSC-Qasm/osc_qasm-Max",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
