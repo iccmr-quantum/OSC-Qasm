@@ -263,7 +263,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 41.0, 417.0, 212.0, 47.0 ],
-					"text" : "UDP-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2021-11-09)"
+					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2021-11-09)"
 				}
 
 			}
