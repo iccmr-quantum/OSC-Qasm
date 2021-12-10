@@ -6,7 +6,7 @@ A simple OSC Python interface for executing Qasm code.
 Before starting, make sure you have [Python](https://www.python.org/) 3.6+ in your system.
 - when using the installer on windows make sure to select the option `Add Python X to PATH`
 
-In order to try our Max patches, make sure you also have [Max](http://cycling74.com) installed, and [_The QAC toolkit_](http://quantumland.art/qac) Max package available.
+In order to try our Max patches, make sure you also have [Max](http://cycling74.com) installed, and [_The QAC Toolkit_](http://quantumland.art/qac) Max package available.
 
 Clone or [download](https://github.com/iccmr-quantum/OSC-Qasm/archive/refs/heads/main.zip) and unzip this repo.
 
@@ -88,7 +88,7 @@ The `osc_qasm.maxpat` abstraction also allows customization using several attrib
 ## Feedback and Getting help
 Please open a [new issue](https://github.com/iccmr-quantum/OSC-Qasm/issues/new).
 
-Also, please consider learning more about Max [here](https://cycling74.com/get-started), and Qiskit [here](https://qiskit.org/learn), as well as explore [The Quantum Computer Music Tutorial](https://github.com/iccmr-quantum/The-Quantum-Computer-Music-Tutorial) and the other projects in [QuTune's Github](https://github.com/iccmr-quantum).
+Also, please consider learning more about Max [here](https://cycling74.com/get-started), and Qiskit [here](https://qiskit.org/learn), as well as explore the [Intro to Quantum Computer Music](https://github.com/iccmr-quantum/Intro-to-Quantum-Computer-Music) Tutorial and the other projects in [QuTune's Github](https://github.com/iccmr-quantum).
 
 ## Acknowledgements
 This repo was created by Omar Costa Hamido and Paulo Itaboraí as part of the [QuTune Project](https://iccmr-quantum.github.io/).
