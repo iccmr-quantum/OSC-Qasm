@@ -1,4 +1,6 @@
 # OSC-Qasm
+[![DOI](https://zenodo.org/badge/432225522.svg)](https://zenodo.org/badge/latestdoi/432225522)
+
 A simple OSC Python interface for executing Qasm code.
 (or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware)
 
