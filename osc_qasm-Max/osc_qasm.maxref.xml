@@ -54,9 +54,17 @@
 
 	<methodlist>
 
-		<method name='list'>
+		<method name='qasm'>
 			<digest>Qasm code </digest>
 			<description>osc_qasm is expecting to receive a list of 2 symbols. The first one "qasm" and the second one containing all the Qasm code. </description>
+		</method>
+		<method name='backend'>
+			<digest>Backend </digest>
+			<description>The symbol "backend" followed by a single symbol, containing the name of a valid backend, will replace the backend to use the next time osc_qasm receives a <m>qasm</m> message. The backend used by default is "qasm_simulator". <br/>This can also be any of the real hardware backends available to your IBM Quantum account, in which case you need to provide your token when initializing osc_qasm.py, and (optionally) declaring a hub, group, and project. <br/>Additionally, this can also be one of the following available fake backends: <br/>FakeAlmaden, FakeArmonk, FakeAthens, FakeBelem, FakeBoeblingen, FakeBogota, FakeBrooklyn, FakeBurlington, FakeCambridge, FakeCambridgeAlternativeBasis, FakeCasablanca, FakeEssex, FakeGuadalupe, FakeJakarta, FakeJohannesburg, FakeLagos, FakeLima, FakeLondon, FakeManhattan, FakeManila, FakeMelbourne, FakeMontreal, FakeMumbai, FakeOurense, FakeParis, FakePoughkeepsie, FakeQuito, FakeRochester, FakeRome, FakeRueschlikon, FakeSantiago, FakeSingapore, FakeSydney, FakeTenerife, FakeTokyo, FakeToronto, FakeValencia, FakeVigo, FakeYorktown. </description>
+		</method>
+		<method name='shots'>
+			<digest>Shots </digest>
+			<description>The symbol "shots" followed by a single int number will change the number of shots to use the next time osc_qasm receives a <m>qasm</m> message. </description>
 		</method>
 
 	</methodlist>
