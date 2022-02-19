@@ -4,13 +4,13 @@
 		"appversion" : 		{
 			"major" : 8,
 			"minor" : 2,
-			"revision" : 1,
+			"revision" : 2,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 352.0, 191.0, 520.0, 485.0 ],
+		"rect" : [ 68.0, 211.0, 520.0, 485.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,171 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"color" : [ 0.254901960784314, 0.890196078431372, 0.43921568627451, 1.0 ],
+					"fontface" : 3,
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patcher" : 					{
+						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 8,
+							"minor" : 2,
+							"revision" : 2,
+							"architecture" : "x64",
+							"modernui" : 1
+						}
+,
+						"classnamespace" : "box",
+						"rect" : [ 235.0, 269.0, 640.0, 166.0 ],
+						"bglocked" : 0,
+						"openinpresentation" : 0,
+						"default_fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 1,
+						"gridsize" : [ 15.0, 15.0 ],
+						"gridsnaponopen" : 1,
+						"objectsnaponopen" : 1,
+						"statusbarvisible" : 2,
+						"toolbarvisible" : 1,
+						"lefttoolbarpinned" : 0,
+						"toptoolbarpinned" : 0,
+						"righttoolbarpinned" : 0,
+						"bottomtoolbarpinned" : 0,
+						"toolbars_unpinned_last_save" : 0,
+						"tallnewobj" : 0,
+						"boxanimatetime" : 200,
+						"enablehscroll" : 1,
+						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
+						"description" : "",
+						"digest" : "",
+						"tags" : "",
+						"style" : "",
+						"subpatcher_template" : "",
+						"assistshowspatchername" : 0,
+						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-8",
+									"maxclass" : "number",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "bang" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 525.0, 32.0, 50.0, 22.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-6",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 525.0, 68.5, 54.0, 22.0 ],
+									"text" : "shots $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-5",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 407.5, 68.5, 101.0, 22.0 ],
+									"text" : "prepend backend"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-4",
+									"items" : [ "FakeAlmaden", ",", "FakeArmonk", ",", "FakeAthens", ",", "FakeBelem", ",", "FakeBoeblingen", ",", "FakeBogota", ",", "FakeBrooklyn", ",", "FakeBurlington", ",", "FakeCambridge", ",", "FakeCambridgeAlternativeBasis", ",", "FakeCasablanca", ",", "FakeEssex", ",", "FakeGuadalupe", ",", "FakeJakarta", ",", "FakeJohannesburg", ",", "FakeLagos", ",", "FakeLima", ",", "FakeLondon", ",", "FakeManhattan", ",", "FakeManila", ",", "FakeMelbourne", ",", "FakeMontreal", ",", "FakeMumbai", ",", "FakeOurense", ",", "FakeParis", ",", "FakePoughkeepsie", ",", "FakeQuito", ",", "FakeRochester", ",", "FakeRome", ",", "FakeRueschlikon", ",", "FakeSantiago", ",", "FakeSingapore", ",", "FakeSydney", ",", "FakeTenerife", ",", "FakeTokyo", ",", "FakeToronto", ",", "FakeValencia", ",", "FakeVigo", ",", "FakeYorktown" ],
+									"maxclass" : "umenu",
+									"numinlets" : 1,
+									"numoutlets" : 3,
+									"outlettype" : [ "int", "", "" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 367.0, 32.0, 100.0, 22.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-3",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 407.5, 105.0, 63.0, 22.0 ],
+									"text" : "osc_qasm"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-2",
+									"linecount" : 5,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 31.0, 32.0, 316.0, 74.0 ],
+									"text" : "New in 1.1:\n- you can now use Qiskit's fake backends to quickly run simulations that emulate the noise in real machines\n- you can now hotswap the number of shots and backend without the need to re-initialize the object"
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-5", 0 ],
+									"source" : [ "obj-4", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"source" : [ "obj-5", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"midpoints" : [ 534.5, 97.25, 417.0, 97.25 ],
+									"source" : [ "obj-6", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-6", 0 ],
+									"source" : [ "obj-8", 0 ]
+								}
+
+							}
+ ]
+					}
+,
+					"patching_rect" : [ 41.0, 353.0, 82.0, 22.0 ],
+					"saved_object_attributes" : 					{
+						"description" : "",
+						"digest" : "",
+						"globalpatchername" : "",
+						"tags" : ""
+					}
+,
+					"text" : "p New in 1.1!"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-4",
 					"maxclass" : "message",
@@ -202,7 +367,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 41.0, 294.5, 91.0, 35.0 ],
-					"text" : "counts \"00 526 11 498\""
+					"text" : "counts \"00 509 11 515\""
 				}
 
 			}
@@ -215,7 +380,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 41.0, 403.0, 212.0, 47.0 ],
-					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2021-11-09)"
+					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2022-02-19)"
 				}
 
 			}
@@ -372,15 +537,15 @@
 			}
  ],
 		"dependency_cache" : [ 			{
+				"name" : "och.microqiskit.mxo",
+				"type" : "iLaX"
+			}
+, 			{
 				"name" : "osc_qasm.maxpat",
 				"bootpath" : "~/Documents/GitHub/OSC-Qasm/osc_qasm-Max",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
-			}
-, 			{
-				"name" : "och.microqiskit.mxo",
-				"type" : "iLaX"
 			}
  ],
 		"autosave" : 0,
