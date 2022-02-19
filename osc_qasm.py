@@ -2,26 +2,33 @@
 # A simple OSC Python interface for executing Qasm code.
 # Or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware.
 #
-# Omar Costa Hamido / Paulo Vitor Itaboraí (2021-11-25)
+# Omar Costa Hamido / Paulo Vitor Itaboraí (2022-02-19)
 # https://github.com/iccmr-quantum/OSC-Qasm
 #
 
 from pythonosc import dispatcher, osc_server, udp_client
 from qiskit import *
+from qiskit.test.mock import *
 from qiskit.tools import job_monitor
-import sys
 import argparse
 
 def run_circuit(qc, shots, backend_name):
 
     print("Running circuit on {}...".format(backend_name))
     if backend_name != 'qasm_simulator':
-        if not provider:
-            client.send_message("error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
-            raise ValueError('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
-        backend = provider.get_backend(backend_name)
-        job = execute(qc, shots=shots, backend=backend)
-        job_monitor(job)
+        if backend_name in ('FakeAlmaden', 'FakeArmonk', 'FakeAthens', 'FakeBelem', 'FakeBoeblingen', 'FakeBogota', 'FakeBrooklyn', 'FakeBurlington', 'FakeCambridge', 'FakeCambridgeAlternativeBasis', 'FakeCasablanca', 'FakeEssex', 'FakeGuadalupe', 'FakeJakarta', 'FakeJohannesburg', 'FakeLagos', 'FakeLima', 'FakeLondon', 'FakeManhattan', 'FakeManila', 'FakeMelbourne', 'FakeMontreal', 'FakeMumbai', 'FakeOurense', 'FakeParis', 'FakePoughkeepsie', 'FakeQuito', 'FakeRochester', 'FakeRome', 'FakeRueschlikon', 'FakeSantiago', 'FakeSingapore', 'FakeSydney', 'FakeTenerife', 'FakeTokyo', 'FakeToronto', 'FakeValencia', 'FakeVigo', 'FakeYorktown'):
+            backend_name+='()'
+            backend = eval(backend_name) # this is definitely a security hazard... use at your own risk!
+            # a very interesting alternative is to use: backend = globals()[backend_name]
+            job = execute(qc, shots=shots, backend=backend)
+            pass
+        else: #we then must be naming a realdevice
+            if not provider: #for which we definitely need credentials! D:
+                client.send_message("error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
+                raise ValueError('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
+            backend = provider.get_backend(backend_name)
+            job = execute(qc, shots=shots, backend=backend)
+            job_monitor(job)
     else:
         backend = Aer.get_backend('qasm_simulator')
         job = execute(qc, shots=shots, backend=backend)
@@ -64,7 +71,6 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT):
     if TOKEN:
         IBMQ.enable_account(TOKEN, 'https://auth.quantum-computing.ibm.com/api', HUB, GROUP, PROJECT)
         provider=IBMQ.get_provider(hub=HUB, group=GROUP, project=PROJECT)
-        # IBMQ(hub='ibm-q', group='open', project='main')
         pass
     if UDP_IP=="localhost":
         UDP_IP="127.0.0.1"
@@ -81,8 +87,6 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT):
     server.serve_forever()
 
 if __name__ == '__main__':
-
-
 
     p = argparse.ArgumentParser()
 
@@ -110,8 +114,4 @@ if __name__ == '__main__':
                 args.project=None
 
     print('OSC_QASM')
-    #if len(sys.argv) > 1:
-    #print(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project)
     main(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project)
-    # else:
-        # main()
