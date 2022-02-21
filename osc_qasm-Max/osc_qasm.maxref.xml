@@ -47,6 +47,11 @@
 			<description>The IP address where the server (Python) is located. <br/>This defaults to qasm_simulator. </description>
 		</objarg>
 
+		<objarg name='info' optional='1' type='int'>
+			<digest>Info mode </digest>
+			<description>Enable or disable Info mode by setting this attribute to 1 or 0, respecitvely. <br/> Info mode allows osc_qasm to print to the console some information about the computation, including notification of which backend is being used, confirmation of when the results are being sent back to Max, and (experimental) the place in the queue of the job submitted. <br/>This defaults to 1. </description>
+		</objarg>
+
 	</objarglist>
 
 
@@ -97,6 +102,11 @@
 		<attribute name='backend' get='1' set='1' type='symbol' size='1'>
 			<digest>IP address </digest>
 			<description>The IP address where the server (Python) is located. <br/>This defaults to qasm_simulator. </description>
+		</attribute>
+
+		<attribute name='info' get='1' set='1' type='int' size='1'>
+			<digest>Info mode </digest>
+			<description>Enable or disable Info mode by setting this attribute to 1 or 0, respecitvely. <br/> Info mode allows osc_qasm to print to the console some information about the computation, including notification of which backend is being used, confirmation of when the results are being sent back to Max, and (experimental) the place in the queue of the job submitted. <br/>This defaults to 1. </description>
 		</attribute>
 
 	</attributelist>
