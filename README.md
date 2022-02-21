@@ -5,7 +5,7 @@ A simple OSC Python interface for executing Qasm code.
 (or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware)
 
 ## Installation
-Before starting, make sure you have [Python](https://www.python.org/) 3.6+ in your system.
+Before starting, make sure you have [Python](https://www.python.org/) 3.7+ in your system.
 - when using the installer on windows make sure to select the option `Add Python X to PATH`
 
 In order to try our Max patches, make sure you also have [Max](http://cycling74.com) installed, and [_The QAC Toolkit_](http://quantumland.art/qac) Max package available.
