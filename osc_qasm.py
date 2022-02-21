@@ -20,6 +20,11 @@ def run_circuit(qc, shots, backend_name):
             backend_name+='()'
             backend = eval(backend_name) # this is definitely a security hazard... use at your own risk!
             # a very interesting alternative is to use: backend = globals()[backend_name]
+            available_qubits = backend.configuration().n_qubits
+            requested_qubits = qc.num_qubits            
+            if requested_qubits > available_qubits: # verify if the qubit count is compatible with the selected backend
+                client.send_message("error", "The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.".format(requested_qubits,backend_name[:-2],available_qubits) )
+                raise ValueError('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
             job = execute(qc, shots=shots, backend=backend)
             pass
         else: #we then must be naming a realdevice
