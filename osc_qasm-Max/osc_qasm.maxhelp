@@ -57,7 +57,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 235.0, 269.0, 640.0, 166.0 ],
+						"rect" : [ 235.0, 269.0, 640.0, 173.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -141,20 +141,20 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 407.5, 105.0, 63.0, 22.0 ],
-									"text" : "osc_qasm"
+									"patching_rect" : [ 407.5, 105.0, 108.0, 22.0 ],
+									"text" : "osc_qasm @info 0"
 								}
 
 							}
 , 							{
 								"box" : 								{
 									"id" : "obj-2",
-									"linecount" : 5,
+									"linecount" : 7,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 31.0, 32.0, 316.0, 74.0 ],
-									"text" : "New in 1.1:\n- you can now use Qiskit's fake backends to quickly run simulations that emulate the noise in real machines\n- you can now hotswap the number of shots and backend without the need to re-initialize the object"
+									"patching_rect" : [ 31.0, 32.0, 316.0, 100.0 ],
+									"text" : "New in 1.1:\n- you can now use Qiskit's fake backends to quickly run simulations that emulate the noise in real machines\n- you can now hotswap the number of shots and backend without the need to re-initialize the object\n- you can enable or disable info mode by setting the @info attribute to 1 or 0, respecitvely"
 								}
 
 							}
@@ -279,8 +279,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 171.0, 227.0, 143.0, 35.0 ],
-					"text" : "osc_qasm @shots 818 @backend ibmq_belem"
+					"patching_rect" : [ 150.0, 227.0, 182.0, 35.0 ],
+					"text" : "osc_qasm 1418 @shots 100000 @backend ibmq_belem @info 0"
 				}
 
 			}
@@ -367,7 +367,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 41.0, 294.5, 91.0, 35.0 ],
-					"text" : "counts \"00 509 11 515\""
+					"text" : "counts \"00 511 11 513\""
 				}
 
 			}
@@ -380,7 +380,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 41.0, 403.0, 212.0, 47.0 ],
-					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2022-02-19)"
+					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2022-02-21)"
 				}
 
 			}

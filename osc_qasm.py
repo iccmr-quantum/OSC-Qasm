@@ -15,6 +15,7 @@ import argparse
 def run_circuit(qc, shots, backend_name):
 
     print("Running circuit on {}...".format(backend_name))
+    client.send_message("info", "Running circuit on {}...".format(backend_name) )
     if backend_name != 'qasm_simulator':
         if backend_name in ('FakeAlmaden', 'FakeArmonk', 'FakeAthens', 'FakeBelem', 'FakeBoeblingen', 'FakeBogota', 'FakeBrooklyn', 'FakeBurlington', 'FakeCambridge', 'FakeCambridgeAlternativeBasis', 'FakeCasablanca', 'FakeEssex', 'FakeGuadalupe', 'FakeJakarta', 'FakeJohannesburg', 'FakeLagos', 'FakeLima', 'FakeLondon', 'FakeManhattan', 'FakeManila', 'FakeMelbourne', 'FakeMontreal', 'FakeMumbai', 'FakeOurense', 'FakeParis', 'FakePoughkeepsie', 'FakeQuito', 'FakeRochester', 'FakeRome', 'FakeRueschlikon', 'FakeSantiago', 'FakeSingapore', 'FakeSydney', 'FakeTenerife', 'FakeTokyo', 'FakeToronto', 'FakeValencia', 'FakeVigo', 'FakeYorktown'):
             backend_name+='()'
@@ -57,6 +58,7 @@ def parse_qasm(*args):
 
     counts = run_circuit(qc, shots, backend_name)
     print("Sending result counts back to Max")
+    client.send_message("info", "Retrieving results from osc_qasm.py..." )
     # list comprehension that converts a Dict into an
     # interleaved string list: [key1, value1, key2, value2...]
     sorted_counts = {}
