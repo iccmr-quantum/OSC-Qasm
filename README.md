@@ -42,7 +42,10 @@ First, open a Terminal (Mac) or Command Prompt (Windows) and start you python en
 Then run the python module: `python osc_qasm.py`
 Wait until the program outputs the following lines:
 ```console
-OSC_QASM
+================================================
+ OSC_QASM by OCH & Itaborala @ QuTune (v1.x.x)
+ https://iccmr-quantum.github.io               
+================================================
 Server Receiving on 127.0.0.1 port PPPP
 Server Sending back on x.x.x.x port QQQQ
 ```

@@ -2,7 +2,7 @@
 # A simple OSC Python interface for executing Qasm code.
 # Or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware.
 #
-# Omar Costa Hamido / Paulo Vitor Itaboraí (2022-02-19)
+# Omar Costa Hamido / Paulo Vitor Itaboraí (2022-02-23)
 # https://github.com/iccmr-quantum/OSC-Qasm
 #
 
@@ -11,11 +11,13 @@ from qiskit import *
 from qiskit.test.mock import *
 from qiskit.tools import job_monitor
 import argparse
+import sys
 
 class FileLikeOutputOSC(object):
     ''' This class emulates a File-Like object
         with a "write()" method that can be used
-        by print() as an alternative output (replacing sys.stdout)
+        by print() and qiskit.tools.job_monitor()
+        as an alternative output (replacing sys.stdout)
         to send messages through the OSC-Qasm client
 
         usage: print("foo", file=FileLikeOutputOSC())
@@ -24,42 +26,66 @@ class FileLikeOutputOSC(object):
         pass
 
     def write(self, text):
-        if text != f'\n' and text != "": #Removing the end='' message
-            print(text)
-            # client.send_message("info", "FileLike output")
+        if text != f'\n' and text != "": # Skips end='\n'|'' argument messages
+            print(text) # Print back to console
+            # Send message body back to Max on info channel
             client.send_message("info", text[12:])
+
+class FileLikeErrorOSC(object):
+    ''' This class emulates a File-Like object
+        with a "write()" method that can be used
+        to pipe Qiskit error messages through
+        the OSC-Qasm client
+
+        usage: sys.stderr = FileLikeErrorOSC()
+        '''
+    def __init__(self):
+
+        self.older="" # stderr 'memory'
+
+    def write(self, text):
+        if text != f'\n' and text != "": # Skips end='\n'|'' argument messages
+            print(text) # Print back to console
+
+            if text == ERR_SEP and self.older != ERR_SEP and self.older != "": # There is a line like ERR_SEP both at the begining and end of a qiskit error log!
+                # Print the last entry before the ending ERR_SEP
+                client.send_message("error", "error in osc_qasm.py: \n(...) "+self.older+"switch to python console to learn more")
+
+            elif "KeyboardInterrupt" in text:
+                # When closing the program with Ctrl+c, There is a 'KeyboardInterrupt' error message.
+                client.send_message("error", "osc_qasm.py has been terminated in the Python environment.")
+
+            self.older=text # Update memory
 
 def run_circuit(qc, shots, backend_name):
 
     print("Running circuit on {}...".format(backend_name))
     client.send_message("info", "Running circuit on {}...".format(backend_name) )
 
-    flosc = FileLikeOutputOSC()
+    flosc = FileLikeOutputOSC() # Use this only for job_monitor output
 
     if backend_name != 'qasm_simulator':
         if backend_name in ('FakeAlmaden', 'FakeArmonk', 'FakeAthens', 'FakeBelem', 'FakeBoeblingen', 'FakeBogota', 'FakeBrooklyn', 'FakeBurlington', 'FakeCambridge', 'FakeCambridgeAlternativeBasis', 'FakeCasablanca', 'FakeEssex', 'FakeGuadalupe', 'FakeJakarta', 'FakeJohannesburg', 'FakeLagos', 'FakeLima', 'FakeLondon', 'FakeManhattan', 'FakeManila', 'FakeMelbourne', 'FakeMontreal', 'FakeMumbai', 'FakeOurense', 'FakeParis', 'FakePoughkeepsie', 'FakeQuito', 'FakeRochester', 'FakeRome', 'FakeRueschlikon', 'FakeSantiago', 'FakeSingapore', 'FakeSydney', 'FakeTenerife', 'FakeTokyo', 'FakeToronto', 'FakeValencia', 'FakeVigo', 'FakeYorktown'):
             backend_name+='()'
             backend = eval(backend_name) # this is definitely a security hazard... use at your own risk!
-            # a very interesting alternative is to use: backend = globals()[backend_name]
+                # a very interesting alternative is to use: backend = globals()[backend_name]
             available_qubits = backend.configuration().n_qubits
             requested_qubits = qc.num_qubits
             if requested_qubits > available_qubits: # verify if the qubit count is compatible with the selected backend
                 client.send_message("error", "The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.".format(requested_qubits,backend_name[:-2],available_qubits) )
-                raise ValueError('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
+                # raise ValueError('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
             job = execute(qc, shots=shots, backend=backend)
-            job_monitor(job, output=flosc, line_discipline="") #this line is for testing only. but it can also stay.
             pass
         else: #we then must be naming a realdevice
             if not provider: #for which we definitely need credentials! D:
                 client.send_message("error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
-                raise ValueError('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
+                # raise ValueError('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
             backend = provider.get_backend(backend_name)
             job = execute(qc, shots=shots, backend=backend)
             job_monitor(job, output=flosc, line_discipline="") # 'flosc' (FileLikeOutputOSC) reroutes the output from stdout to the OSC client
     else:
         backend = Aer.get_backend('qasm_simulator')
         job = execute(qc, shots=shots, backend=backend)
-        job_monitor(job, output=flosc, line_discipline="") #this line is for testing only. but it can also stay.
     print("Done!")
     return job.result().get_counts()
 
@@ -94,7 +120,8 @@ def parse_qasm(*args):
 
 def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT):
 
-    global client, provider
+    global client, provider, ERR_SEP
+    ERR_SEP = '----------------------------------------' # For FileLikeErrorOSC() class
     provider=None
 
     if TOKEN:
@@ -109,11 +136,13 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT):
     callback = dispatcher.Dispatcher()
     server = osc_server.ThreadingOSCUDPServer(("127.0.0.1", RECEIVE_PORT), callback)
     client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
+    client.send_message("info", "osc_qasm.py is now running")
 
     callback.map("/QuTune", parse_qasm)
     print("Server Receiving on {} port {}".format(server.server_address[0], server.server_address[1]))
     print("Server Sending back on {} port {}".format(client._address,  client._port))
     server.serve_forever()
+
 
 if __name__ == '__main__':
 
@@ -129,6 +158,10 @@ if __name__ == '__main__':
 
     args = p.parse_args()
 
+    # Route sys.stderr to OSC
+    flerr = FileLikeErrorOSC()
+    sys.stderr = flerr
+
     if args.token:
         if not args.hub or not args.group or not args.project:
             if not args.hub and not args.group and not args.project:
@@ -142,5 +175,8 @@ if __name__ == '__main__':
                 args.group=None
                 args.project=None
 
-    print('OSC_QASM')
+    print('================================================')
+    print(' OSC_QASM by OCH & Itaborala @ QuTune (v1.2.0) ')
+    print(' https://iccmr-quantum.github.io               ')
+    print('================================================')
     main(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project)
