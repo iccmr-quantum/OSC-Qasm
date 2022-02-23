@@ -12,17 +12,37 @@ from qiskit.test.mock import *
 from qiskit.tools import job_monitor
 import argparse
 
+class FileLikeOutputOSC(object):
+    ''' This class emulates a File-Like object
+        with a "write()" method that can be used
+        by print() as an alternative output (replacing sys.stdout)
+        to send messages through the OSC-Qasm client
+
+        usage: print("foo", file=FileLikeOutputOSC())
+        '''
+    def __init__(self):
+        pass
+
+    def write(self, text):
+        if text != f'\n' and text != "": #Removing the end='' message
+            print(text)
+            # client.send_message("info", "FileLike output")
+            client.send_message("info", text)
+
 def run_circuit(qc, shots, backend_name):
 
     print("Running circuit on {}...".format(backend_name))
     client.send_message("info", "Running circuit on {}...".format(backend_name) )
+
+    flosc = FileLikeOutputOSC()
+
     if backend_name != 'qasm_simulator':
         if backend_name in ('FakeAlmaden', 'FakeArmonk', 'FakeAthens', 'FakeBelem', 'FakeBoeblingen', 'FakeBogota', 'FakeBrooklyn', 'FakeBurlington', 'FakeCambridge', 'FakeCambridgeAlternativeBasis', 'FakeCasablanca', 'FakeEssex', 'FakeGuadalupe', 'FakeJakarta', 'FakeJohannesburg', 'FakeLagos', 'FakeLima', 'FakeLondon', 'FakeManhattan', 'FakeManila', 'FakeMelbourne', 'FakeMontreal', 'FakeMumbai', 'FakeOurense', 'FakeParis', 'FakePoughkeepsie', 'FakeQuito', 'FakeRochester', 'FakeRome', 'FakeRueschlikon', 'FakeSantiago', 'FakeSingapore', 'FakeSydney', 'FakeTenerife', 'FakeTokyo', 'FakeToronto', 'FakeValencia', 'FakeVigo', 'FakeYorktown'):
             backend_name+='()'
             backend = eval(backend_name) # this is definitely a security hazard... use at your own risk!
             # a very interesting alternative is to use: backend = globals()[backend_name]
             available_qubits = backend.configuration().n_qubits
-            requested_qubits = qc.num_qubits            
+            requested_qubits = qc.num_qubits
             if requested_qubits > available_qubits: # verify if the qubit count is compatible with the selected backend
                 client.send_message("error", "The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.".format(requested_qubits,backend_name[:-2],available_qubits) )
                 raise ValueError('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
@@ -34,10 +54,11 @@ def run_circuit(qc, shots, backend_name):
                 raise ValueError('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
             backend = provider.get_backend(backend_name)
             job = execute(qc, shots=shots, backend=backend)
-            job_monitor(job)
+            job_monitor(job, output=flosc, line_discipline="") # 'flosc' (FileLikeOutputOSC) reroutes the output from stdout to the OSC client
     else:
         backend = Aer.get_backend('qasm_simulator')
         job = execute(qc, shots=shots, backend=backend)
+        job_monitor(job, output=flosc, line_discipline="") #this line is for testing only
     print("Done!")
     return job.result().get_counts()
 
