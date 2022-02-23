@@ -27,7 +27,7 @@ class FileLikeOutputOSC(object):
         if text != f'\n' and text != "": #Removing the end='' message
             print(text)
             # client.send_message("info", "FileLike output")
-            client.send_message("info", text)
+            client.send_message("info", text[12:])
 
 def run_circuit(qc, shots, backend_name):
 
