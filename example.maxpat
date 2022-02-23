@@ -4,13 +4,13 @@
 		"appversion" : 		{
 			"major" : 8,
 			"minor" : 2,
-			"revision" : 1,
+			"revision" : 2,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 352.0, 191.0, 545.0, 492.0 ],
+		"rect" : [ 352.0, 191.0, 545.0, 606.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,6 +40,44 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontface" : 2,
+					"id" : "obj-18",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 148.5, 338.0, 261.0, 20.0 ],
+					"text" : "Open osc_qasm.maxhelp for a complete demo.",
+					"textjustification" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontface" : 1,
+					"id" : "obj-9",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 124.5, 314.0, 309.0, 20.0 ],
+					"text" : "/QuTune {str=qasm code} {int=shots} {str=backend}",
+					"textjustification" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-4",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 80.5, 252.0, 397.0, 60.0 ],
+					"text" : "This patch serves to illustrate the basic components needed to talk with osc_qasm.py. Most of this is simplified in the osc_qasm Max abstraction. On the same token, you should feel free to connect to osc_qasm.py using any other software with OSC that respects the message structure."
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"bubble" : 1,
 					"bubblepoint" : 0.16,
 					"bubbleside" : 2,
@@ -47,7 +85,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 65.5, 265.0, 333.0, 39.0 ],
+					"patching_rect" : [ 65.5, 370.0, 333.0, 39.0 ],
 					"text" : "you can change the number of shots and the backend to use"
 				}
 
@@ -60,7 +98,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 157.0, 335.0, 46.0, 19.0 ],
+					"patching_rect" : [ 157.0, 440.0, 46.0, 19.0 ],
 					"text" : "route text"
 				}
 
@@ -74,7 +112,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "int", "", "" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 205.0, 306.0, 100.0, 20.0 ],
+					"patching_rect" : [ 205.0, 411.0, 100.0, 20.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_initial" : [ "qasm_simulator" ],
@@ -99,7 +137,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 150.0, 306.0, 54.0, 20.0 ],
+					"patching_rect" : [ 150.0, 411.0, 54.0, 20.0 ],
 					"text" : "backend"
 				}
 
@@ -110,7 +148,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 60.0, 306.0, 37.0, 20.0 ],
+					"patching_rect" : [ 60.0, 411.0, 37.0, 20.0 ],
 					"text" : "shots"
 				}
 
@@ -125,7 +163,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 99.0, 306.0, 50.0, 22.0 ],
+					"patching_rect" : [ 99.0, 411.0, 50.0, 22.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_initial" : [ 1000 ],
@@ -151,7 +189,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 41.0, 359.75, 135.0, 22.0 ],
+					"patching_rect" : [ 41.0, 464.75, 135.0, 22.0 ],
 					"text" : "join 3 @triggers 0"
 				}
 
@@ -262,8 +300,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 41.0, 417.0, 212.0, 47.0 ],
-					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2021-11-09)"
+					"patching_rect" : [ 41.0, 522.0, 212.0, 47.0 ],
+					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2022-02-23)"
 				}
 
 			}
@@ -298,7 +336,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 41.0, 388.5, 135.0, 22.0 ],
+					"patching_rect" : [ 41.0, 493.5, 135.0, 22.0 ],
 					"text" : "udpsend localhost 1416"
 				}
 
@@ -311,7 +349,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 255.0, 335.0, 165.0, 129.0 ],
+					"patching_rect" : [ 255.0, 440.0, 165.0, 129.0 ],
 					"text" : "/QuTune \"OPENQASM 2.0;\ninclude \\\"qelib1.inc\\\"; \nqreg q[2]; \ncreg c[2]; \nh q[0]; \ncx q[0],q[1]; \nmeasure q[0] -> c[0]; \nmeasure q[1] -> c[1]; \n\""
 				}
 
@@ -410,7 +448,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-19", 1 ],
-					"midpoints" : [ 50.5, 251.0, 410.5, 251.0 ],
+					"midpoints" : [ 50.5, 362.0, 410.5, 362.0 ],
 					"order" : 0,
 					"source" : [ "obj-11", 0 ]
 				}
