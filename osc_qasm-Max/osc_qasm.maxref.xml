@@ -43,8 +43,8 @@
 		</objarg>
 
 		<objarg name='backend' optional='1' type='symbol'>
-			<digest>IP address </digest>
-			<description>The IP address where the server (Python) is located. <br/>This defaults to qasm_simulator. </description>
+			<digest>Backend name </digest>
+			<description>The backend name. <br/>This can be the Qiskit simulator, "qasm_simulator", or any of the real hardware backends available to your IBM Quantum account, in which case you need to provide your token when initializing osc_qasm.py, and (optionally) declaring a hub, group, and project. <br/>Additionally, this can also be one of the following available fake backends: <br/>FakeAlmaden, FakeArmonk, FakeAthens, FakeBelem, FakeBoeblingen, FakeBogota, FakeBrooklyn, FakeBurlington, FakeCambridge, FakeCambridgeAlternativeBasis, FakeCasablanca, FakeEssex, FakeGuadalupe, FakeJakarta, FakeJohannesburg, FakeLagos, FakeLima, FakeLondon, FakeManhattan, FakeManila, FakeMelbourne, FakeMontreal, FakeMumbai, FakeOurense, FakeParis, FakePoughkeepsie, FakeQuito, FakeRochester, FakeRome, FakeRueschlikon, FakeSantiago, FakeSingapore, FakeSydney, FakeTenerife, FakeTokyo, FakeToronto, FakeValencia, FakeVigo, FakeYorktown. <br/>This defaults to "qasm_simulator". </description>
 		</objarg>
 
 		<objarg name='info' optional='1' type='int'>
@@ -100,8 +100,8 @@
 		</attribute>
 
 		<attribute name='backend' get='1' set='1' type='symbol' size='1'>
-			<digest>IP address </digest>
-			<description>The IP address where the server (Python) is located. <br/>This defaults to qasm_simulator. </description>
+			<digest>Backend name </digest>
+			<description>The backend name. <br/>This can be the Qiskit simulator, "qasm_simulator", or any of the real hardware backends available to your IBM Quantum account, in which case you need to provide your token when initializing osc_qasm.py, and (optionally) declaring a hub, group, and project. <br/>Additionally, this can also be one of the following available fake backends: <br/>FakeAlmaden, FakeArmonk, FakeAthens, FakeBelem, FakeBoeblingen, FakeBogota, FakeBrooklyn, FakeBurlington, FakeCambridge, FakeCambridgeAlternativeBasis, FakeCasablanca, FakeEssex, FakeGuadalupe, FakeJakarta, FakeJohannesburg, FakeLagos, FakeLima, FakeLondon, FakeManhattan, FakeManila, FakeMelbourne, FakeMontreal, FakeMumbai, FakeOurense, FakeParis, FakePoughkeepsie, FakeQuito, FakeRochester, FakeRome, FakeRueschlikon, FakeSantiago, FakeSingapore, FakeSydney, FakeTenerife, FakeTokyo, FakeToronto, FakeValencia, FakeVigo, FakeYorktown. <br/>This defaults to "qasm_simulator". </description>
 		</attribute>
 
 		<attribute name='info' get='1' set='1' type='int' size='1'>
