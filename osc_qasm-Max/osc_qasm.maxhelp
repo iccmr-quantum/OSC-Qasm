@@ -57,7 +57,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 235.0, 269.0, 640.0, 173.0 ],
+						"rect" : [ 625.0, 334.0, 640.0, 173.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -141,8 +141,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 407.5, 105.0, 108.0, 22.0 ],
-									"text" : "osc_qasm @info 0"
+									"patching_rect" : [ 407.5, 105.0, 138.0, 22.0 ],
+									"text" : "osc_qasm 1419 @info 0"
 								}
 
 							}
@@ -279,7 +279,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 150.0, 227.0, 182.0, 35.0 ],
+					"patching_rect" : [ 150.0, 227.0, 184.0, 35.0 ],
 					"text" : "osc_qasm 1418 @shots 100000 @backend ibmq_belem @info 0"
 				}
 
@@ -380,7 +380,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 41.0, 403.0, 212.0, 47.0 ],
-					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2022-02-21)"
+					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2022-02-23)"
 				}
 
 			}
