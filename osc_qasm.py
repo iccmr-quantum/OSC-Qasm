@@ -27,7 +27,7 @@ class FileLikeOutputOSC(object):
         if text != f'\n' and text != "": #Removing the end='' message
             print(text)
             # client.send_message("info", "FileLike output")
-            client.send_message("info", text)
+            client.send_message("info", text[12:])
 
 def run_circuit(qc, shots, backend_name):
 
@@ -47,6 +47,7 @@ def run_circuit(qc, shots, backend_name):
                 client.send_message("error", "The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.".format(requested_qubits,backend_name[:-2],available_qubits) )
                 raise ValueError('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
             job = execute(qc, shots=shots, backend=backend)
+            job_monitor(job, output=flosc, line_discipline="") #this line is for testing only. but it can also stay.
             pass
         else: #we then must be naming a realdevice
             if not provider: #for which we definitely need credentials! D:
@@ -58,7 +59,7 @@ def run_circuit(qc, shots, backend_name):
     else:
         backend = Aer.get_backend('qasm_simulator')
         job = execute(qc, shots=shots, backend=backend)
-        job_monitor(job, output=flosc, line_discipline="") #this line is for testing only
+        job_monitor(job, output=flosc, line_discipline="") #this line is for testing only. but it can also stay.
     print("Done!")
     return job.result().get_counts()
 
