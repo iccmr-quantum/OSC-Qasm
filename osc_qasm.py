@@ -79,7 +79,7 @@ def run_circuit(qc, shots, backend_name):
         else: #we then must be naming a realdevice
             if not provider: #for which we definitely need credentials! D:
                 client.send_message("error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
-                # raise ValueError('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
+                raise ValueError('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
             backend = provider.get_backend(backend_name)
             job = execute(qc, shots=shots, backend=backend)
             job_monitor(job, output=flosc, line_discipline="") # 'flosc' (FileLikeOutputOSC) reroutes the output from stdout to the OSC client
