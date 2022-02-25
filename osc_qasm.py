@@ -73,7 +73,8 @@ def run_circuit(qc, shots, backend_name):
             requested_qubits = qc.num_qubits
             if requested_qubits > available_qubits: # verify if the qubit count is compatible with the selected backend
                 client.send_message("error", "The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.".format(requested_qubits,backend_name[:-2],available_qubits) )
-                raise ValueError('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
+                print('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
+                sys.exit()
             job = execute(qc, shots=shots, backend=backend)
             pass
         else: #we then must be naming a realdevice
