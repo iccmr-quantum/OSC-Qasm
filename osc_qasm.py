@@ -72,14 +72,16 @@ def run_circuit(qc, shots, backend_name):
             available_qubits = backend.configuration().n_qubits
             requested_qubits = qc.num_qubits
             if requested_qubits > available_qubits: # verify if the qubit count is compatible with the selected backend
-                # client.send_message("error", "The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.".format(requested_qubits,backend_name[:-2],available_qubits) )
-                raise ValueError('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
+                client.send_message("error", "The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.".format(requested_qubits,backend_name[:-2],available_qubits) )
+                print('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
+                sys.exit()
             job = execute(qc, shots=shots, backend=backend)
             pass
         else: #we then must be naming a realdevice
             if not provider: #for which we definitely need credentials! D:
-                # client.send_message("error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
-                raise ValueError('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
+                client.send_message("error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
+                print('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
+                sys.exit()
             backend = provider.get_backend(backend_name)
             job = execute(qc, shots=shots, backend=backend)
             job_monitor(job, output=flosc, line_discipline="") # 'flosc' (FileLikeOutputOSC) reroutes the output from stdout to the OSC client
