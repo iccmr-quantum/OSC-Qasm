@@ -2,7 +2,7 @@
 # A simple OSC Python interface for executing Qasm code.
 # Or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware.
 #
-# Omar Costa Hamido / Paulo Vitor Itaboraí (2022-02-23)
+# Omar Costa Hamido / Paulo Vitor Itaboraí (2022-04-05)
 # https://github.com/iccmr-quantum/OSC-Qasm
 #
 
@@ -140,7 +140,7 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
     # find local IP address
     if REMOTE == None:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))#THIS THROWS an error if machine is not connected to any network
+        s.connect(("8.8.8.8", 80))#this throws an error if machine is not connected to any network
         local_ip = s.getsockname()[0]#this prints 0.0.0.0 if machine is not connected to any network
         pass
     elif REMOTE != False:
@@ -170,10 +170,10 @@ if __name__ == '__main__':
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
     p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
     p.add_argument('--project', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Project')
-    p.add_argument('--remote', nargs='?', default=False, help='declare this is a remote server. In this case osc_qasm.py will be listenning to messages coming into the network adapter address.')
+    p.add_argument('--remote', nargs='?', default=False, help='Declare this is a remote server. In this case osc_qasm.py will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
 
     args = p.parse_args()
-    print("args.remote is:", args.remote)
+
     # Route sys.stderr to OSC
     flerr = FileLikeErrorOSC()
     sys.stderr = flerr
@@ -192,7 +192,7 @@ if __name__ == '__main__':
                 args.project=None
 
     print('================================================')
-    print(' OSC_QASM by OCH & Itaborala @ QuTune (v1.2.0) ')
+    print(' OSC_QASM by OCH & Itaborala @ QuTune (v1.3.0) ')
     print(' https://iccmr-quantum.github.io               ')
     print('================================================')
     main(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project, args.remote)
