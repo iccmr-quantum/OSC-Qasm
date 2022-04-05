@@ -81,14 +81,33 @@ optional arguments:
                      need to provide your IBMQ Group
   --project PROJECT  If you want to run circuits on real quantum hardware, you
                      need to provide your IBMQ Project
+  --remote [REMOTE]  Declare this is a remote server. In this case osc_qasm.py will be
+                     listenning to messages coming into the network adapter address. If there
+                     is a specific network adapter IP you want to listen in, add it as an
+                     argument here
 ```
+
 
 The `osc_qasm.maxpat` abstraction also allows customization using several attributes and positional arguments. Make sure to check out the help patch and the reference page!
 
 ![osc_qasm-help](./osc_qasm-help.png)
 
+### Network Distribution Mode
 
+Version 1.3.0 brought new options for facilitating distributed network scenarios. There there could be a separate machine running OSC-Qasm as a "server", from which clients could request jobs. Furthermore, the results could be sent to a third machine on the network. To that end, osc_qasm.py has an optional flag/argument called `--remote`. When used, the OSC server will listen to the default IP address of your router or local network instead of "127.0.0.1". Additionally, you could specify another IP address (useful for public connections) as an argument after the flag.
 
+Example:
+
+```console
+`$ python osc_qasm.py`
+Server Receiving on 127.0.0.1 port 1416
+
+$ python osc_qasm.py --remote
+Server Receiving on *your-local-IP-address* port 1416
+
+$ python osc_qasm.py --remote x.y.z.w
+Server Receiving on x.y.z.w port 1416
+```
 
 ## Feedback and Getting help
 Please open a [new issue](https://github.com/iccmr-quantum/OSC-Qasm/issues/new).

@@ -1,4 +1,4 @@
-# OSC-Qasm
+# OSC-Qasm - v1.3.0
 # A simple OSC Python interface for executing Qasm code.
 # Or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware.
 #
