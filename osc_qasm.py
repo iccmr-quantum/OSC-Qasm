@@ -147,7 +147,7 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
     #OSC server and client
     callback = dispatcher.Dispatcher()
     server = osc_server.ThreadingOSCUDPServer((local_ip, RECEIVE_PORT), callback)
-    server2 = osc_server.ThreadingOSCUDPServer(("127.0.0.1", RECEIVE_PORT), callback)
+    # server2 = osc_server.ThreadingOSCUDPServer(("127.0.0.1", RECEIVE_PORT), callback)
     client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
     client.send_message("info", "osc_qasm.py is now running")
 
