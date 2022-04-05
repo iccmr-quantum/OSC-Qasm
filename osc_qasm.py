@@ -138,25 +138,25 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
         pass
 
     # find local IP address
-    if not REMOTE:
+    if REMOTE == None:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))#THIS THROWS an error if machine is not connected to any network
         local_ip = s.getsockname()[0]#this prints 0.0.0.0 if machine is not connected to any network
+        pass
+    elif REMOTE != False:
+        local_ip = REMOTE
         pass
 
     #OSC server and client
     callback = dispatcher.Dispatcher()
     server = osc_server.ThreadingOSCUDPServer((local_ip, RECEIVE_PORT), callback)
-    # server2 = osc_server.ThreadingOSCUDPServer(("127.0.0.1", RECEIVE_PORT), callback)
     client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
     client.send_message("info", "osc_qasm.py is now running")
 
     callback.map("/QuTune", parse_qasm)
     print("Server Receiving on {} port {}".format(server.server_address[0], server.server_address[1]))
-    # print("Server Receiving on {} port {}".format(server2.server_address[0], server2.server_address[1]))
     print("Server Sending back on {} port {}".format(client._address,  client._port))
     server.serve_forever()
-    print("server 1 esta correndo, sera que ele vai chegar a correr o server 2?")
 
 
 if __name__ == '__main__':
