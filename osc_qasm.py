@@ -12,6 +12,8 @@ from qiskit.test.mock import *
 from qiskit.tools import job_monitor
 import argparse
 import sys
+import socket
+
 
 class FileLikeOutputOSC(object):
     ''' This class emulates a File-Like object
@@ -120,11 +122,12 @@ def parse_qasm(*args):
     counts_list = " ".join(counts_list)
     client.send_message("counts", counts_list)
 
-def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT):
+def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, OFFLINE):
 
     global client, provider, ERR_SEP
     ERR_SEP = '----------------------------------------' # For FileLikeErrorOSC() class
     provider=None
+    local_ip="127.0.0.1"
 
     if TOKEN:
         IBMQ.enable_account(TOKEN, 'https://auth.quantum-computing.ibm.com/api', HUB, GROUP, PROJECT)
@@ -134,9 +137,16 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT):
         UDP_IP="127.0.0.1"
         pass
 
+    # find local IP address
+    if not OFFLINE:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))#THIS THROWS an error if machine is not connected to any network
+        local_ip = s.getsockname()[0]#this prints 0.0.0.0 if machine is not connected to any network
+        pass
+
     #OSC server and client
     callback = dispatcher.Dispatcher()
-    server = osc_server.ThreadingOSCUDPServer(("127.0.0.1", RECEIVE_PORT), callback)
+    server = osc_server.ThreadingOSCUDPServer((local_ip, RECEIVE_PORT), callback)
     client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
     client.send_message("info", "osc_qasm.py is now running")
 
@@ -157,6 +167,8 @@ if __name__ == '__main__':
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
     p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
     p.add_argument('--project', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Project')
+    p.add_argument('--offline', help='declare this if you need to use osc_qasm.py without being connected to a network', action='store_true')
+
 
     args = p.parse_args()
 
@@ -181,4 +193,4 @@ if __name__ == '__main__':
     print(' OSC_QASM by OCH & Itaborala @ QuTune (v1.2.0) ')
     print(' https://iccmr-quantum.github.io               ')
     print('================================================')
-    main(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project)
+    main(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project, args.offline)
