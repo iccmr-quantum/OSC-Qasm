@@ -13,7 +13,6 @@ from qiskit.tools import job_monitor
 import argparse
 import sys
 import socket
-import threading
 
 
 class FileLikeOutputOSC(object):
@@ -123,7 +122,7 @@ def parse_qasm(*args):
     counts_list = " ".join(counts_list)
     client.send_message("counts", counts_list)
 
-def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, OFFLINE):
+def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
 
     global client, provider, ERR_SEP
     ERR_SEP = '----------------------------------------' # For FileLikeErrorOSC() class
@@ -139,7 +138,7 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, OFFLINE):
         pass
 
     # find local IP address
-    if not OFFLINE:
+    if not REMOTE:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))#THIS THROWS an error if machine is not connected to any network
         local_ip = s.getsockname()[0]#this prints 0.0.0.0 if machine is not connected to any network
@@ -156,13 +155,8 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, OFFLINE):
     print("Server Receiving on {} port {}".format(server.server_address[0], server.server_address[1]))
     print("Server Receiving on {} port {}".format(server2.server_address[0], server2.server_address[1]))
     print("Server Sending back on {} port {}".format(client._address,  client._port))
-
-    t1 = threading.Thread(target=server.serve_forever())
+    server.serve_forever()
     print("server 1 esta correndo, sera que ele vai chegar a correr o server 2?")
-    t2 = threading.Thread(target=server2.serve_forever())
-    print("server 2 tambem esta correndo!")
-    for t in t1, t2: t.start()
-    for t in t1, t2: t.join()
 
 
 if __name__ == '__main__':
@@ -176,11 +170,10 @@ if __name__ == '__main__':
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
     p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
     p.add_argument('--project', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Project')
-    p.add_argument('--offline', help='declare this if you need to use osc_qasm.py without being connected to a network', action='store_true')
-
+    p.add_argument('--remote', help='declare this is a remote server. In this case osc_qasm.py will be listenning to messages coming into the network adapter address.', action='store_true')
 
     args = p.parse_args()
-
+    print("args.remote is:", args.remote)
     # Route sys.stderr to OSC
     flerr = FileLikeErrorOSC()
     sys.stderr = flerr
@@ -202,4 +195,4 @@ if __name__ == '__main__':
     print(' OSC_QASM by OCH & Itaborala @ QuTune (v1.2.0) ')
     print(' https://iccmr-quantum.github.io               ')
     print('================================================')
-    main(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project, args.offline)
+    main(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project, args.remote)
