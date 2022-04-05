@@ -146,8 +146,8 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, OFFLINE):
 
     #OSC server and client
     callback = dispatcher.Dispatcher()
-    server2 = osc_server.ThreadingOSCUDPServer(("127.0.0.1", RECEIVE_PORT), callback)
     server = osc_server.ThreadingOSCUDPServer((local_ip, RECEIVE_PORT), callback)
+    server2 = osc_server.ThreadingOSCUDPServer(("127.0.0.1", RECEIVE_PORT), callback)
     client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
     client.send_message("info", "osc_qasm.py is now running")
 
@@ -156,6 +156,9 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, OFFLINE):
     print("Server Receiving on {} port {}".format(server2.server_address[0], server2.server_address[1]))
     print("Server Sending back on {} port {}".format(client._address,  client._port))
     server.serve_forever()
+    print("server 1 esta correndo, sera que ele vai chegar a correr o server 2?")
+    server2.serve_forever()
+    print("server 2 tambem esta correndo!")
 
 
 if __name__ == '__main__':
