@@ -170,7 +170,7 @@ if __name__ == '__main__':
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
     p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
     p.add_argument('--project', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Project')
-    p.add_argument('--remote', nargs='?', help='declare this is a remote server. In this case osc_qasm.py will be listenning to messages coming into the network adapter address.', action='store_true')
+    p.add_argument('--remote', nargs='?', default=False, help='declare this is a remote server. In this case osc_qasm.py will be listenning to messages coming into the network adapter address.')
 
     args = p.parse_args()
     print("args.remote is:", args.remote)
