@@ -13,6 +13,7 @@ from qiskit.tools import job_monitor
 import argparse
 import sys
 import socket
+import threading
 
 
 class FileLikeOutputOSC(object):
@@ -155,10 +156,13 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, OFFLINE):
     print("Server Receiving on {} port {}".format(server.server_address[0], server.server_address[1]))
     print("Server Receiving on {} port {}".format(server2.server_address[0], server2.server_address[1]))
     print("Server Sending back on {} port {}".format(client._address,  client._port))
-    server.serve_forever()
+
+    t1 = threading.Thread(target=server.serve_forever())
     print("server 1 esta correndo, sera que ele vai chegar a correr o server 2?")
-    server2.serve_forever()
+    t2 = threading.Thread(target=server2.serve_forever())
     print("server 2 tambem esta correndo!")
+    for t in t1, t2: t.start()
+    for t in t1, t2: t.join()
 
 
 if __name__ == '__main__':
