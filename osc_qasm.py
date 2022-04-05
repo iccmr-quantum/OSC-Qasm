@@ -153,7 +153,7 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
 
     callback.map("/QuTune", parse_qasm)
     print("Server Receiving on {} port {}".format(server.server_address[0], server.server_address[1]))
-    print("Server Receiving on {} port {}".format(server2.server_address[0], server2.server_address[1]))
+    # print("Server Receiving on {} port {}".format(server2.server_address[0], server2.server_address[1]))
     print("Server Sending back on {} port {}".format(client._address,  client._port))
     server.serve_forever()
     print("server 1 esta correndo, sera que ele vai chegar a correr o server 2?")
