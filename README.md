@@ -99,6 +99,11 @@ Version 1.3.0 brought new options for facilitating distributed network scenarios
 
 You can now have: a client machine (C1) sending `qasm` jobs via OSC (e.g. using [osc_qasm.maxpat](https://github.com/iccmr-quantum/OSC-Qasm/blob/main/osc_qasm-Max/osc_qasm.maxpat)); a different server machine (S1) running `osc_qasm.py`, receiving and processing the job requests; and even a third client machine (C2) receiving the results.
 
+```mermaid
+flowchart LR
+C1 -- qasm --> S1 -- results --> C3
+```
+
 To that end, `osc_qasm.py` has an optional flag/argument called `--remote`. When used, the OSC server will listen to the default IP address assigned to your machine in the local area network, instead of "127.0.0.1". Additionally, you can add an argument after the flag to specify the IP address to use (useful in the case of multiple network adapters).
 
 Example:
@@ -108,10 +113,10 @@ $ python osc_qasm.py
 Server Receiving on 127.0.0.1 port 1416
 
 $ python osc_qasm.py --remote
-Server Receiving on *your-local-IP-address* port 1416
+Server Receiving on YOUR-IP-ADDRESS port 1416
 
-$ python osc_qasm.py --remote x.y.z.w
-Server Receiving on x.y.z.w port 1416
+$ python osc_qasm.py --remote 192.168.0.3
+Server Receiving on 192.168.0.3 port 1416
 ```
 
 ## Feedback and Getting help

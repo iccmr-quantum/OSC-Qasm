@@ -1,8 +1,8 @@
-# OSC-Qasm - v1.3.0
+# OSC-Qasm
 # A simple OSC Python interface for executing Qasm code.
 # Or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware.
 #
-# Omar Costa Hamido / Paulo Vitor Itaboraí (2022-04-05)
+# Omar Costa Hamido / Paulo Vitor Itaboraí (2021 - 2022)
 # https://github.com/iccmr-quantum/OSC-Qasm
 #
 
