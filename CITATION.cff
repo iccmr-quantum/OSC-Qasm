@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Hamido"
+  given-names: "Omar Costa"
+  orcid: "https://orcid.org/0000-0001-5077-853X"
+- family-names: "Itaboraí"
+  given-names: "Paulo"
+title: "OSC-Qasm"
+version: 1.3.0
+doi: 10.5281/zenodo.6291913
+date-released: 2022-04-06
+url: "https://github.com/iccmr-quantum/OSC-Qasm"
