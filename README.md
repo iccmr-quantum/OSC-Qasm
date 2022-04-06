@@ -104,7 +104,7 @@ flowchart LR
 C1 -- qasm --> S1 -- results --> C3
 ```
 
-To that end, `osc_qasm.py` has an optional flag/argument called `--remote`. When used, the OSC server will listen to the default IP address assigned to your machine in the local area network, instead of "127.0.0.1". Additionally, you can add an argument after the flag to specify the IP address to use (useful in the case of multiple network adapters).
+To that end, `osc_qasm.py` has an optional flag/argument called `--remote`. When used, the `osc_qasm.py` will listen to the default IP address assigned to the machine for the local area network, instead of "127.0.0.1". Additionally, you can add an argument after the flag to specify the IP address to use (useful in a scenario with multiple network adapters, each giving the machine a different IP address for each network).
 
 Example:
 
