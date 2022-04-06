@@ -113,7 +113,7 @@ $ python osc_qasm.py
 Server Receiving on 127.0.0.1 port 1416
 
 $ python osc_qasm.py --remote
-Server Receiving on YOUR-IP-ADDRESS port 1416
+Server Receiving on 10.0.0.31 port 1416
 
 $ python osc_qasm.py --remote 192.168.0.3
 Server Receiving on 192.168.0.3 port 1416
