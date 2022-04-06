@@ -66,9 +66,10 @@ positional arguments:
   receive_port       The port where the osc_qasm.py Server will listen for
                      incoming messages. Default port is 1416
   send_port          The port that osc_qasm.py will use to send messages back
-                     to Max. Default port is 1417
-  ip                 The IP address where the client (Max/MSP) is located.
-                     Default IP is 127.0.0.1 (localhost)
+                     to Max/MSP. Default port is 1417
+  ip                 The IP address to where the retrieved results will be
+                     sent (Where Max/MSP is located). Default IP is 127.0.0.1
+                     (localhost)
 
 optional arguments:
   -h, --help         show this help message and exit
@@ -81,14 +82,42 @@ optional arguments:
                      need to provide your IBMQ Group
   --project PROJECT  If you want to run circuits on real quantum hardware, you
                      need to provide your IBMQ Project
+  --remote [REMOTE]  Declare this is a remote server. In this case osc_qasm.py
+                     will be listenning to messages coming into the network
+                     adapter address. If there is a specific network adapter
+                     IP you want to listen in, add it as an argument here
 ```
+
 
 The `osc_qasm.maxpat` abstraction also allows customization using several attributes and positional arguments. Make sure to check out the help patch and the reference page!
 
 ![osc_qasm-help](./osc_qasm-help.png)
 
+### Network Distribution
 
+Version 1.3.0 brought new options for facilitating distributed network scenarios. 
 
+You can now have: a client machine (C1) sending `qasm` jobs via OSC (e.g. using [osc_qasm.maxpat](https://github.com/iccmr-quantum/OSC-Qasm/blob/main/osc_qasm-Max/osc_qasm.maxpat)); a different server machine (S1) running `osc_qasm.py`, receiving and processing the job requests; and even a third client machine (C2) receiving the results.
+
+```mermaid
+flowchart LR
+C1 -- qasm --> S1 -- results --> C2
+```
+
+To that end, `osc_qasm.py` has an optional flag/argument called `--remote`. When used, the `osc_qasm.py` will listen to the default IP address assigned to the machine for the local area network, instead of "127.0.0.1". Additionally, you can add an argument after the flag to specify the IP address to use (useful in a scenario with multiple network adapters, each giving the machine a different IP address for each network).
+
+Example:
+
+```console
+$ python osc_qasm.py
+Server Receiving on 127.0.0.1 port 1416
+
+$ python osc_qasm.py --remote
+Server Receiving on 10.0.0.31 port 1416
+
+$ python osc_qasm.py --remote 192.168.0.3
+Server Receiving on 192.168.0.3 port 1416
+```
 
 ## Feedback and Getting help
 Please open a [new issue](https://github.com/iccmr-quantum/OSC-Qasm/issues/new).

@@ -2,7 +2,7 @@
 # A simple OSC Python interface for executing Qasm code.
 # Or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware.
 #
-# Omar Costa Hamido / Paulo Vitor Itaboraí (2022-02-23)
+# Omar Costa Hamido / Paulo Vitor Itaboraí (2021 - 2022)
 # https://github.com/iccmr-quantum/OSC-Qasm
 #
 
@@ -12,6 +12,8 @@ from qiskit.test.mock import *
 from qiskit.tools import job_monitor
 import argparse
 import sys
+import socket
+
 
 class FileLikeOutputOSC(object):
     ''' This class emulates a File-Like object
@@ -120,11 +122,12 @@ def parse_qasm(*args):
     counts_list = " ".join(counts_list)
     client.send_message("counts", counts_list)
 
-def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT):
+def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
 
     global client, provider, ERR_SEP
     ERR_SEP = '----------------------------------------' # For FileLikeErrorOSC() class
     provider=None
+    local_ip="127.0.0.1"
 
     if TOKEN:
         IBMQ.enable_account(TOKEN, 'https://auth.quantum-computing.ibm.com/api', HUB, GROUP, PROJECT)
@@ -134,9 +137,19 @@ def main(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT):
         UDP_IP="127.0.0.1"
         pass
 
+    # find local IP address
+    if REMOTE == None:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))#this throws an error if machine is not connected to any network
+        local_ip = s.getsockname()[0]#this prints 0.0.0.0 if machine is not connected to any network
+        pass
+    elif REMOTE != False:
+        local_ip = REMOTE
+        pass
+
     #OSC server and client
     callback = dispatcher.Dispatcher()
-    server = osc_server.ThreadingOSCUDPServer(("127.0.0.1", RECEIVE_PORT), callback)
+    server = osc_server.ThreadingOSCUDPServer((local_ip, RECEIVE_PORT), callback)
     client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
     client.send_message("info", "osc_qasm.py is now running")
 
@@ -151,12 +164,13 @@ if __name__ == '__main__':
     p = argparse.ArgumentParser()
 
     p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the osc_qasm.py Server will listen for incoming messages. Default port is 1416')
-    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that osc_qasm.py will use to send messages back to Max. Default port is 1417')
-    p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address where the client (Max/MSP) is located. Default IP is 127.0.0.1 (localhost)')
+    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that osc_qasm.py will use to send messages back to Max/MSP. Default port is 1417')
+    p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address to where the retrieved results will be sent (Where Max/MSP is located). Default IP is 127.0.0.1 (localhost)')
     p.add_argument('--token', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
     p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
     p.add_argument('--project', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Project')
+    p.add_argument('--remote', nargs='?', default=False, help='Declare this is a remote server. In this case osc_qasm.py will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
 
     args = p.parse_args()
 
@@ -178,7 +192,7 @@ if __name__ == '__main__':
                 args.project=None
 
     print('================================================')
-    print(' OSC_QASM by OCH & Itaborala @ QuTune (v1.2.0) ')
+    print(' OSC_QASM by OCH & Itaborala @ QuTune (v1.3.0) ')
     print(' https://iccmr-quantum.github.io               ')
     print('================================================')
-    main(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project)
+    main(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project, args.remote)
