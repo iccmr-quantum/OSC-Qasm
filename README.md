@@ -66,9 +66,10 @@ positional arguments:
   receive_port       The port where the osc_qasm.py Server will listen for
                      incoming messages. Default port is 1416
   send_port          The port that osc_qasm.py will use to send messages back
-                     to Max. Default port is 1417
-  ip                 The IP address where the client (Max/MSP) is located.
-                     Default IP is 127.0.0.1 (localhost)
+                     to Max/MSP. Default port is 1417
+  ip                 The IP address to where the retrieved results will be
+                     sent (Where Max/MSP is located). Default IP is 127.0.0.1
+                     (localhost)
 
 optional arguments:
   -h, --help         show this help message and exit
@@ -81,10 +82,10 @@ optional arguments:
                      need to provide your IBMQ Group
   --project PROJECT  If you want to run circuits on real quantum hardware, you
                      need to provide your IBMQ Project
-  --remote [REMOTE]  Declare this is a remote server. In this case osc_qasm.py will be
-                     listenning to messages coming into the network adapter address. If there
-                     is a specific network adapter IP you want to listen in, add it as an
-                     argument here
+  --remote [REMOTE]  Declare this is a remote server. In this case osc_qasm.py
+                     will be listenning to messages coming into the network
+                     adapter address. If there is a specific network adapter
+                     IP you want to listen in, add it as an argument here
 ```
 
 
@@ -97,9 +98,6 @@ The `osc_qasm.maxpat` abstraction also allows customization using several attrib
 Version 1.3.0 brought new options for facilitating distributed network scenarios. 
 
 For instance, there could be a separate machine running OSC-Qasm as a "server", from which clients could request jobs. Furthermore, the results could be sent to a third machine on the network. 
-
-CLIENT (Computer 1) ------> OSC-Qasm (Computer 2) ------> Results (Computer 3)
-
 
 To that end, osc_qasm.py has an optional flag/argument called `--remote`. When used, the OSC server will listen to the default IP address of your router or local network instead of "127.0.0.1". Additionally, you could specify another IP address (useful for public connections) as an argument after the flag.
 
