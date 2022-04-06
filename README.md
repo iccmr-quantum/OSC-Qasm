@@ -101,7 +101,7 @@ You can now have: a client machine (C1) sending `qasm` jobs via OSC (e.g. using 
 
 ```mermaid
 flowchart LR
-C1 -- qasm --> S1 -- results --> C3
+C1 -- qasm --> S1 -- results --> C2
 ```
 
 To that end, `osc_qasm.py` has an optional flag/argument called `--remote`. When used, the `osc_qasm.py` will listen to the default IP address assigned to the machine for the local area network, instead of "127.0.0.1". Additionally, you can add an argument after the flag to specify the IP address to use (useful in a scenario with multiple network adapters, each giving the machine a different IP address for each network).
