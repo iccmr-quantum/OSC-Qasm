@@ -1,7 +1,7 @@
 # OSC-Qasm
 [![DOI](https://zenodo.org/badge/432225522.svg)](https://zenodo.org/badge/latestdoi/432225522)
 
-A simple OSC Python interface for executing Qasm code.
+A simple multi-platform OSC Python interface for executing Qasm code.
 (or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware)
 
 ## Installation
@@ -12,7 +12,7 @@ In order to try our Max patches, make sure you also have [Max](http://cycling74.
 
 Clone or [download](https://github.com/iccmr-quantum/OSC-Qasm/archive/refs/heads/main.zip) and unzip this repo.
 
-Open the Terminal (Mac) or Command Prompt (Windows) and navigate to the folder  where you saved the repo.
+Open the Terminal (Mac/Linux) or Command Prompt (Windows) and navigate to the folder  where you saved the repo.
 - see here a refresher on how to navigate using the terminal [[1](https://computers.tutsplus.com/tutorials/navigating-the-terminal-a-gentle-introduction--mac-3855)][[2](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html)]
 
 Create a python virtual environment
@@ -20,7 +20,7 @@ Create a python virtual environment
 - depending on your system, you may simply use: `python -m venv OSCQasm`
 
 Enter your new python virtual environment
-- on mac: `source OSCQasm/bin/activate`
+- on mac/linux: `source OSCQasm/bin/activate`
 - on windows: `OSCQasm\Scripts\activate`
 
 At the start of your terminal prompt, it should show `(OSCQasm)`, indicating that you're in your new virtual environment.
@@ -37,7 +37,7 @@ Copy the [osc_qasm-Max](./osc_qasm-Max/) folder to your Max library
 
 ## Running
 
-First, open a Terminal (Mac) or Command Prompt (Windows) and start you python environment.
+First, open a Terminal (Mac/Linux) or Command Prompt (Windows) and start you python environment.
 
 Then run the python module: `python osc_qasm.py`
 Wait until the program outputs the following lines:
@@ -49,10 +49,10 @@ Wait until the program outputs the following lines:
 Server Receiving on 127.0.0.1 port PPPP
 Server Sending back on x.x.x.x port QQQQ
 ```
-Now you can open the [example.maxpat](example.maxpat) or [osc_qasm.maxhelp](osc_qasm-Max/osc_qasm.maxhelp) in Max 8 and start sending messages with QuantumCircuits in Qasm, to the OSC-Qasm python module.
+Now you can open the [example.maxpat](example.maxpat) or [osc_qasm.maxhelp](osc_qasm-Max/osc_qasm.maxhelp) in Max 8 (Mac/Windows only) and start sending messages with QuantumCircuits in Qasm, to the OSC-Qasm python module.
 
 When you're done working with osc_qasm.py you can leave the virtual environment with
-- on mac & windows: `deactivate`
+- on mac/linux & windows: `deactivate`
 
 ### Additional arguments
 You can also set some additional arguments and flags in front of `python osc_qasm.py`:
@@ -125,13 +125,13 @@ If you'd like to connect different machines across the internet, you can use the
 ##### Linux Desktop Server
 First, you need to [download](https://vpn.net) and install the CLI hamachi client. For manual installation, replace the version below with the most most up-to-date _.deb_ or _.rpm_ file shown [here](https://www.vpn.net/linux).
 
-**POP!OS/Ubuntu/Debian (.deb)**
+###### POP!OS/Ubuntu/Debian (.deb)
 ```console
 $ wget https://www.vpn.net/installers/logmein-hamachi_2.1.0.203-1_amd64.deb
 $ sudo dpkg -i logmein-hamachi_2.1.0.203-1_amd64.deb
 ```
 
-**CentOS/RedHat**
+###### CentOS/RedHat
 ```console
 $ wget https://www.vpn.net/installers/logmein-hamachi_2.1.0.203-1_amd64.deb
 $ sudo rpm -ivh logmein-hamachi-2.1.0.203-1.x86_64.rpm
@@ -150,17 +150,17 @@ $ sudo hamachi attach email@example.com
 ```
 On the LogMeIn website, under the `My Networks` tab, click the `Add Network` button to create a new network.
 
-![BR01.png](./docs/imgs/BR01.png)
+<img src="./docs/imgs/BR01.png" style="border: 1px solid #000;" />
 
 Follow the steps shown on the website. In this example we created a "Mesh" type network with the name `OSC-Qasm`.
 
-![BR02.png](./docs/imgs/BR02.png)
+<img src="./docs/imgs/BR02.png" style="border: 1px solid #000;" />
 
 In step 2, you can configure the security settings of your network, like setting up a password and join requests settings. In step 3, you can add existing members to your network or simply click `Finish` to complete the network creation.
 
 At this point, you can go to the Edit page of this network to copy the `Network ID`, found in the area marked by the red box.
 
-![BR03.png](./docs/imgs/BR03.png)
+<img src="./docs/imgs/BR03.png" style="border: 1px solid #000;" />
 
 Then, on your Linux Terminal, use the `Network ID` to join the hamachi network you created.
 
