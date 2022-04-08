@@ -150,7 +150,7 @@ $ sudo hamachi attach email@example.com
 ```
 On the LogMeIn website, under the `My Networks` tab, click the `Add Network` button to create a new network.
 
-<img src="./docs/imgs/BR01.png" style="border: 1px solid #000;" />
+<kbd> <img src="./docs/imgs/BR01.png" /> </kbd>
 
 Follow the steps shown on the website. In this example we created a "Mesh" type network with the name `OSC-Qasm`.
 
