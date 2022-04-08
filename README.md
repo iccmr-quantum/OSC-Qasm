@@ -95,7 +95,7 @@ The `osc_qasm.maxpat` abstraction also allows customization using several attrib
 
 ### Network Distribution
 
-Version 1.3.0 brought new options for facilitating distributed network scenarios. 
+Version 1.3.0 brought new options for facilitating distributed network scenarios.
 
 You can now have: a client machine (C1) sending `qasm` jobs via OSC (e.g. using [osc_qasm.maxpat](https://github.com/iccmr-quantum/OSC-Qasm/blob/main/osc_qasm-Max/osc_qasm.maxpat)); a different server machine (S1) running `osc_qasm.py`, receiving and processing the job requests; and even a third client machine (C2) receiving the results.
 
@@ -118,6 +118,91 @@ Server Receiving on 10.0.0.31 port 1416
 $ python osc_qasm.py --remote 192.168.0.3
 Server Receiving on 192.168.0.3 port 1416
 ```
+
+#### Connecting worldwide
+If you'd like to connect different machines across the internet, you can use their public IP, assuming also that they have open UDP ports or, in the case of a machine inside a network, they have configured the proper port forwarding. Alternatively, you can use a VPN service like [hamachi](https://vpn.net). A Setup example is shown here, with a `osc_qasm.py` server running on a Linux machine, and a `osc_qasm.maxpat` client running on a MacOS machine. We've tested this setup connecting two machines across the internet, one in Brazil, and another in the UK.
+
+##### Linux Desktop Server
+First, you need to [download](https://vpn.net) and install the CLI hamachi client. For manual installation, replace the version below with the most most up-to-date _.deb_ or _.rpm_ file shown [here](https://www.vpn.net/linux).
+
+**POP!OS/Ubuntu/Debian (.deb)**
+```console
+$ wget https://www.vpn.net/installers/logmein-hamachi_2.1.0.203-1_amd64.deb
+$ sudo dpkg -i logmein-hamachi_2.1.0.203-1_amd64.deb
+```
+
+**CentOS/RedHat**
+```console
+$ wget https://www.vpn.net/installers/logmein-hamachi_2.1.0.203-1_amd64.deb
+$ sudo rpm -ivh logmein-hamachi-2.1.0.203-1.x86_64.rpm
+```
+
+This has limited capabilities, in comparison to the GUI on the Windows and MacOS versions, but the relevant configurations for our purposes can be done on any web browser.
+
+Then, you need to create an account on [LogMeIn](https://accounts.logme.in/registration.aspx). The LogMeIn free account allows the user to setup networks on the [LogMeIn Website](https://accounts.logme.in/login.aspx).
+
+After an account has been created, open a Terminal and log in with your account's email address, using the following commands:
+
+```console
+$ sudo hamachi login
+Logging in ........... ok
+$ sudo hamachi attach email@example.com
+```
+On the LogMeIn website, under the `My Networks` tab, click the `Add Network` button to create a new network.
+
+![BR01.png](./docs/imgs/BR01.png)
+
+Follow the steps shown on the website. In this example we created a "Mesh" type network with the name `OSC-Qasm`.
+
+![BR02.png](./docs/imgs/BR02.png)
+
+In step 2, you can configure the security settings of your network, like setting up a password and join requests settings. In step 3, you can add existing members to your network or simply click `Finish` to complete the network creation.
+
+At this point, you can go to the Edit page of this network to copy the `Network ID`, found in the area marked by the red box.
+
+![BR03.png](./docs/imgs/BR03.png)
+
+Then, on your Linux Terminal, use the `Network ID` to join the hamachi network you created.
+
+```console
+$ sudo hamachi join NETWORK-ID
+```
+
+Once configured, you can retrieve the new hamachi network IP address by running
+
+```console
+$ sudo hamachi
+  version    : 2.1.0.203
+  pid        : 1464
+  status     : logged in
+  client id  : YOUR_CLIENT_ID
+  address    : 25.54.209.94   <<<<< This is your hamachi IP address  
+  nickname   : pop-os
+  lmi account: email@example.com
+```
+
+Finally, assuming you also configured your client machine in the hamachi network, you can boot your `osc_qasm.py` server, using your hamachi network IP address as an argument to the `--remote` flag, and using the client machine's hamachi IP address to send the results.
+
+![BR04.png](./docs/imgs/BR04.png)
+
+Next we will show how you can configure your client machine.
+
+##### Client MacOS machine
+First, you need to [download](https://vpn.net) and install the hamachi client application. On the new `LogMeIn Hamachi` application, click the power button to enable the hamachi service.
+
+![UK01.png](./docs/imgs/UK01.png)
+
+The first time this is done, it will ask you to either log into your _LogMeIn ID_ account or create a new account. At this point the power button will be enabled and you'll be presented with 2 options: `Create Network` and `Join network`.
+
+![UK02.png](./docs/imgs/UK02.png)
+
+In this example, since we've created the network in the previous step we will just join the previously created network. It is important to note that the first field is the `Network ID` and not the network name. Once everything is set, you should see the new network listed together with its users. The led in front of each user indicates if they are online or offline. Right clicking an online user in this list will allow you to copy its IP address.
+
+![UK03.png](./docs/imgs/UK03.png)
+
+You can now open your max patch and add an attribute to `osc_qasm` object to specify the target IP address to send requests to. In this example this was done by simply adding `@ip 25.54.209.94` which is the hamachi IP address of the Linux `osc_qasm.py` server machine configured before.
+
+![UK04.png](./docs/imgs/UK04.png)
 
 ## Feedback and Getting help
 Please open a [new issue](https://github.com/iccmr-quantum/OSC-Qasm/issues/new).
