@@ -120,7 +120,7 @@ Server Receiving on 192.168.0.3 port 1416
 ```
 
 #### Connecting worldwide
-If you'd like to connect different machines across the internet, you can use their public IP, assuming also that they have open UDP ports or, in the case of a machine inside a network, they have configured the proper port forwarding. Alternatively, you can use a VPN service like [hamachi](https://vpn.net). A Setup example is shown here, with a `osc_qasm.py` server running on a Linux machine, and a `osc_qasm.maxpat` client running on a MacOS machine. We've tested this setup connecting two machines across the internet, one in Brazil, and another in the UK.
+If you'd like to connect different machines across the internet, you can use their public IP, assuming also that they have open UDP ports or, in the case of a machine inside a network, they have configured the proper port forwarding. Alternatively, you can use a VPN service like [hamachi](https://vpn.net). A setup example is shown here, with a `osc_qasm.py` server running on a Linux machine, and a `osc_qasm.maxpat` client running on a MacOS machine. We've tested this setup connecting two machines across the internet, one in Brazil, and another in the UK.
 
 ##### Linux Desktop Server
 First, you need to [download](https://vpn.net) and install the CLI hamachi client. For manual installation, replace the version below with the most most up-to-date _.deb_ or _.rpm_ file shown [here](https://www.vpn.net/linux).
@@ -137,7 +137,7 @@ $ wget https://www.vpn.net/installers/logmein-hamachi_2.1.0.203-1_amd64.deb
 $ sudo rpm -ivh logmein-hamachi-2.1.0.203-1.x86_64.rpm
 ```
 
-This has limited capabilities, in comparison to the GUI on the Windows and MacOS versions, but the relevant configurations for our purposes can be done on any web browser.
+This has limited capabilities, in comparison with the GUI on the Windows and MacOS versions, but the necessary additional configurations for our purpose here can be done on any web browser.
 
 Then, you need to create an account on [LogMeIn](https://accounts.logme.in/registration.aspx). The LogMeIn free account allows the user to setup networks on the [LogMeIn Website](https://accounts.logme.in/login.aspx).
 
@@ -196,7 +196,7 @@ The first time this is done, it will ask you to either log into your _LogMeIn ID
 
 ![UK02.png](./docs/imgs/UK02.png)
 
-In this example, since we've created the network in the previous step we will just join the previously created network. It is important to note that the first field is the `Network ID` and not the network name. Once everything is set, you should see the new network listed together with its users. The led in front of each user indicates if they are online or offline. Right clicking an online user in this list will allow you to copy its IP address.
+In this example, since we've created the network in the previous step we will just join the previously created network. It is important to note that the first field is not the network name, but the `Network ID` (retrieved in the LogMeIn website or by hovering the mouse over the network name in the hamachi application). Once everything is set, you should see the new network listed together with its users. The led in front of each user indicates if they are online or offline. Right clicking an online user in this list will allow you to copy its IP address.
 
 ![UK03.png](./docs/imgs/UK03.png)
 
