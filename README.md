@@ -154,13 +154,13 @@ On the LogMeIn website, under the `My Networks` tab, click the `Add Network` but
 
 Follow the steps shown on the website. In this example we created a "Mesh" type network with the name `OSC-Qasm`.
 
-<img src="./docs/imgs/BR02.png" style="border: 1px solid #000;" />
+<kbd> <img src="./docs/imgs/BR02.png" /> </kbd>
 
 In step 2, you can configure the security settings of your network, like setting up a password and join requests settings. In step 3, you can add existing members to your network or simply click `Finish` to complete the network creation.
 
 At this point, you can go to the Edit page of this network to copy the `Network ID`, found in the area marked by the red box.
 
-<img src="./docs/imgs/BR03.png" style="border: 1px solid #000;" />
+<kbd> <img src="./docs/imgs/BR03.png" /> </kbd>
 
 Then, on your Linux Terminal, use the `Network ID` to join the hamachi network you created.
 
