@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+
+
+<!-- GO AHEAD EDIT THIS FILE ... YOU MIGHT KEEP YOUR WORK -->
+
+
+<c74object name='udp_qasm' category='utilities'>
+
+	<digest>A UDP-Qasm SaaS Client. </digest>
+	<description>Based on <a href="https://zenodo.org/record/6426326">OSC-Qasm</a>, this is a simple UDP-based interface for executing Qasm code. (or a simple bridge to connect <a href="https://quantumland.art/qac">The QAC Toolkit</a> with real quantum hardware) </description>
+
+
+	<!--METADATA-->
+
+	<metadatalist>
+		<metadata name='author'>Omar Costa Hamido </metadata>
+		<metadata name='tag'>utilities</metadata>
+	</metadatalist>
+
+
+	<!--ARGUMENTS-->
+
+	<objarglist>
+
+		<objarg name='send_port' optional='1' type='int'>
+			<digest>Send port </digest>
+			<description>The server port that udp_qasm will use to send the qasm code to. <br/>This defaults to 5000. </description>
+		</objarg>
+
+		<objarg name='ip' optional='1' type='symbol'>
+			<digest>IP address </digest>
+			<description>The IP address where the server is located. <br/>This defaults to udp-qasm.och.pw. </description>
+		</objarg>
+
+		<objarg name='shots' optional='1' type='int'>
+			<digest>Shots </digest>
+			<description>The number of shots to use when executing the Qasm code. <br/>This defaults to 1024. </description>
+		</objarg>
+
+		<objarg name='backend' optional='1' type='symbol'>
+			<digest>Backend name </digest>
+			<description>The backend name. <br/>This can be the Qiskit simulator, "qasm_simulator", or any of the real hardware backends available to the server's IBM Quantum account. <br/>Additionally, this can also be one of the following available fake backends: <br/>FakeAlmaden, FakeArmonk, FakeAthens, FakeBelem, FakeBoeblingen, FakeBogota, FakeBrooklyn, FakeBurlington, FakeCambridge, FakeCambridgeAlternativeBasis, FakeCasablanca, FakeEssex, FakeGuadalupe, FakeJakarta, FakeJohannesburg, FakeLagos, FakeLima, FakeLondon, FakeManhattan, FakeManila, FakeMelbourne, FakeMontreal, FakeMumbai, FakeOurense, FakeParis, FakePoughkeepsie, FakeQuito, FakeRochester, FakeRome, FakeRueschlikon, FakeSantiago, FakeSingapore, FakeSydney, FakeTenerife, FakeTokyo, FakeToronto, FakeValencia, FakeVigo, FakeYorktown. <br/>This defaults to "qasm_simulator". </description>
+		</objarg>
+
+		<objarg name='info' optional='1' type='int'>
+			<digest>Info mode </digest>
+			<description>Enable or disable Info mode by setting this attribute to 1 or 0, respecitvely. <br/> Info mode allows udp_qasm to print to the console some information about the computation, including notification of which backend is being used, confirmation of when the results are being sent back to Max, and (experimental) the place in the queue of the job submitted. <br/>This defaults to 1. </description>
+		</objarg>
+
+	</objarglist>
+
+
+	<!--MESSAGES-->
+
+	<methodlist>
+
+		<method name='qasm'>
+			<digest>Qasm code </digest>
+			<description>udp_qasm is expecting to receive a list of 2 symbols. The first one "qasm" and the second one containing all the Qasm code. </description>
+		</method>
+		<method name='pass'>
+			<digest>Password </digest>
+			<description>Set the required server-specific password to use. </description>
+		</method>
+		<method name='backend'>
+			<digest>Backend </digest>
+			<description>The symbol "backend" followed by a single symbol, containing the name of a valid backend, will replace the backend to use the next time udp_qasm receives a <m>qasm</m> message. The backend used by default is "qasm_simulator". <br/>This can also be any of the real hardware backends available to the server's IBM Quantum account. <br/>Additionally, this can also be one of the following available fake backends: <br/>FakeAlmaden, FakeArmonk, FakeAthens, FakeBelem, FakeBoeblingen, FakeBogota, FakeBrooklyn, FakeBurlington, FakeCambridge, FakeCambridgeAlternativeBasis, FakeCasablanca, FakeEssex, FakeGuadalupe, FakeJakarta, FakeJohannesburg, FakeLagos, FakeLima, FakeLondon, FakeManhattan, FakeManila, FakeMelbourne, FakeMontreal, FakeMumbai, FakeOurense, FakeParis, FakePoughkeepsie, FakeQuito, FakeRochester, FakeRome, FakeRueschlikon, FakeSantiago, FakeSingapore, FakeSydney, FakeTenerife, FakeTokyo, FakeToronto, FakeValencia, FakeVigo, FakeYorktown. </description>
+		</method>
+		<method name='shots'>
+			<digest>Shots </digest>
+			<description>The symbol "shots" followed by a single int number will change the number of shots to use the next time udp_qasm receives a <m>qasm</m> message. </description>
+		</method>
+
+	</methodlist>
+
+
+	<!--ATTRIBUTES-->
+
+	<attributelist>
+
+		<attribute name='send_port' get='1' set='1' type='int' size='1'>
+			<digest>Send port </digest>
+			<description>The server port that udp_qasm will use to send the qasm code to. <br/>This defaults to 5000. </description>
+		</attribute>
+
+		<attribute name='ip' get='1' set='1' type='symbol' size='1'>
+			<digest>IP address </digest>
+			<description>The IP address where the server is located. <br/>This defaults to udp-qasm.och.pw. </description>
+		</attribute>
+
+		<attribute name='pass' get='1' set='1' type='symbol' size='1'>
+			<digest>Password </digest>
+			<description>The server-specific password to use. </description>
+		</attribute>
+
+		<attribute name='shots' get='1' set='1' type='int' size='1'>
+			<digest>Shots </digest>
+			<description>The number of shots to use when executing the Qasm code. <br/>This defaults to 1024. </description>
+		</attribute>
+
+		<attribute name='backend' get='1' set='1' type='symbol' size='1'>
+			<digest>Backend name </digest>
+			<description>The backend name. <br/>This can be the Qiskit simulator, "qasm_simulator", or any of the real hardware backends available to the server's IBM Quantum account. <br/>Additionally, this can also be one of the following available fake backends: <br/>FakeAlmaden, FakeArmonk, FakeAthens, FakeBelem, FakeBoeblingen, FakeBogota, FakeBrooklyn, FakeBurlington, FakeCambridge, FakeCambridgeAlternativeBasis, FakeCasablanca, FakeEssex, FakeGuadalupe, FakeJakarta, FakeJohannesburg, FakeLagos, FakeLima, FakeLondon, FakeManhattan, FakeManila, FakeMelbourne, FakeMontreal, FakeMumbai, FakeOurense, FakeParis, FakePoughkeepsie, FakeQuito, FakeRochester, FakeRome, FakeRueschlikon, FakeSantiago, FakeSingapore, FakeSydney, FakeTenerife, FakeTokyo, FakeToronto, FakeValencia, FakeVigo, FakeYorktown. <br/>This defaults to "qasm_simulator". </description>
+		</attribute>
+
+		<attribute name='info' get='1' set='1' type='int' size='1'>
+			<digest>Info mode </digest>
+			<description>Enable or disable Info mode by setting this attribute to 1 or 0, respecitvely. <br/> Info mode allows udp_qasm to print to the console some information about the computation, including notification of which backend is being used, confirmation of when the results are being sent back to Max, and (experimental) the place in the queue of the job submitted. <br/>This defaults to 1. </description>
+		</attribute>
+
+	</attributelist>
+
+
+	<!--RELATED-->
+
+	<seealsolist>
+		<seealso name='och.microqiskit' />
+		<seealso name='och.udp' />
+		<seealso name='osc_qasm' />
+	</seealsolist>
+
+	<misc name = "Output">
+		<entry name ="list">
+			<digest>Execution counts </digest>
+			<description>Outputs a list containing 2 symbols. The first one "counts" and the second one containing all the execution counts in the format "bitstring counts bitstring counts ...".  </description>
+		</entry>
+	</misc>
+
+
+</c74object>
