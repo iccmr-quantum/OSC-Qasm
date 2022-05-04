@@ -27,7 +27,6 @@ async def server_process(args):
 	print("wSEND_PORT",wSEND_PORT)
 	# server = osc_server.ThreadingOSCUDPServer((local_ip, wRECEIVE_PORT), callback)
 	server = osc_server.AsyncIOOSCUDPServer((local_ip, wRECEIVE_PORT), callback, asyncio.get_event_loop())
-	# global transport
 	transport, protocol = await server.create_serve_endpoint()
 	# global client
 	# client = udp_client.SimpleUDPClient(wUDP_IP, wSEND_PORT)
@@ -44,8 +43,6 @@ async def server_process(args):
 	transport.close()
 
 def GUI():
-	# global transport
-
 	eel.init('GUI')
 	@eel.expose
 	def pythonprint(message):
@@ -59,7 +56,7 @@ def GUI():
 		# eel.spawn(asyncio.run(init_main(args)))
 		global server_on
 		server_on = True
-		# asyncio.run(server_process(args))
+		asyncio.run(server_process(args))
 		# eel.spawn(server_process(args))
 		# print("after")
 
