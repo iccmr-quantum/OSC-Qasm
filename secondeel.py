@@ -6,14 +6,45 @@ import asyncio # https://realpython.com/async-io-python/
 
 def parse_qasm(address, *args):
 	print("Just received, via OSC:",args)
-	eel.print("Just received, via OSC:"+str(args))
+	if not HEADLESS:
+		eel.print("Just received, via OSC:"+str(args))
 	# client.send_message("info", "Just received, via OSC:"+str(args))
 
 callback = dispatcher.Dispatcher()
 callback.map("/QuTune", parse_qasm)
 
-def CMD(UDP_IP, RECEIVE_PORT, SEND_PORT, REMOTE):
+async def CMD(UDP_IP, RECEIVE_PORT, SEND_PORT, REMOTE):
 	print("running headless with params:",UDP_IP,RECEIVE_PORT,SEND_PORT,REMOTE)
+	#OSC server and client
+	# print("serverstart args:",args)
+	local_ip = "127.0.0.1"
+	# RECEIVE_PORT = int(args[0])
+	print("RECEIVE_PORT",RECEIVE_PORT)
+	print("type(RECEIVE_PORT)",type(RECEIVE_PORT))
+	# UDP_IP = args[1]
+	print("UDP_IP",UDP_IP)
+	print("type(UDP_IP)",type(UDP_IP))
+	# SEND_PORT = int(args[2])
+	print("SEND_PORT",SEND_PORT)
+	print("type(SEND_PORT)",type(SEND_PORT))
+	# server = osc_server.ThreadingOSCUDPServer((local_ip, RECEIVE_PORT), callback)
+	server = osc_server.AsyncIOOSCUDPServer((local_ip, RECEIVE_PORT), callback, asyncio.get_event_loop())
+	transport, protocol = await server.create_serve_endpoint()
+	print("transport",transport)
+	print("protocol",protocol)
+	# global client
+	client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
+	client.send_message("info", "osc_qasm.py is now running")
+	# print("Server Receiving on {} port {}".format(server.server_address[0], server.server_address[1]))
+	print("Server Receiving on {} port {}".format(server._server_address[0], server._server_address[1]))
+	print("Server Sending back on {} port {}".format(client._address,  client._port))
+	# server.serve_forever()
+	# server.serve()
+	while True:
+		eel.sleep(2.0)
+		print("still alive")
+	print("after server loop")
+	transport.close()
 
 async def server_process(args):
 	#OSC server and client
@@ -21,13 +52,18 @@ async def server_process(args):
 	local_ip = "127.0.0.1"
 	wRECEIVE_PORT = int(args[0])
 	print("wRECEIVE_PORT",wRECEIVE_PORT)
+	print("type(wRECEIVE_PORT)",type(wRECEIVE_PORT))
 	wUDP_IP = args[1]
 	print("wUDP_IP",wUDP_IP)
+	print("type(wUDP_IP)",type(wUDP_IP))
 	wSEND_PORT = int(args[2])
 	print("wSEND_PORT",wSEND_PORT)
+	print("type(wSEND_PORT)",type(wSEND_PORT))
 	# server = osc_server.ThreadingOSCUDPServer((local_ip, wRECEIVE_PORT), callback)
 	server = osc_server.AsyncIOOSCUDPServer((local_ip, wRECEIVE_PORT), callback, asyncio.get_event_loop())
 	transport, protocol = await server.create_serve_endpoint()
+	print("transport",transport)
+	print("protocol",protocol)
 	# global client
 	# client = udp_client.SimpleUDPClient(wUDP_IP, wSEND_PORT)
 	# client.send_message("info", "osc_qasm.py is now running")
@@ -58,7 +94,7 @@ def GUI():
 		server_on = True
 		asyncio.run(server_process(args))
 		# eel.spawn(server_process(args))
-		# print("after")
+		print("after")
 
 	@eel.expose
 	def stop():
@@ -83,7 +119,10 @@ if __name__ == '__main__':
 	p.add_argument('--remote', nargs='?', default=False, help='Declare this is a remote server. In this case osc_qasm.py will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
 	p.add_argument('--headless', nargs='?', type=bool, const=True, default=False, help='Run osc_qasm.py in headless mode. This is useful if you don\'t want to launch the GUI and only work in the terminal.will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
 	args = p.parse_args()
-	if args.headless:
-		CMD(args.ip, args.receive_port, args.send_port, args.remote)
+	global HEADLESS
+	HEADLESS = args.headless
+	if HEADLESS:
+		# CMD(args.ip, args.receive_port, args.send_port, args.remote)
+		asyncio.run(CMD(args.ip, args.receive_port, args.send_port, args.remote))
 	else:
 		GUI()
