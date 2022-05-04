@@ -1,8 +1,8 @@
-from pythonosc import dispatcher, osc_server, udp_client
+from pythonosc import dispatcher, osc_server, udp_client # https://python-osc.readthedocs.io/en/latest/server.html
 import argparse
-import eel
+import eel # https://github.com/ChrisKnott/Eel
 import socket
-import asyncio
+import asyncio # https://realpython.com/async-io-python/
 
 def parse_qasm(address, *args):
 	print("Just received, via OSC:",args)
@@ -27,7 +27,7 @@ async def server_process(args):
 	print("wSEND_PORT",wSEND_PORT)
 	# server = osc_server.ThreadingOSCUDPServer((local_ip, wRECEIVE_PORT), callback)
 	server = osc_server.AsyncIOOSCUDPServer((local_ip, wRECEIVE_PORT), callback, asyncio.get_event_loop())
-	global transport
+	# global transport
 	transport, protocol = await server.create_serve_endpoint()
 	# global client
 	# client = udp_client.SimpleUDPClient(wUDP_IP, wSEND_PORT)
@@ -41,9 +41,10 @@ async def server_process(args):
 		eel.sleep(2.0)
 		print("still alive")
 	print("after server loop")
+	transport.close()
 
 def GUI():
-	global transport
+	# global transport
 
 	eel.init('GUI')
 	@eel.expose
@@ -64,7 +65,7 @@ def GUI():
 
 	@eel.expose
 	def stop():
-		transport.close()
+		# transport.close()
 		global server_on
 		server_on = False
 		# server.stop()
