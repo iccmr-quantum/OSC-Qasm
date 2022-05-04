@@ -9,20 +9,49 @@
 	<script type="text/javascript" src="/eel.js"></script>
 	<title>OSC-Qasm 2</title>
 </head>
-<body style="height: 100vh; position: relative;">
+<body style="height: 100vh; position: relative; margin: 0">
 	<div id="appname" style="position: absolute; top: 0%; left: 0%;color: #333;"><i><a style="color: #333; text-decoration: none;" href="https://github.com/iccmr-quantum/OSC-Qasm">osc_qasm server v2.0</a> - <a style="color: #333; text-decoration: none;" href="https://omarcostahamido.com">OCH</a> @ <a style="color: #333; text-decoration: none;" href="https://iccmr-quantum.github.io/">QuTune</a> (2022)</i></div>
-	<div style="width: 180px; overflow-x: visible;position: absolute; top: 50%; left: 50%;transform: translate(-50%, -50%);">
+	<div style="overflow-x: visible; overflow-y: visible; position: absolute; left: 50%;transform: translate(-50%, 0%); padding-top: 50px">
 		<form onsubmit="event.preventDefault(); update_vars(); startstop();">
-		  <label for="receive_port">Receive port:</label><br>
-		  <input type="number" id="receive_port" name="receive_port" value="1416"><br><br>
-		  <label for="send_port">Send port:</label><br>
-		  <input type="number" id="send_port" name="send_port" value="1417"><br><br>
-		  <label for="ip">Client IP:</label><br>
-		  <input type="text" id="ip" name="ip" value="127.0.0.1"><br><br>
+			<table>
+				<tr>
+					<td>
+						<label for=""><b>SETUP</b></label><br><br>
+					</td>
+					<td style="white-space: nowrap; width: 180px;">
+						<label for="ibmq_check">IBM-Quantum:</label>
+						<input type="checkbox" id="ibmq_check" name="ibmq_check" onclick='ibmq_checkbox(this);'><br><br>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="receive_port">Receive port:</label><br>
+						<input type="number" id="receive_port" name="receive_port" value="1416"><br><br>
+						<label for="send_port">Send port:</label><br>
+						<input type="number" id="send_port" name="send_port" value="1417"><br><br>
+						<label for="ip">Client IP:</label><br>
+						<input type="text" id="ip" name="ip" value="127.0.0.1"><br><br>
+						<label for="remote">Remote:</label><br>
+						<input type="checkbox" id="remote_check" name="remote_check" onclick='remote_checkbox(this);'>
+						<input type="text" id="remote" name="remote" value="Default" size="16" disabled>
+					</td>
+					<td>
+						<div id="ibmq" style="display:none;"><label for="token">Token:</label><br>
+							<input type="password" id="token" name="token" value="false"><br><br>
+							<label for="hub">Hub:</label><br>
+							<input type="text" id="hub" name="hub" value="ibm-q"><br><br>
+							<label for="group">Group:</label><br>
+							<input type="text" id="group" name="group" value="open"><br><br>
+							<label for="project">Project:</label><br>
+							<input type="text" id="project" name="project" value="main">
+						</div>
+					</td>
+				</tr>
+			</table>
+			<br><br>
 		  <input id="submit" type="submit" value="Start">
 		</form>
 		<br><br>
-		<button onclick="eel.pythonprint('are you still awake?')"></button>
 		<!-- <form onsubmit="update_vars(); connect2server(); return false">
 		  <label for="ip">Server ip:</label><br>
 		  <input type="text" id="ip" name="ip" value="127.0.0.1"><br><br>
@@ -33,7 +62,7 @@
 		<table style="width: 50vw;">
 			<tr><td>Status: </td><td id="status"></td></tr>
 			<tr style="height: 10px"></tr>
-			<tr><td>Results: </td><td id="results"></td></tr>		
+			<tr><td>Results: </td><td id="results"></td></tr>
 		</table> -->
 	</div>
 	<script type="text/javascript">
@@ -46,18 +75,50 @@
 		var send_port = document.getElementById('send_port').value;
 		var ip = document.getElementById('ip').value;
 		var submit = document.getElementById('submit').value;
-		
+		var remote = document.getElementById('remote').value;
+		var remote_check = document.getElementById('remote_check').checked;
+		var token = document.getElementById('token').value;
+		var hub = document.getElementById('hub').value;
+		var group = document.getElementById('group').value;
+		var project = document.getElementById('project').value;
+
 		function update_vars() {
 			receive_port = document.getElementById('receive_port').value;
 			send_port = document.getElementById('send_port').value;
 			ip = document.getElementById('ip').value;
 			submit = document.getElementById('submit').value;
+			remote_check = document.getElementById('remote_check').checked;
+			if (remote_check) {
+				remote = document.getElementById('remote').value;
+			} else {
+				remote = "false";
+			}
+			token = document.getElementById('token').value;
+			hub = document.getElementById('hub').value;
+			group = document.getElementById('group').value;
+			project = document.getElementById('project').value;
+		}
+
+		function remote_checkbox(check){
+			if (check.checked) {
+				document.getElementById('remote').disabled = false;
+			} else {
+				document.getElementById('remote').disabled = true;
+			}
+		}
+
+		function ibmq_checkbox(check){
+			if (check.checked) {
+				document.getElementById('ibmq').style.display = "block";
+			} else {
+				document.getElementById('ibmq').style.display = "none";
+			}
 		}
 
 		function startstop(){
 			if (submit=="Start") {
-				eel.start(receive_port,ip,send_port);
-				eel.pythonprint("some message from javascript");
+				eel.start(ip,receive_port,send_port,token,hub,group,project,remote);
+				// eel.pythonprint("some message from javascript");
 				document.getElementById('submit').value = "Stop";
 			} else {
 				eel.stop();
