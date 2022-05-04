@@ -41,10 +41,12 @@ async def CMD(UDP_IP, RECEIVE_PORT, SEND_PORT, REMOTE):
 	# server.serve_forever()
 	# server.serve()
 	while True:
-		eel.sleep(2.0)
+		# eel.sleep(2.0)
 		print("still alive")
-	print("after server loop")
+		await asyncio.sleep(2)
+		eel.sleep(2.0)
 	transport.close()
+	print("Server has stopped now.")
 
 async def server_process(args):
 	#OSC server and client
@@ -73,10 +75,11 @@ async def server_process(args):
 	# server.serve_forever()
 	# server.serve()
 	while server_on:
-		eel.sleep(2.0)
-		print("still alive")
-	print("after server loop")
+		eel.sleep(0.333)
+		# print("still alive")
+		await asyncio.sleep(0.333)
 	transport.close()
+	print("Server has stopped now.")
 
 def GUI():
 	eel.init('GUI')
@@ -102,9 +105,8 @@ def GUI():
 		global server_on
 		server_on = False
 		# server.stop()
-		print("Server has stopped now.")
 
-	eel.start('index.html', cmdline_args=['-incognito'],size=(640,480),block=False)
+	eel.start('index.html', cmdline_args=['-incognito'],size=(640,480),block=True)
 	while True:
 		print("I'm a GUI loop")
 		eel.sleep(2.0)
