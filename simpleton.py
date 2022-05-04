@@ -6,7 +6,7 @@ import time
 global server_on
 server_on = True
 
-def filter_handler(address, *args):
+def message_handler(address, *args):
     print(f"{address}: {args}")
     if args[0]=="stop":
         # transport.close()
@@ -17,7 +17,7 @@ def filter_handler(address, *args):
 
 
 dispatcher = Dispatcher()
-dispatcher.map("/filter", filter_handler)
+dispatcher.map("/QuTune", message_handler)
 
 ip = "127.0.0.1"
 port = 1416
@@ -32,7 +32,7 @@ port = 1416
 
 #     while True:
 #         print("I'm a main loop")
-#         time.sleep(2.0) 
+#         time.sleep(2.0)
 # asyncio.run(init_main())
 # asyncio.run(init_main())
 
