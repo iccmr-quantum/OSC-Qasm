@@ -1,0 +1,16 @@
+#N canvas 14 373 450 300 12;
+#X obj 242 206 packOSC;
+#X msg 53 80 disconnect;
+#X obj 23 254 netsend -u -b;
+#X msg 23 24 connect localhost 1416;
+#X obj 242 159 list prepend send /QuTune;
+#X msg 242 24 qasm "OPENQASM 2\\\; include "qelib1.inc"\\\; qreg q[2]\\\;
+creg c[2]\\\; h q[0]\\\; cx q[0]\\\, q[1]\\\; measure q[0] -> c[0]\\\;
+measure q[1] -> c[1]\\\; ";
+#X obj 242 182 route list;
+#X connect 0 0 2 0;
+#X connect 1 0 2 0;
+#X connect 3 0 2 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;
+#X connect 6 0 0 0;
