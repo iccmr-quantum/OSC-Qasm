@@ -98,6 +98,8 @@ def run_circuit(qc, shots, backend_name):
 def parse_qasm(*args):
     global qc
 
+    # print(args)
+
     qc=QuantumCircuit().from_qasm_str(args[1])
     if len(args)>2:
         shots = args[2]
@@ -111,7 +113,7 @@ def parse_qasm(*args):
         backend_name='qasm_simulator'
 
     counts = run_circuit(qc, shots, backend_name)
-    Print("Sending result counts back to Max") # not working
+    Print("Sending result counts back to Pd") # not working
     client.send_message("info", "Retrieving results from osc_qasm.py..." )
     # list comprehension that converts a Dict into an
     # interleaved string list: [key1, value1, key2, value2...]
