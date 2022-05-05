@@ -92,13 +92,12 @@ def run_circuit(qc, shots, backend_name):
     else:
         backend = Aer.get_backend('qasm_simulator')
         job = execute(qc, shots=shots, backend=backend)
-    Print("Done!")
+    Print("Done!") # not working
     return job.result().get_counts()
 
 def parse_qasm(*args):
     global qc
 
-    print("args:",args)
     qc=QuantumCircuit().from_qasm_str(args[1])
     if len(args)>2:
         shots = args[2]
@@ -112,7 +111,7 @@ def parse_qasm(*args):
         backend_name='qasm_simulator'
 
     counts = run_circuit(qc, shots, backend_name)
-    Print("Sending result counts back to Max")
+    Print("Sending result counts back to Max") # not working
     client.send_message("info", "Retrieving results from osc_qasm.py..." )
     # list comprehension that converts a Dict into an
     # interleaved string list: [key1, value1, key2, value2...]
@@ -169,6 +168,7 @@ async def server_process(args):
     local_ip="127.0.0.1"
 
     #OSC server and client
+    Print = eel.print
     Print("serverstart args:",args)
 
     #parsing arguments from GUI
@@ -210,22 +210,18 @@ async def server_process(args):
     Print("Server has stopped now.")
 
 def GUI():
-	# eel.init('GUI')
-    # Print('================================================')
-    # Print(' OSC_QASM by OCH & Itaborala @ QuTune (v2.0.0) ')
-    # Print(' https://iccmr-quantum.github.io               ')
-    # Print('================================================')
     Print("hello from GUI")
     @eel.expose
     def pythonPrint(message):
-        Print("received",message)
-        Print("all good from python side!")
+        print("received",message)
+        print("all good from python side!")
     @eel.expose
     def start(*args):
         global server_on
         server_on = True
         print(args)
         asyncio.run(server_process(args))
+        Print = eel.print
         Print("after")
     @eel.expose
     def stop():
