@@ -99,8 +99,6 @@ def run_circuit(qc, shots, backend_name):
 def parse_qasm(*args):
     global qc
 
-    # print(args)
-
     qc=QuantumCircuit().from_qasm_str(args[1])
     if len(args)>2:
         shots = args[2]
@@ -229,7 +227,7 @@ def GUI():
     def stop():
         global server_on
         server_on = False
-    eel.start('index.html', cmdline_args=['-incognito'],size=(640,480),block=True)
+    eel.start('index.html', cmdline_args=['-incognito'],size=(840,480),block=True)
 
 
 if __name__ == '__main__':
