@@ -65,7 +65,7 @@
 				</div>
 			</td>
 			<td style="padding-left: 0px">
-				<div style="background-color: black; color: white; width: 256px; height: 100%; overflow-x: auto; white-space: nowrap; /*overflow-wrap: anywhere*/">
+				<div style="background-color: black; color: white; width: 444px; height: 100%; overflow-x: auto; white-space: nowrap; /*overflow-wrap: anywhere*/">
 					<div id="console" style="padding-left: 5px">
 						<p></p>
 						<p></p>
@@ -90,7 +90,6 @@
 		var console_array = [ "1", "2", "3", "4", "5", "6", "7", "8"];
 		for (var i = 0; i < console_array.length; i++) {
 			const para = document.createElement("p");
-			console.log(i);
 			para.innerHTML = ".";
 			console_array[i] = para;
 		}
@@ -117,7 +116,7 @@
 				}
 			}
 		}
-		update_console(".");
+		print(".");
 
 		var receive_port = document.getElementById('receive_port').value;
 		var send_port = document.getElementById('send_port').value;
@@ -175,6 +174,7 @@
 		// instructions for Pd client:
 		// Help > Find externals
 		// install osc-v0.2~git2015... by rdz
+		// in order to have the new osc library load with Pd everytime you might need to add its directory to `Pd > Preferences > Path...` or `Pd > Preferences > Startup...`
 	</script>
 </body>
 </html>
