@@ -112,7 +112,7 @@ def parse_qasm(*args):
         backend_name='qasm_simulator'
 
     counts = run_circuit(qc, shots, backend_name)
-    uiprint("Sending result counts back to Client") # not working
+    uiprint("Sending result counts back to Client")
     client.send_message("info", "Retrieving results from osc_qasm.py..." )
     # list comprehension that converts a Dict into an
     # interleaved string list: [key1, value1, key2, value2...]
@@ -227,7 +227,7 @@ def GUI():
     def stop():
         global server_on
         server_on = False
-    eel.start('index.html', cmdline_args=['-incognito'],size=(840,480),block=True)
+    eel.start('index.html', cmdline_args=['-incognito'],size=(640,480),block=True)
 
 
 if __name__ == '__main__':
