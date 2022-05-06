@@ -114,7 +114,7 @@ def parse_qasm(*args):
         backend_name='qasm_simulator'
 
     counts = run_circuit(qc, shots, backend_name)
-    uiprint("Sending result counts back to Pd") # not working
+    uiprint("Sending result counts back to Client") # not working
     client.send_message("info", "Retrieving results from osc_qasm.py..." )
     # list comprehension that converts a Dict into an
     # interleaved string list: [key1, value1, key2, value2...]
