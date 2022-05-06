@@ -16,7 +16,6 @@ import eel
 import socket
 import asyncio
 
-
 class FileLikeOutputOSC(object):
     ''' This class emulates a File-Like object
         with a "write()" method that can be used
@@ -31,7 +30,7 @@ class FileLikeOutputOSC(object):
 
     def write(self, text):
         if text != f'\n' and text != "": # Skips end='\n'|'' argument messages
-            print(text) # Print back to console
+            print(text) # uiprint back to console
             # Send message body back to Max on info channel
             client.send_message("info", text[12:])
 
@@ -49,10 +48,10 @@ class FileLikeErrorOSC(object):
 
     def write(self, text):
         if text != f'\n' and text != "": # Skips end='\n'|'' argument messages
-            print(text) # Print back to console
+            print(text) # uiprint back to console
 
             if text == ERR_SEP and self.older != ERR_SEP and self.older != "": # There is a line like ERR_SEP both at the begining and end of a qiskit error log!
-                # Print the last entry before the ending ERR_SEP
+                # uiprint the last entry before the ending ERR_SEP
                 client.send_message("error", "error in osc_qasm.py: \n(...) "+self.older+"switch to python console to learn more")
 
             elif "KeyboardInterrupt" in text:
@@ -61,9 +60,10 @@ class FileLikeErrorOSC(object):
 
             self.older=text # Update memory
 
+
 def run_circuit(qc, shots, backend_name):
 
-    Print("Running circuit on {}...".format(backend_name))
+    uiprint("Running circuit on {}...".format(backend_name))
     client.send_message("info", "Running circuit on {}...".format(backend_name) )
 
     flosc = FileLikeOutputOSC() # Use this only for job_monitor output
@@ -77,14 +77,14 @@ def run_circuit(qc, shots, backend_name):
             requested_qubits = qc.num_qubits
             if requested_qubits > available_qubits: # verify if the qubit count is compatible with the selected backend
                 client.send_message("error", "The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.".format(requested_qubits,backend_name[:-2],available_qubits) )
-                Print('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
+                uiprint('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
                 sys.exit()
             job = execute(qc, shots=shots, backend=backend)
             pass
         else: #we then must be naming a realdevice
             if not provider: #for which we definitely need credentials! D:
                 client.send_message("error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
-                Print('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
+                uiprint('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
                 sys.exit()
             backend = provider.get_backend(backend_name)
             job = execute(qc, shots=shots, backend=backend)
@@ -92,8 +92,9 @@ def run_circuit(qc, shots, backend_name):
     else:
         backend = Aer.get_backend('qasm_simulator')
         job = execute(qc, shots=shots, backend=backend)
-    Print("Done!") # not working
+    uiprint("Done!") # not working
     return job.result().get_counts()
+
 
 def parse_qasm(*args):
     global qc
@@ -113,13 +114,13 @@ def parse_qasm(*args):
         backend_name='qasm_simulator'
 
     counts = run_circuit(qc, shots, backend_name)
-    Print("Sending result counts back to Pd") # not working
+    uiprint("Sending result counts back to Pd") # not working
     client.send_message("info", "Retrieving results from osc_qasm.py..." )
     # list comprehension that converts a Dict into an
     # interleaved string list: [key1, value1, key2, value2...]
     sorted_counts = {}
     for key in sorted(counts):
-        #Print ("%s: %s" % (key, counts[key]) )
+        #uiprint ("%s: %s" % (key, counts[key]) )
         sorted_counts[key]=counts[key]
     counts_list = [str(x) for z in zip(sorted_counts.keys(), sorted_counts.values()) for x in z]
     # and then into a string
@@ -128,6 +129,7 @@ def parse_qasm(*args):
 
 callback = dispatcher.Dispatcher()
 callback.map("/QuTune", parse_qasm)
+
 
 def CLI(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
 
@@ -158,8 +160,8 @@ def CLI(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
     server = osc_server.ThreadingOSCUDPServer((local_ip, RECEIVE_PORT), callback)
     client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
     client.send_message("info", "osc_qasm.py is now running")
-    Print("Server Receiving on {} port {}".format(server.server_address[0], server.server_address[1]))
-    Print("Server Sending back on {} port {}".format(client._address,  client._port))
+    uiprint("Server Receiving on {} port {}".format(server.server_address[0], server.server_address[1]))
+    uiprint("Server Sending back on {} port {}".format(client._address,  client._port))
     server.serve_forever()
 
 
@@ -170,8 +172,7 @@ async def server_process(args):
     local_ip="127.0.0.1"
 
     #OSC server and client
-    Print = eel.print
-    Print("serverstart args:",args)
+    uiprint("serverstart args:",args)
 
     #parsing arguments from GUI
     wUDP_IP = args[0]
@@ -194,7 +195,7 @@ async def server_process(args):
     if wREMOTE == "None":
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))#this throws an error if machine is not connected to any network
-        local_ip = s.getsockname()[0]#this Prints 0.0.0.0 if machine is not connected to any network
+        local_ip = s.getsockname()[0]#this prints 0.0.0.0 if machine is not connected to any network
         pass
     elif wREMOTE != "false":
         local_ip = wREMOTE
@@ -203,16 +204,17 @@ async def server_process(args):
     transport, protocol = await server.create_serve_endpoint()
     client = udp_client.SimpleUDPClient(wUDP_IP, wSEND_PORT)
     client.send_message("info", "osc_qasm.py is now running")
-    Print("Server Receiving on {} port {}".format(server._server_address[0], server._server_address[1]))
-    Print("Server Sending back on {} port {}".format(client._address,  client._port))
+    uiprint("Server Receiving on {} port {}".format(server._server_address[0], server._server_address[1]))
+    uiprint("Server Sending back on {} port {}".format(client._address,  client._port))
     while server_on:
         eel.sleep(0.333)
         await asyncio.sleep(0.333)
     transport.close()
-    Print("Server has stopped now.")
+    uiprint("Server has stopped now.")
+
 
 def GUI():
-    Print("hello from GUI")
+    uiprint("hello from GUI")
     @eel.expose
     def pythonPrint(message):
         print("received",message)
@@ -221,10 +223,8 @@ def GUI():
     def start(*args):
         global server_on
         server_on = True
-        print(args)
         asyncio.run(server_process(args))
-        Print = eel.print
-        Print("after")
+        uiprint("after")
     @eel.expose
     def stop():
         global server_on
@@ -233,7 +233,7 @@ def GUI():
 
 
 if __name__ == '__main__':
-    global HEADLESS, Print
+    global HEADLESS
     p = argparse.ArgumentParser()
 
     p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the osc_qasm.py Server will listen for incoming messages. Default port is 1416')
@@ -266,18 +266,22 @@ if __name__ == '__main__':
                 args.project=None
 
     HEADLESS = args.headless
+
+    def uiprint(*message):
+        if HEADLESS:
+            print(*message)
+        else:
+            eel.print(*message)
     if HEADLESS:
-        Print = print
-        Print('================================================')
-        Print(' OSC_QASM by OCH & Itaborala @ QuTune (v2.0.0) ')
-        Print(' https://iccmr-quantum.github.io               ')
-        Print('================================================')
+        uiprint('================================================')
+        uiprint(' OSC_QASM by OCH & Itaborala @ QuTune (v2.0.0) ')
+        uiprint(' https://iccmr-quantum.github.io               ')
+        uiprint('================================================')
         CLI(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project, args.remote)
     else:
         eel.init('GUI')
-        Print = eel.print
-        Print('================================================')
-        Print(' OSC_QASM by OCH & Itaborala @ QuTune (v2.0.0) ')
-        Print(' https://iccmr-quantum.github.io               ')
-        Print('================================================')
+        uiprint('================================================')
+        uiprint(' OSC_QASM by OCH & Itaborala @ QuTune (v2.0.0) ')
+        uiprint(' https://iccmr-quantum.github.io               ')
+        uiprint('================================================')
         GUI()
