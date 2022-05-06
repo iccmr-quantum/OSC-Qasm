@@ -11,65 +11,113 @@
 </head>
 <body style="height: 100vh; position: relative; margin: 0">
 	<div id="appname" style="position: absolute; top: 0%; left: 0%;color: #333;"><i><a style="color: #333; text-decoration: none;" href="https://github.com/iccmr-quantum/OSC-Qasm">osc_qasm server v2.0</a> - <a style="color: #333; text-decoration: none;" href="https://omarcostahamido.com">OCH</a> @ <a style="color: #333; text-decoration: none;" href="https://iccmr-quantum.github.io/">QuTune</a> (2022)</i></div>
-	<div style="overflow-x: visible; overflow-y: visible; position: absolute; left: 50%;transform: translate(-50%, 0%); padding-top: 50px">
-		<form onsubmit="event.preventDefault(); update_vars(); startstop();">
-			<table>
-				<tr>
-					<td>
-						<label for=""><b>SETUP</b></label><br><br>
-					</td>
-					<td style="white-space: nowrap; width: 180px;">
-						<label for="ibmq_check">IBM-Quantum:</label>
-						<input type="checkbox" id="ibmq_check" name="ibmq_check" onclick='ibmq_checkbox(this);'><br><br>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="receive_port">Receive port:</label><br>
-						<input type="number" id="receive_port" name="receive_port" value="1416"><br><br>
-						<label for="send_port">Send port:</label><br>
-						<input type="number" id="send_port" name="send_port" value="1417"><br><br>
-						<label for="ip">Client IP:</label><br>
-						<input type="text" id="ip" name="ip" value="127.0.0.1"><br><br>
-						<label for="remote">Remote:</label><br>
-						<input type="checkbox" id="remote_check" name="remote_check" onclick='remote_checkbox(this);'>
-						<input type="text" id="remote" name="remote" value="Default" size="16" disabled>
-					</td>
-					<td>
-						<div id="ibmq" style="display:none;"><label for="token">Token:</label><br>
-							<input type="password" id="token" name="token" value="false"><br><br>
-							<label for="hub">Hub:</label><br>
-							<input type="text" id="hub" name="hub" value="ibm-q"><br><br>
-							<label for="group">Group:</label><br>
-							<input type="text" id="group" name="group" value="open"><br><br>
-							<label for="project">Project:</label><br>
-							<input type="text" id="project" name="project" value="main">
-						</div>
-					</td>
-				</tr>
-			</table>
-			<br><br>
-		  <input id="submit" type="submit" value="Start">
-		</form>
-		<br><br>
-		<!-- <form onsubmit="update_vars(); connect2server(); return false">
-		  <label for="ip">Server ip:</label><br>
-		  <input type="text" id="ip" name="ip" value="127.0.0.1"><br><br>
-		  <label for="port">Server port:</label><br>
-		  <input type="number" id="port" name="port" value="5000"><br><br>
-		  <input type="submit" value="Connect">
-		</form><br><br>
-		<table style="width: 50vw;">
-			<tr><td>Status: </td><td id="status"></td></tr>
-			<tr style="height: 10px"></tr>
-			<tr><td>Results: </td><td id="results"></td></tr>
-		</table> -->
-	</div>
+	<table style="overflow-x: visible; overflow-y: visible; position: absolute; left: 50%;transform: translate(-50%, 0%); padding-top: 50px">
+		<tr>
+			<td>
+				<div>
+					<form onsubmit="event.preventDefault(); update_vars(); startstop();">
+						<table>
+							<tr>
+								<th style="text-align: left;">
+									<label for=""><b>SETUP</b></label><br><br>
+								</th>
+								<th style="white-space: nowrap; text-align: left;">
+									<div style="width: 149px">
+										<label for="ibmq_check">IBM-Quantum:</label>
+										<input type="checkbox" id="ibmq_check" name="ibmq_check" onclick='ibmq_checkbox(this);'><br><br>
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<td>
+									<label for="receive_port">Receive port:</label><br>
+									<input type="number" id="receive_port" name="receive_port" value="1416"><br><br>
+									<label for="send_port">Send port:</label><br>
+									<input type="number" id="send_port" name="send_port" value="1417"><br><br>
+									<label for="ip">Client IP:</label><br>
+									<input type="text" id="ip" name="ip" value="127.0.0.1"><br><br>
+									<label for="remote">Remote:</label><br>
+									<input type="checkbox" id="remote_check" name="remote_check" onclick='remote_checkbox(this);'>
+									<input type="text" id="remote" name="remote" value="Default" size="16" disabled>
+								</td>
+								<td>
+									<div id="ibmq" style="display:none;"><label for="token">Token:</label><br>
+										<input type="password" id="token" name="token" value="false"><br><br>
+										<label for="hub">Hub:</label><br>
+										<input type="text" id="hub" name="hub" value="ibm-q"><br><br>
+										<label for="group">Group:</label><br>
+										<input type="text" id="group" name="group" value="open"><br><br>
+										<label for="project">Project:</label><br>
+										<input type="text" id="project" name="project" value="main">
+									</div>
+								</td>
+							</tr>
+						</table>
+						<br><br>
+						<input id="submit" type="submit" value="Start">
+					</form>
+					<br><br>
+					<!--<table style="width: 50vw;">
+					<tr><td>Status: </td><td id="status"></td></tr>
+					<tr style="height: 10px"></tr>
+					<tr><td>Results: </td><td id="results"></td></tr>
+					</table> -->
+				</div>
+			</td>
+			<td style="padding-left: 0px">
+				<div style="background-color: black; color: white; width: 256px; height: 100%; overflow-x: auto; white-space: nowrap; /*overflow-wrap: anywhere*/">
+					<div id="console" style="padding-left: 5px">
+						<p></p>
+						<p></p>
+						<p></p>
+						<p></p>
+						<p></p>
+						<p></p>
+						<p></p>
+						<p></p>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<!-- <button style="position: absolute; top:90%" onclick="update_console('new entry')">Try it</button> -->
 	<script type="text/javascript">
 		eel.expose(print);
-		function print(message) {
-		  console.log(message);
+		// function print(message) {
+		//   console.log(message);
+		// }
+
+		var console_array = [ "1", "2", "3", "4", "5", "6", "7", "8"];
+		for (var i = 0; i < console_array.length; i++) {
+			const para = document.createElement("p");
+			console.log(i);
+			para.innerHTML = ".";
+			console_array[i] = para;
 		}
+		// function update_console(...args){
+		function print(...args){
+			for (var i = 0; i < console_array.length; i++) {
+				const placeholder = document.getElementById("console");
+				if (i==console_array.length-1) {
+					const element = document.createElement("p");
+					element.innerHTML = args.join(" ");
+					if (args[0]=="error") {
+						element.style.color = "red";
+					} else if (args[0]=="counts") {
+
+					}
+					console_array[i] = element;
+					// document.getElementById("console").appendChild(element);
+					placeholder.appendChild(element);
+				} else {
+					const element = console_array[i+1];
+					element.style.opacity = 0.2+i*0.1;
+					console_array[i] = element;
+					placeholder.replaceChild(element, placeholder.children[i]);
+				}
+			}
+		}
+		update_console(".");
 
 		var receive_port = document.getElementById('receive_port').value;
 		var send_port = document.getElementById('send_port').value;
@@ -118,13 +166,15 @@
 		function startstop(){
 			if (submit=="Start") {
 				eel.start(ip,receive_port,send_port,token,hub,group,project,remote);
-				// eel.pythonprint("some message from javascript");
 				document.getElementById('submit').value = "Stop";
 			} else {
 				eel.stop();
 				document.getElementById('submit').value = "Start";
 			}
 		}
+		// instructions for Pd client:
+		// Help > Find externals
+		// install osc-v0.2~git2015... by rdz
 	</script>
 </body>
 </html>
