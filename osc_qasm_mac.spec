@@ -46,7 +46,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='osc_qasm',
+    name='OSC_Qasm_2',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

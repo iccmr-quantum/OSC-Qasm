@@ -9,7 +9,6 @@ datas += [('OSCQasm\\lib\\site-packages\\qiskit_ignis-0.7.0.dist-info', 'qiskit_
 
 block_cipher = None
 
-
 a = Analysis(
     ['osc_qasm.py'],
     pathex=[],
@@ -29,10 +28,7 @@ a = Analysis(
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
-
-
-# Avoid warning. Can we change this accordingly?
-#to_remove = ["_accelerate", "controller_wrappers", "pulse_utils"]
+# Avoids warnings.
 to_remove = ["qiskit._accelerate", "backends.controller_wrappers", "controllers.pulse_utils"]
 for val in to_remove:
     for b in a.binaries:
@@ -40,16 +36,6 @@ for val in to_remove:
           if str(nb).endswith(val):
                 print("removed  " + b[0])
                 a.binaries.remove(b)
-# for b in a.binaries:
-#     print(b)
-#
-#     found = any(
-#         f'{crypto}.cp310-win_amd64.pyd' in b[1]
-#         for crypto in to_remove
-#     )
-#     if found:
-#         print(f"Removing {b[1]}")
-#         a.binaries.remove(b)
 
 
 exe = EXE(
@@ -59,7 +45,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='osc_qasm',
+    name='OSC_Qasm_2',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
