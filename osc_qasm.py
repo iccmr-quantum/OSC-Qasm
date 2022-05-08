@@ -1,6 +1,7 @@
 # OSC-Qasm
 # A simple OSC Python interface for executing Qasm code.
 # Or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware.
+# Or a simple server to connect music programming languages with quantum computing technology using OSC protocol.
 #
 # Omar Costa Hamido / Paulo Vitor Itaboraí (2021 - 2022)
 # https://github.com/iccmr-quantum/OSC-Qasm
@@ -113,7 +114,7 @@ def parse_qasm(*args):
 
     counts = run_circuit(qc, shots, backend_name)
     uiprint("Sending result counts back to Client")
-    client.send_message("info", "Retrieving results from osc_qasm.py..." )
+    client.send_message("info", "Retrieving results from OSC-Qasm..." )
     # list comprehension that converts a Dict into an
     # interleaved string list: [key1, value1, key2, value2...]
     sorted_counts = {}
@@ -125,6 +126,7 @@ def parse_qasm(*args):
     counts_list = " ".join(counts_list)
     client.send_message("counts", counts_list)
 
+# Mapping the OSC Server callback function
 callback = dispatcher.Dispatcher()
 callback.map("/QuTune", parse_qasm)
 
@@ -157,7 +159,7 @@ def CLI(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
     #OSC server and client
     server = osc_server.ThreadingOSCUDPServer((local_ip, RECEIVE_PORT), callback)
     client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
-    client.send_message("info", "osc_qasm.py is now running")
+    client.send_message("info", "OSC-Qasm is now running")
     uiprint("Server Receiving on {} port {}".format(server.server_address[0], server.server_address[1]))
     uiprint("Server Sending back on {} port {}".format(client._address,  client._port))
     server.serve_forever()
@@ -170,7 +172,7 @@ async def server_process(args):
     local_ip="127.0.0.1"
 
     #OSC server and client
-    uiprint("serverstart args:",args)
+    # uiprint("serverstart args:",args) #Is this uiprint necessary?
 
     #parsing arguments from GUI
     wUDP_IP = args[0]
@@ -201,7 +203,7 @@ async def server_process(args):
     server = osc_server.AsyncIOOSCUDPServer((local_ip, wRECEIVE_PORT), callback, asyncio.get_event_loop())
     transport, protocol = await server.create_serve_endpoint()
     client = udp_client.SimpleUDPClient(wUDP_IP, wSEND_PORT)
-    client.send_message("info", "osc_qasm.py is now running")
+    client.send_message("info", "OSC-Qasm is now running")
     uiprint("Server Receiving on {} port {}".format(server._server_address[0], server._server_address[1]))
     uiprint("Server Sending back on {} port {}".format(client._address,  client._port))
     while server_on:
@@ -209,20 +211,18 @@ async def server_process(args):
         await asyncio.sleep(0.333)
     transport.close()
     uiprint("Server has stopped now.")
+    client.send_message("info", "OSC-Qasm Server has Stopped.")
 
 
 def GUI():
-    uiprint("hello from GUI")
     @eel.expose
     def pythonPrint(message):
         print("received",message)
-        print("all good from python side!")
     @eel.expose
     def start(*args):
         global server_on
         server_on = True
         asyncio.run(server_process(args))
-        uiprint("after")
     @eel.expose
     def stop():
         global server_on
@@ -234,15 +234,15 @@ if __name__ == '__main__':
     global HEADLESS
     p = argparse.ArgumentParser()
 
-    p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the osc_qasm.py Server will listen for incoming messages. Default port is 1416')
-    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that osc_qasm.py will use to send messages back to Max/MSP. Default port is 1417')
-    p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address to where the retrieved results will be sent (Where Max/MSP is located). Default IP is 127.0.0.1 (localhost)')
+    p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the OSC-Qasm Server will listen for incoming messages. Default port is 1416')
+    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that OSC-Qasm will use to send messages back to the Client. Default port is 1417')
+    p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address to where the retrieved results will be sent (Where the Client is located). Default IP is 127.0.0.1 (localhost)')
     p.add_argument('--token', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
     p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
     p.add_argument('--project', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Project')
-    p.add_argument('--remote', nargs='?', default=False, help='Declare this is a remote server. In this case osc_qasm.py will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
-    p.add_argument('--headless', nargs='?', type=bool, const=True, default=False, help='Run osc_qasm.py in headless mode. This is useful if you don\'t want to launch the GUI and only work in the terminal.will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
+    p.add_argument('--remote', nargs='?', default=False, help='Declare this is a remote server. In this case, OSC-Qasm will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
+    p.add_argument('--headless', nargs='?', type=bool, const=True, default=False, help='Run OSC-Qasm in headless mode. This is useful if you don\'t want to launch the GUI and only work in the terminal. Will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
 
     args = p.parse_args()
 
@@ -265,21 +265,21 @@ if __name__ == '__main__':
 
     HEADLESS = args.headless
 
+    if not HEADLESS:
+        eel.init('GUI')
+
     def uiprint(*message):
         if HEADLESS:
             print(*message)
         else:
             eel.print(*message)
+
+    uiprint('================================================')
+    uiprint(' OSC_QASM by OCH & Itaborala @ QuTune (v2.0.0) ')
+    uiprint(' https://iccmr-quantum.github.io               ')
+    uiprint('================================================')
+
     if HEADLESS:
-        uiprint('================================================')
-        uiprint(' OSC_QASM by OCH & Itaborala @ QuTune (v2.0.0) ')
-        uiprint(' https://iccmr-quantum.github.io               ')
-        uiprint('================================================')
         CLI(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project, args.remote)
     else:
-        eel.init('GUI')
-        uiprint('================================================')
-        uiprint(' OSC_QASM by OCH & Itaborala @ QuTune (v2.0.0) ')
-        uiprint(' https://iccmr-quantum.github.io               ')
-        uiprint('================================================')
         GUI()
