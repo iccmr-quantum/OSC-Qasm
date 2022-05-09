@@ -1,61 +1,83 @@
 # OSC-Qasm
 [![DOI](https://zenodo.org/badge/432225522.svg)](https://zenodo.org/badge/latestdoi/432225522)
+<!-- TODO:
+- compile windows application
+- compile windows console application
+  - change line 55 to console=True,
+  - change line 48 to name='OSC_Qasm_2_console',
+- Complete #Running Server section
+- Complete #Running Client section
+- Add notes to be patient, when opening the server app, and when running the first job: it takes more time.
+DONE- review Pd patch
+DONE- compile mac application
+DONE- compile linux application
+DONE- change ##installation to ##build and move it down
+DONE- commit index.html for pyinstaller
+  DONE- ah ok, one second! thx
+  DONE- preciso fazer uma altercao no python! para mudar o tamanho da janela ok! eu nao vou publicar, mas ja vou testar o pyinstaller (depois rodo novamente)
+DONE- get .icon version of favicon
+ -->
+A simple multi-platform OSC Python interface for executing Qasm code. Or a simple way to connect creative programming environments like Max (_The QAC Toolkit_) and Pd with real quantum hardware, using the OSC protocol. Please click the <img src="https://cdn-icons-png.flaticon.com/512/151/151917.png" width="15" height="15"> icon on the top left corner of this Readme.md file viewer on [github](https://github.com/iccmr-quantum/OSC-Qasm/) to access the table of contents.
 
-A simple multi-platform OSC Python interface for executing Qasm code.
-(or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware)
+## Running Server
 
-## Installation
-Before starting, make sure you have [Python](https://www.python.org/) 3.7+ in your system.
-- when using the installer on windows make sure to select the option `Add Python X to PATH`
+With the launch of _OSC-Qasm 2.0_, you can now run the server side in two ways - with the graphical user interface (GUI), or headless with the command line interface (CLI).
 
-In order to try our Max patches, make sure you also have [Max](http://cycling74.com) installed, and [_The QAC Toolkit_](http://quantumland.art/qac) Max package available.
+### GUI
+The GUI implementation requires google chrome browser installed.
 
-Clone or [download](https://github.com/iccmr-quantum/OSC-Qasm/archive/refs/heads/main.zip) and unzip this repo.
+If you downloaded the compiled application for your OS from the [releases folder](https://github.com/iccmr-quantum/OSC-Qasm/releases) (recommended), simply double click the application icon to launch it.
 
-Open the Terminal (Mac/Linux) or Command Prompt (Windows) and navigate to the folder  where you saved the repo.
-- see here a refresher on how to navigate using the terminal [[1](https://computers.tutsplus.com/tutorials/navigating-the-terminal-a-gentle-introduction--mac-3855)][[2](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html)]
+If you cloned or downloaded the source code, you need to follow the instructions in the [Build](#build) section. Then, you can launch it by simply running `python osc_qasm.py` on your Terminal (Mac/Linux) or Command Prompt (Windows).
 
-Create a python virtual environment
-- on the terminal, type: `python3 -m venv OSCQasm`
-- depending on your system, you may simply use: `python -m venv OSCQasm`
+Wait until the GUI window opens (it takes several seconds on Windows and Mac):
 
-Enter your new python virtual environment
-- on mac/linux: `source OSCQasm/bin/activate`
-- on windows: `OSCQasm\Scripts\activate`
+[!GUI.png](.docs/imgs/GUI.png)
 
-At the start of your terminal prompt, it should show `(OSCQasm)`, indicating that you're in your new virtual environment.
+This graphical user interface presents several input fields that let you easily change the server configuration setup. The checkbox `IBM-Quantum` reveals additional fields that allow the use of [_IBM Quantum_](quantum-computing.ibm.com) credentials to access IBM's real quantum hardware. For more details about all these options, please read the [Additional arguments](#additional-arguments) section.
+When you're ready, you can click the `Start` button and you will see the program outputting the following lines:
 
-Update pip and setuptools
-- `pip install --upgrade pip setuptools`
-- Note: if for some reason you don't have pip, please [install it](https://phoenixnap.com/kb/install-pip-windows)
+```console
+Server Receiving on 127.0.0.1 port PPPP
+Server Sending back on x.x.x.x port QQQQ
+```
 
-Install qiskit and python-osc
-- `pip install qiskit python-osc`
+At this point, you can launch the client application of your choice (see [Running Client](#running-client)) and start sending qasm via OSC to _OSC-Qasm 2_. Note that the first job usually takes additional time to complete, as some resources need to be loaded.
 
-Copy the [osc_qasm-Max](./osc_qasm-Max/) folder to your Max library
-- usually located in Documents/Max 8/Library
+### CLI
 
-## Running
+You can also run _OSC-Qasm_ in **headless** mode, with a Command-Line Interface server.
+To do so, open a Terminal (Mac/Linux) or Command Prompt (Windows) and go to the location of your downloaded _OSC-Qasm 2_ application, or drag the application file into a console window. Then, run the executable file using the `--headless` flag as described below. Note that Windows has a specific executable file `OSC_Qasm_2_console.exe` (in the [releases](https://github.com/iccmr-quantum/OSC-Qasm/releases)) for running the **headless** mode properly.
 
-First, open a Terminal (Mac/Linux) or Command Prompt (Windows) and start you python environment.
+- Mac: add `/Contents/MacOS/OSC_Qasm_2 --headless` to the command, as in:
+```console
+OSC_Qasm_2.app/Contents/MacOS/OSC_Qasm_2 --headless
+```
+- Windows
+```console
+OSC_Qasm_2_console.exe --headless
+```
+- Linux
+```console
+./OSC_Qasm_2 --headless
+```
 
-Then run the python module: `python osc_qasm.py`
-Wait until the program outputs the following lines:
+The program will now greet you directly in the console with:
 ```console
 ================================================
- OSC_QASM by OCH & Itaborala @ QuTune (v1.x.x)
+ OSC_QASM by OCH & Itaborala @ QuTune (v2.x.x)
  https://iccmr-quantum.github.io               
 ================================================
 Server Receiving on 127.0.0.1 port PPPP
 Server Sending back on x.x.x.x port QQQQ
 ```
-Now you can open the [example.maxpat](example.maxpat) or [osc_qasm.maxhelp](osc_qasm-Max/osc_qasm.maxhelp) in Max 8 (Mac/Windows only) and start sending messages with QuantumCircuits in Qasm, to the OSC-Qasm python module.
 
-When you're done working with osc_qasm.py you can leave the virtual environment with
-- on mac/linux & windows: `deactivate`
+At this point, you can launch the client application of your choice (see [Running Client](#running-client)) and start sending qasm via OSC to _OSC-Qasm 2_. Note that the first job usually takes additional time to complete, as some resources need to be loaded.
+
+When you're done working with _OSC-Qasm_ you can stop it by pressing `Ctrl+C`.
 
 ### Additional arguments
-You can also set some additional arguments and flags in front of `python osc_qasm.py`:
+Whether you are running _OSC-Qasm 2_ in **GUI** mode or **CLI** mode, using the compiled application, or building from source, you can configure your server by using some additional arguments and flags. The list bellow, that you can retrieve from running the `--help`, includes a detailed description of each option.
 
 ```console
 usage: osc_qasm.py [-h] [--token TOKEN] [--hub HUB] [--group GROUP]
@@ -63,29 +85,31 @@ usage: osc_qasm.py [-h] [--token TOKEN] [--hub HUB] [--group GROUP]
                    [receive_port] [send_port] [ip]
 
 positional arguments:
-  receive_port       The port where the osc_qasm.py Server will listen for
-                     incoming messages. Default port is 1416
-  send_port          The port that osc_qasm.py will use to send messages back
-                     to Max/MSP. Default port is 1417
-  ip                 The IP address to where the retrieved results will be
-                     sent (Where Max/MSP is located). Default IP is 127.0.0.1
-                     (localhost)
+  receive_port            The port where the OSC-Qasm Server will listen for
+                          incoming messages. Default port is 1416
+  send_port               The port that osc_qasm.py will use to send messages back
+                          to the Client. Default port is 1417
+  ip                      The IP address to where the retrieved results will be
+                          sent (Where the Client is located). Default IP is 127.0.0.1
+                          (localhost)
 
 optional arguments:
-  -h, --help         show this help message and exit
-  --token TOKEN      If you want to run circuits on real quantum hardware, you
-                     need to provide your IBMQ token (see https://quantum-
-                     computing.ibm.com/account)
-  --hub HUB          If you want to run circuits on real quantum hardware, you
-                     need to provide your IBMQ Hub
-  --group GROUP      If you want to run circuits on real quantum hardware, you
-                     need to provide your IBMQ Group
-  --project PROJECT  If you want to run circuits on real quantum hardware, you
-                     need to provide your IBMQ Project
-  --remote [REMOTE]  Declare this is a remote server. In this case osc_qasm.py
-                     will be listenning to messages coming into the network
-                     adapter address. If there is a specific network adapter
-                     IP you want to listen in, add it as an argument here
+  -h, --help              show this help message and exit
+  --token TOKEN           If you want to run circuits on real quantum hardware, you
+                          need to provide your IBMQ token (see https://quantum-
+                          computing.ibm.com/account)
+  --hub HUB               If you want to run circuits on real quantum hardware, you
+                          need to provide your IBMQ Hub
+  --group GROUP           If you want to run circuits on real quantum hardware, you
+                          need to provide your IBMQ Group
+  --project PROJECT       If you want to run circuits on real quantum hardware, you
+                          need to provide your IBMQ Project
+  --remote [REMOTE]       Declare this is a remote server. In this case, OSC-Qasm
+                          will be listening to messages coming into the network
+                          adapter address. If there is a specific network adapter
+                          IP you want to listen in, add it as an argument here
+  --headless [HEADLESS]   Run OSC-Qasm in headless mode. This is useful if you
+                          don't want to launch the GUI and only work in the terminal.
 ```
 
 
@@ -104,7 +128,7 @@ flowchart LR
 C1 -- qasm --> S1 -- results --> C2
 ```
 
-To that end, `osc_qasm.py` has an optional flag/argument called `--remote`. When used, the `osc_qasm.py` will listen to the default IP address assigned to the machine for the local area network, instead of "127.0.0.1". Additionally, you can add an argument after the flag to specify the IP address to use (useful in a scenario with multiple network adapters, each giving the machine a different IP address for each network).
+To that end, _OSC-Qasm_ has an optional flag/argument called `--remote`. When used, the  _OSC-Qasm_ will listen to the default IP address assigned to the machine for the local area network, instead of "127.0.0.1". Additionally, you can add an argument after the flag to specify the IP address to use (useful in a scenario with multiple network adapters, each giving the machine a different IP address for each network).
 
 Example:
 
@@ -203,6 +227,66 @@ In this example, since we've created the network in the previous step we will ju
 You can now open your max patch and add an attribute to `osc_qasm` object to specify the target IP address to send requests to. In this example this was done by simply adding `@ip 25.54.209.94` which is the hamachi IP address of the Linux `osc_qasm.py` server machine configured before.
 
 ![UK04.png](./docs/imgs/UK04.png)
+
+## Running Client
+Now you can open the [example.maxpat](example.maxpat) or [osc_qasm.maxhelp](osc_qasm-Max/osc_qasm.maxhelp) in Max 8 (Mac/Windows only) and start sending messages with QuantumCircuits in Qasm, to the OSC-Qasm python module.
+### Max
+
+### Pd
+// instructions for Pd client:
+// Help > Find externals
+// install osc-v0.2~git2015... by rdz
+// in order to have the new osc library load with Pd everytime you might need to add its directory to `Pd > Preferences > Path...` or `Pd > Preferences > Startup...`
+
+## Build
+Before starting, make sure you have [Python](https://www.python.org/) 3.7+ in your system.
+- when using the installer on windows make sure to select the option `Add Python X to PATH`
+running in front of `python osc_qasm.py`:
+<!-- move this paragraph out of here -->
+In order to try the Max client, make sure you also have [Max](http://cycling74.com) installed, and [_The QAC Toolkit_](http://quantumland.art/qac) Max package available. In order to try the Pd client,
+
+Clone or [download](https://github.com/iccmr-quantum/OSC-Qasm/archive/refs/heads/main.zip) and unzip this repo.
+
+Open the Terminal (Mac/Linux) or Command Prompt (Windows) and navigate to the folder  where you saved the repo.
+- see here a refresher on how to navigate using the terminal [[1](https://computers.tutsplus.com/tutorials/navigating-the-terminal-a-gentle-introduction--mac-3855)][[2](https://www.macworld.com/article/221277/command-line-navigating-files-folders-mac-terminal.html)]
+
+Create a python virtual environment
+- on the terminal, type: `python3 -m venv OSCQasm`
+- depending on your system, you may simply use: `python -m venv OSCQasm`
+
+Enter your new python virtual environment
+- on mac/linux: `source OSCQasm/bin/activate`
+- on windows: `OSCQasm\Scripts\activate`
+
+At the start of your terminal prompt, it should show `(OSCQasm)`, indicating that you're in your new virtual environment.
+
+Update pip and setuptools
+- `pip install --upgrade pip setuptools`
+- Note: if for some reason you don't have pip, please [install it](https://phoenixnap.com/kb/install-pip-windows)
+
+Install qiskit, python-osc, eel, and pyinstaller
+- `pip install qiskit python-osc eel pyinstaller`
+
+You can now run OSC-Qasm from your terminal with:
+- `python osc_qasm.py` to launch the GUI mode
+- `python osc_qasm.py --headless` to launch the headless module
+
+For more options please refer to the [Additional arguments](#additional-arguments) section above.
+
+To compile the application you will have to run:
+- on mac/linux: `pyinstaller osc_qasm_mac.spec`
+- on windows: `pyinstaller osc_qasm_windows.spec`
+
+Note: you might need to edit the `.spec` file to make sure lines 3 to 8 correctly refer to valid paths for your current system configuration. More specifically, you might need to change the python version number in the path to match the python version you have in your system. Also, note that you simply need to change line 55 of `osq_qasm_windows.spec` to `console=True,` in order to compile the OSC_Qasm_2_console version for Windows.
+
+After compilation, you will find the app executable under the `dist` directory.
+
+Finally, you can leave the virtual environment with:
+- on mac/linux & windows: `deactivate`
+
+<!-- move this paragraph out of here -->
+Copy the [osc_qasm-Max](./osc_qasm-Max/) folder to your Max library
+- usually located in Documents/Max 8/Library
 
 ## Feedback and Getting help
 Please open a [new issue](https://github.com/iccmr-quantum/OSC-Qasm/issues/new).
