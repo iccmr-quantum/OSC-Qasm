@@ -172,8 +172,6 @@ async def server_process(args):
     local_ip="127.0.0.1"
 
     #OSC server and client
-    # uiprint("serverstart args:",args) #Is this uiprint necessary?
-
     #parsing arguments from GUI
     wUDP_IP = args[0]
     wRECEIVE_PORT = int(args[1])
@@ -183,7 +181,6 @@ async def server_process(args):
     wGROUP = args[5]
     wPROJECT = args[6]
     wREMOTE = args[7]
-
     if wTOKEN != "false":
         IBMQ.enable_account(wTOKEN, 'https://auth.quantum-computing.ibm.com/api', wHUB, wGROUP, wPROJECT)
         provider=IBMQ.get_provider(hub=wHUB, group=wGROUP, project=wPROJECT)
