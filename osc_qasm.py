@@ -33,7 +33,7 @@ class FileLikeOutputOSC(object):
         if text != f'\n' and text != "": # Skips end='\n'|'' argument messages
             print(text) # uiprint back to console
             # Send message body back to Max on info channel
-            client.send_message("info", text[12:])
+            client.send_message("/info", text[12:])
 
 class FileLikeErrorOSC(object):
     ''' This class emulates a File-Like object
@@ -53,11 +53,11 @@ class FileLikeErrorOSC(object):
 
             if text == ERR_SEP and self.older != ERR_SEP and self.older != "": # There is a line like ERR_SEP both at the begining and end of a qiskit error log!
                 # uiprint the last entry before the ending ERR_SEP
-                client.send_message("error", "error in osc_qasm.py: \n(...) "+self.older+"switch to python console to learn more")
+                client.send_message("/error", "error in osc_qasm.py: \n(...) "+self.older+"switch to python console to learn more")
 
             elif "KeyboardInterrupt" in text:
                 # When closing the program with Ctrl+c, There is a 'KeyboardInterrupt' error message.
-                client.send_message("error", "osc_qasm.py has been terminated in the Python environment.")
+                client.send_message("/error", "osc_qasm.py has been terminated in the Python environment.")
 
             self.older=text # Update memory
 
@@ -65,7 +65,7 @@ class FileLikeErrorOSC(object):
 def run_circuit(qc, shots, backend_name):
 
     uiprint("Running circuit on {}...".format(backend_name))
-    client.send_message("info", "Running circuit on {}...".format(backend_name) )
+    client.send_message("/info", "Running circuit on {}...".format(backend_name) )
 
     flosc = FileLikeOutputOSC() # Use this only for job_monitor output
 
@@ -77,14 +77,14 @@ def run_circuit(qc, shots, backend_name):
             available_qubits = backend.configuration().n_qubits
             requested_qubits = qc.num_qubits
             if requested_qubits > available_qubits: # verify if the qubit count is compatible with the selected backend
-                client.send_message("error", "The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.".format(requested_qubits,backend_name[:-2],available_qubits) )
+                client.send_message("/error", "The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.".format(requested_qubits,backend_name[:-2],available_qubits) )
                 uiprint('The circuit submitted is requesting {} qubits but the {} backend selected only has {} available qubits.'.format(requested_qubits,backend_name[:-2],available_qubits))
                 sys.exit()
             job = execute(qc, shots=shots, backend=backend)
             pass
         else: #we then must be naming a realdevice
             if not provider: #for which we definitely need credentials! D:
-                client.send_message("error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
+                client.send_message("/error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
                 uiprint('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
                 sys.exit()
             backend = provider.get_backend(backend_name)
@@ -114,7 +114,7 @@ def parse_qasm(*args):
 
     counts = run_circuit(qc, shots, backend_name)
     uiprint("Sending result counts back to Client")
-    client.send_message("info", "Retrieving results from OSC-Qasm..." )
+    client.send_message("/info", "Retrieving results from OSC-Qasm..." )
     # list comprehension that converts a Dict into an
     # interleaved string list: [key1, value1, key2, value2...]
     sorted_counts = {}
@@ -124,7 +124,7 @@ def parse_qasm(*args):
     counts_list = [str(x) for z in zip(sorted_counts.keys(), sorted_counts.values()) for x in z]
     # and then into a string
     counts_list = " ".join(counts_list)
-    client.send_message("counts", counts_list)
+    client.send_message("/counts", counts_list)
 
 # Mapping the OSC Server callback function
 callback = dispatcher.Dispatcher()
@@ -159,7 +159,7 @@ def CLI(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
     #OSC server and client
     server = osc_server.ThreadingOSCUDPServer((local_ip, RECEIVE_PORT), callback)
     client = udp_client.SimpleUDPClient(UDP_IP, SEND_PORT)
-    client.send_message("info", "OSC-Qasm is now running")
+    client.send_message("/info", "OSC-Qasm is now running")
     uiprint("Server Receiving on {} port {}".format(server.server_address[0], server.server_address[1]))
     uiprint("Server Sending back on {} port {}".format(client._address,  client._port))
     server.serve_forever()
@@ -200,7 +200,7 @@ async def server_process(args):
     server = osc_server.AsyncIOOSCUDPServer((local_ip, wRECEIVE_PORT), callback, asyncio.get_event_loop())
     transport, protocol = await server.create_serve_endpoint()
     client = udp_client.SimpleUDPClient(wUDP_IP, wSEND_PORT)
-    client.send_message("info", "OSC-Qasm is now running")
+    client.send_message("/info", "OSC-Qasm is now running")
     uiprint("Server Receiving on {} port {}".format(server._server_address[0], server._server_address[1]))
     uiprint("Server Sending back on {} port {}".format(client._address,  client._port))
     while server_on:
@@ -208,7 +208,7 @@ async def server_process(args):
         await asyncio.sleep(0.333)
     transport.close()
     uiprint("Server has stopped now.")
-    client.send_message("info", "OSC-Qasm Server has Stopped.")
+    client.send_message("/info", "OSC-Qasm Server has Stopped.")
 
 
 def GUI():
