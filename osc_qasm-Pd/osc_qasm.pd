@@ -1,27 +1,26 @@
-#N canvas 2040 970 958 556 12;
-#X obj 194 213 packOSC;
+#N canvas 930 159 811 291 12;
+#X obj 194 203 packOSC;
 #X msg 28 140 disconnect;
 #X obj 21 233 netsend -u -b;
 #X msg 22 24 connect localhost 1416;
 #X obj 194 157 list prepend send /QuTune;
 #X obj 194 180 route list;
-#X msg 194 23 OPENQASM\\\ 2.0\\\;
-include\\\ "qelib1.inc"\\\;\\\ 
-qreg\\\ q[2]\\\;\\\ 
-creg\\\ c[2]\\\;\\\ 
-h\\\ q[0]\\\;\\\ 
-cx\\\ q[0]\\\,\\\ q[1]\\\;\\\ 
-measure\\\ q[0]\\\ ->\\\ c[0]\\\;\\\ 
-measure\\\ q[1]\\\ ->\\\ c[1]\\\;\\\ 
-;
-#X obj 421 168 print OSCQasm;
-#X obj 421 86 unpackOSC;
-#X obj 421 25 netreceive -u -b 1417;
+#X obj 589 233 print OSCQasm;
+#X obj 589 157 unpackOSC;
+#X obj 588 102 netreceive -u -b 1417;
+#X obj 684 157 print anything;
+#X msg 588 23 listen 1417;
+#X obj 194 102 list;
+#X msg 194 23 OPENQASM\\\ 2.0\\\;\\\ include\\\ "qelib1.inc"\\\;\\\ qreg\\\ q[2]\\\;\\\ creg\\\ c[2]\\\;\\\ h\\\ q[0]\\\;\\\ cx\\\ q[0]\\\,\\\ q[1]\\\;\\\ measure\\\ q[0]\\\ ->\\\ c[0]\\\;\\\ measure\\\ q[1]\\\ ->\\\ c[1]\\\;\\\ 
+, f 53;
 #X connect 0 0 2 0;
 #X connect 1 0 2 0;
 #X connect 3 0 2 0;
 #X connect 4 0 5 0;
 #X connect 5 0 0 0;
-#X connect 6 0 4 0;
+#X connect 7 0 6 0;
 #X connect 8 0 7 0;
-#X connect 9 0 8 0;
+#X connect 8 0 9 0;
+#X connect 10 0 8 0;
+#X connect 11 0 4 0;
+#X connect 12 0 11 0;
