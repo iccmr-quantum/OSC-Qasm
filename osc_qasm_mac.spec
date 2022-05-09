@@ -63,7 +63,7 @@ exe = EXE(
 )
 app = BUNDLE(
     exe,
-    name='osc_qasm.app',
+    name='OSC_Qasm_2.app',
     icon='icon.icns',
     bundle_identifier=None,
 )
