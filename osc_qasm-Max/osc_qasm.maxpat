@@ -3,8 +3,8 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 8,
-			"minor" : 2,
-			"revision" : 2,
+			"minor" : 3,
+			"revision" : 0,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
@@ -40,6 +40,19 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontsize" : 5.226365695485305,
+					"id" : "obj-14",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 206.5, 276.221212121212147, 28.0, 14.0 ],
+					"text" : "quiet 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-6",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -68,8 +81,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 236.5, 258.5, 290.0, 22.0 ],
-					"text" : "osc_qasm [v1.1] (2022), OCH & Itaborala @ QuTune"
+					"patching_rect" : [ 236.5, 258.5, 304.0, 22.0 ],
+					"text" : "OSC_QASM [v1.1] (2022), OCH & Itaborala @ QuTune"
 				}
 
 			}
@@ -198,7 +211,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 173.5, 321.5, 161.0, 22.0 ],
-					"text" : "route error info"
+					"text" : "route /error /info"
 				}
 
 			}
@@ -209,8 +222,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 173.5, 296.5, 97.0, 22.0 ],
-					"text" : "udpreceive 1417"
+					"patching_rect" : [ 173.5, 296.5, 119.0, 22.0 ],
+					"text" : "udpreceive @quiet 1"
 				}
 
 			}
@@ -400,6 +413,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-20", 0 ],
 					"source" : [ "obj-16", 0 ]
 				}
@@ -422,6 +442,14 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"order" : 1,
+					"source" : [ "obj-21", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-18", 0 ],
 					"source" : [ "obj-21", 1 ]
 				}
@@ -430,6 +458,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
+					"order" : 0,
 					"source" : [ "obj-21", 0 ]
 				}
 
