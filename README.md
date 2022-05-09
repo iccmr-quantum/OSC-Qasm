@@ -32,7 +32,7 @@ If you cloned or downloaded the source code, you need to follow the instructions
 
 Wait until the GUI window opens (it takes several seconds on Windows and Mac):
 
-![GUI.png](.docs/imgs/GUI.png)
+![GUI.png](docs/imgs/GUI.png)
 
 This graphical user interface presents several input fields that let you easily change the server configuration setup. The checkbox `IBM-Quantum` reveals additional fields that allow the use of [_IBM Quantum_](quantum-computing.ibm.com) credentials to access IBM's real quantum hardware. For more details about all these options, please read the [Additional arguments](#additional-arguments) section.
 When you're ready, you can click the `Start` button and you will see the program outputting the following lines:
