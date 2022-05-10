@@ -1,0 +1,36 @@
+#N canvas 0 21 1718 1384 12;
+#X obj 194 203 packOSC;
+#X msg 28 140 disconnect;
+#X obj 21 233 netsend -u -b;
+#X msg 21 51 connect localhost 1416;
+#X obj 194 157 list prepend send /QuTune;
+#X obj 194 180 route list;
+#X obj 589 157 unpackOSC;
+#X obj 588 102 netreceive -u -b 1417;
+#X msg 588 23 listen 1417;
+#X obj 194 102 list;
+#X msg 194 23 OPENQASM\\\ 2.0\\\;\\\ include\\\ "qelib1.inc"\\\;\\\ qreg\\\ q[2]\\\;\\\ creg\\\ c[2]\\\;\\\ h\\\ q[0]\\\;\\\ cx\\\ q[0]\\\,\\\ q[1]\\\;\\\ measure\\\ q[0]\\\ ->\\\ c[0]\\\;\\\ measure\\\ q[1]\\\ ->\\\ c[1]\\\;\\\ 
+, f 53;
+#X obj 589 263 print OSCQasm-info;
+#X obj 723 263 print OSCQasm-error;
+#X obj 589 188 route /info /error /counts;
+#X obj 588 286 print OSCQasm-counts;
+#X obj 736 286 print OSCQasm;
+#X text 17 269 OSC-Qasm 2 Pd example by OCH & Itaborala @ QuTune https://iccmr-quantum.github.io
+09-05-2022;
+#X obj 21 24 loadbang;
+#X connect 0 0 2 0;
+#X connect 1 0 2 0;
+#X connect 3 0 2 0;
+#X connect 4 0 5 0;
+#X connect 5 0 0 0;
+#X connect 6 0 13 0;
+#X connect 7 0 6 0;
+#X connect 8 0 7 0;
+#X connect 9 0 4 0;
+#X connect 10 0 9 0;
+#X connect 13 0 11 0;
+#X connect 13 1 12 0;
+#X connect 13 2 14 0;
+#X connect 13 3 15 0;
+#X connect 17 0 3 0;

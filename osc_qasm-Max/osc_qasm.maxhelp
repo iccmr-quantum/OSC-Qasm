@@ -3,14 +3,14 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 8,
-			"minor" : 2,
-			"revision" : 2,
+			"minor" : 3,
+			"revision" : 0,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 68.0, 211.0, 520.0, 485.0 ],
+		"rect" : [ 1576.0, 366.0, 520.0, 485.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -50,8 +50,8 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 2,
-							"revision" : 2,
+							"minor" : 3,
+							"revision" : 0,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -367,7 +367,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 41.0, 294.5, 91.0, 35.0 ],
-					"text" : "counts \"00 511 11 513\""
+					"text" : "/counts \"00 491 11 533\""
 				}
 
 			}
@@ -380,7 +380,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 41.0, 403.0, 212.0, 47.0 ],
-					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2022-02-23)"
+					"text" : "OSC-Qasm\nsending QuantumCircuits to Qiskit\nOCH & Itaborala (2022-05-09)"
 				}
 
 			}
@@ -542,7 +542,7 @@
 			}
 , 			{
 				"name" : "osc_qasm.maxpat",
-				"bootpath" : "~/Documents/GitHub/OSC-Qasm/osc_qasm-Max",
+				"bootpath" : "~/Documents/Max 8/Library/osc_qasm-Max",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1

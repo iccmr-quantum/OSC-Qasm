@@ -3,8 +3,8 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 8,
-			"minor" : 2,
-			"revision" : 2,
+			"minor" : 3,
+			"revision" : 0,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
@@ -71,8 +71,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 80.5, 252.0, 397.0, 60.0 ],
-					"text" : "This patch serves to illustrate the basic components needed to talk with osc_qasm.py. Most of this is simplified in the osc_qasm Max abstraction. On the same token, you should feel free to connect to osc_qasm.py using any other software with OSC that respects the message structure."
+					"patching_rect" : [ 67.0, 252.0, 424.0, 60.0 ],
+					"text" : "This patch serves to illustrate the basic components needed to talk with OSC-Qasm server. Most of this is simplified in the osc_qasm Max abstraction. On the same token, you should feel free to connect to OSC-Qasm server using any other software with OSC that respects the message structure."
 				}
 
 			}
@@ -270,13 +270,11 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-5",
-					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 403.0, 185.5, 97.0, 35.0 ],
-					"text" : "counts \"00 502 11 498\""
+					"patching_rect" : [ 403.0, 185.5, 97.0, 22.0 ]
 				}
 
 			}
