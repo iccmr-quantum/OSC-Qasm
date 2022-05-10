@@ -1,7 +1,6 @@
 # OSC-Qasm
 # A simple OSC Python interface for executing Qasm code.
-# Or a simple bridge to connect _The QAC Toolkit_ with real quantum hardware.
-# Or a simple server to connect music programming languages with quantum computing technology using OSC protocol.
+# Or a simple way to connect creative programming environments like Max (The QAC Toolkit) and Pd with real quantum hardware, using the OSC protocol.
 #
 # Omar Costa Hamido / Paulo Vitor Itaboraí (2021 - 2022)
 # https://github.com/iccmr-quantum/OSC-Qasm
@@ -53,11 +52,11 @@ class FileLikeErrorOSC(object):
 
             if text == ERR_SEP and self.older != ERR_SEP and self.older != "": # There is a line like ERR_SEP both at the begining and end of a qiskit error log!
                 # uiprint the last entry before the ending ERR_SEP
-                client.send_message("/error", "error in osc_qasm.py: \n(...) "+self.older+"switch to python console to learn more")
+                client.send_message("/error", "error in OSC-Qasm server: \n(...) "+self.older+"switch to console to learn more")
 
             elif "KeyboardInterrupt" in text:
                 # When closing the program with Ctrl+c, There is a 'KeyboardInterrupt' error message.
-                client.send_message("/error", "osc_qasm.py has been terminated in the Python environment.")
+                client.send_message("/info", "OSC-Qasm Server has Stopped.")
 
             self.older=text # Update memory
 
@@ -84,8 +83,8 @@ def run_circuit(qc, shots, backend_name):
             pass
         else: #we then must be naming a realdevice
             if not provider: #for which we definitely need credentials! D:
-                client.send_message("/error", "You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).")
-                uiprint('You need to start osc_qasm.py with the following arguments: --token (--hub, --group, --project).')
+                client.send_message("/error", "You need to start OSC-Qasm server with the following arguments: --token (--hub, --group, --project).")
+                uiprint('You need to start OSC-Qasm server with the following arguments: --token (--hub, --group, --project).')
                 sys.exit()
             backend = provider.get_backend(backend_name)
             job = execute(qc, shots=shots, backend=backend)
@@ -232,14 +231,14 @@ if __name__ == '__main__':
     p = argparse.ArgumentParser()
 
     p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the OSC-Qasm Server will listen for incoming messages. Default port is 1416')
-    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that OSC-Qasm will use to send messages back to the Client. Default port is 1417')
-    p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address to where the retrieved results will be sent (Where the Client is located). Default IP is 127.0.0.1 (localhost)')
+    p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that OSC-Qasm will use to send messages back to the Client (the client\'s listening port). Default port is 1417')
+    p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address to where the retrieved results will be sent to (Where the Client is located). Default IP is 127.0.0.1 (localhost)')
     p.add_argument('--token', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
     p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
     p.add_argument('--project', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Project')
-    p.add_argument('--remote', nargs='?', default=False, help='Declare this is a remote server. In this case, OSC-Qasm will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
-    p.add_argument('--headless', nargs='?', type=bool, const=True, default=False, help='Run OSC-Qasm in headless mode. This is useful if you don\'t want to launch the GUI and only work in the terminal. Will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
+    p.add_argument('--remote', nargs='?', default=False, help='Declare this as a remote server. In this case, OSC-Qasm will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, add it as an argument here')
+    p.add_argument('--headless', nargs='?', type=bool, const=True, default=False, help='Run OSC-Qasm in headless mode. This is useful if you don\'t want to launch the GUI and only work in the terminal.')
 
     args = p.parse_args()
 
