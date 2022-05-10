@@ -3,7 +3,7 @@
 
 A simple multi-platform OSC Python interface for executing Qasm code. Or a simple way to connect creative programming environments like Max ([_The QAC Toolkit_](https://quantumland.art/qac)) and Pd with real quantum hardware, using the OSC protocol.
 
-_OSC-Qasm_ works in a Server-Client logic. The Server side hosts a OSC python server that listens to incoming messages. It expects to receive [OpenQASM](https://en.wikipedia.org/wiki/OpenQASM) (Open Quantum Assembly Language) scripts from any OSC client, describing quantum circuits. Then, _OSC-Qasm_ executes the assembly code, using either Qiskit's [qasm_simulator](https://www.youtube.com/watch?v=V4CwN4rEtVQ) or a real [IBMQ](https://quantum-computing.ibm.com/) Quantum machine. The job results are sent back to the same (or another) OSC client. The Client's task is to send OpenQASM scripts to the server using OSC, receive the resulting counts from an executed quantum circuit and make some music out of it!
+_OSC-Qasm_ works in a Server-Client logic. The Server side hosts a OSC python server that listens to incoming messages. It expects to receive [OpenQASM](https://en.wikipedia.org/wiki/OpenQASM) (Open Quantum Assembly Language) scripts from any OSC client, describing quantum circuits. Then, _OSC-Qasm_ executes the assembly code, using either Qiskit's [qasm_simulator](https://www.youtube.com/watch?v=V4CwN4rEtVQ) or a real [IBMQ](https://quantum-computing.ibm.com/) Quantum hardware. The job results are sent back to the same (or [another](#network-distribution)) OSC client. The Client's tasks are to send OpenQASM scripts to the server using OSC, receive the resulting counts from an executed quantum circuit, and use it in a creative way!
 
 Please click the <img src="https://cdn-icons-png.flaticon.com/512/151/151917.png" width="15" height="15"> icon on the top left corner of this Readme.md file viewer on [github](https://github.com/iccmr-quantum/OSC-Qasm/) to access the table of contents.
 
@@ -35,7 +35,7 @@ At this point, you can launch the client application of your choice (see [Runnin
 ### CLI
 
 You can also run _OSC-Qasm_ in **headless** mode, with a Command-Line Interface server.
-To do so, open a Terminal (Mac/Linux) or Command Prompt (Windows) and go to the location of your downloaded _OSC-Qasm 2_ application, or drag the application file into the console window. Then, run the executable file using the `--headless` flag as described below. Note that Windows has a specific executable file `OSC_Qasm_2_console.exe` (in the [releases page](https://github.com/iccmr-quantum/OSC-Qasm/releases)) for running the **headless** mode properly.
+To do so, open a Terminal (Mac/Linux) or Command Prompt (Windows) and go to the location of your downloaded _OSC-Qasm 2_ application, or drag the application file into the console window. Then, run the executable file using the `--headless` flag as described below. Note that Windows has a specific executable file `OSC_Qasm_2_console.exe` (in the [releases page](https://github.com/iccmr-quantum/OSC-Qasm/releases)) for running the **headless** mode properly (the need for this separate executable is explained in the [Build](#build) section below).
 
 - Mac: add `/Contents/MacOS/OSC_Qasm_2 --headless` to the command, as in:
 ```console
@@ -288,10 +288,11 @@ You can now run _OSC-Qasm_ from your terminal with:
 For more options please refer to the [Additional arguments](#additional-arguments) section above.
 
 To compile the application you will have to run:
-- on mac/linux: `pyinstaller osc_qasm_mac.spec`
+- on mac: `pyinstaller osc_qasm_mac.spec`
 - on windows: `pyinstaller osc_qasm_windows.spec`
+- on linux: `pyinstaller osc_qasm_linux.spec`
 
-Note: you might need to edit the `.spec` file to make sure lines 3 to 8 correctly refer to valid paths for your current system configuration. More specifically, you might need to change the python version number in the path to match the python version you have in your system. Also, note that you simply need to change line 55 of `osq_qasm_windows.spec` to `console=True,` in order to compile the OSC_Qasm_2_console version for Windows.
+Note: you might need to edit the `.spec` file to make sure lines 3 to 8 correctly refer to valid paths for your current system configuration. More specifically, you might need to change the python version number in the path to match the python version you have in your system. Also, note that you simply need to change line 55 of `osq_qasm_windows.spec` to `console=True,` and line 48 to `name=OSC_Qasm_2_console` in order to compile the _OSC-Qasm_ console version for Windows. The reason for this separate version is tied to a known bug on Windows, as reported [here](https://github.com/pyinstaller/pyinstaller/issues/6244).
 
 After compilation, you will find the app executable under the `dist` directory.
 
