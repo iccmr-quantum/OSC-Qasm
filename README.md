@@ -245,7 +245,7 @@ Please note that, as explained in the [Running Server](#running-server) section 
 ### Pd
 In order to try the Pd client, make sure you have [Pd](http://msp.ucsd.edu) installed, and the `osc-v0.2` external available. In order to add the `osc-v0.2` external, you need to navigate to the `Help` menu, and click `Find externals`. Here you can search for `osc` and install `osc-v0.2~git2015...` by rdz.
 
-You can download the `Client_Pd.zip` from the [releases page](https://github.com/iccmr-quantum/OSC-Qasm/releases), or you can simply download (or clone) the entire repository. Now you can open the `osc_qasm` patch in Pd to send Qasm code to the _OSC-Qasm_ server.
+You can download the `Client_Pd.zip` from the [releases page](https://github.com/iccmr-quantum/OSC-Qasm/releases), or you can simply download (or clone) the entire repository. Now you can open the `osc_qasm` patch in Pd and click the message box to send the Qasm code to the _OSC-Qasm_ server.
 
 ![osc_qasm-Pd](docs/imgs/osc_qasm-Pd.png)
 
@@ -292,12 +292,17 @@ To compile the application you will have to run:
 - on windows: `pyinstaller osc_qasm_windows.spec`
 - on linux: `pyinstaller osc_qasm_linux.spec`
 
-Note: you might need to edit the `.spec` file to make sure lines 3 to 8 correctly refer to valid paths for your current system configuration. More specifically, you might need to change the python version number in the path to match the python version you have in your system. Also, note that you simply need to change line 55 of `osq_qasm_windows.spec` to `console=True,` and line 48 to `name=OSC_Qasm_2_console` in order to compile the _OSC-Qasm_ console version for Windows. The reason for this separate version is tied to a known bug on Windows, as reported [here](https://github.com/pyinstaller/pyinstaller/issues/6244).
-
 After compilation, you will find the app executable under the `dist` directory.
 
 Finally, you can leave the virtual environment with:
 - on mac, linux & windows: `deactivate`
+
+### Important Notes:
+You might need to edit the `.spec` file to make sure lines 3 to 8 correctly refer to valid paths for your current system configuration. More specifically, you might need to change the python version number in the path to match the python version you have in your system.
+
+In order to compile the _OSC-Qasm_ console version for Windows, you'll need to change line 55 of `osq_qasm_windows.spec` to `console=True,`, and line 48 to `name=OSC_Qasm_2_console`. Note that the reason for this separate version is tied to a known bug on Windows, as reported [here](https://github.com/pyinstaller/pyinstaller/issues/6244).
+
+When compiling the Linux application, `pyinstaller` might not be able to set the application icon correctly. You can update the [icon](icon.ico) mannually on the file's properties (`Right-Click -> Properties` or `Ctrl+I`) and clicking on the icon in this window.
 
 ## Feedback and Getting help
 Please open a [new issue](https://github.com/iccmr-quantum/OSC-Qasm/issues/new).
