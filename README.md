@@ -1,14 +1,18 @@
 # OSC-Qasm
 [![DOI](https://zenodo.org/badge/432225522.svg)](https://zenodo.org/badge/latestdoi/432225522)
 
-A simple multi-platform OSC Python interface for executing Qasm code. Or a simple way to connect creative programming environments like Max ([_The QAC Toolkit_](https://quantumland.art/qac)) and Pd with real quantum hardware, using the OSC protocol. Please click the <img src="https://cdn-icons-png.flaticon.com/512/151/151917.png" width="15" height="15"> icon on the top left corner of this Readme.md file viewer on [github](https://github.com/iccmr-quantum/OSC-Qasm/) to access the table of contents.
+A simple multi-platform OSC Python interface for executing Qasm code. Or a simple way to connect creative programming environments like Max ([_The QAC Toolkit_](https://quantumland.art/qac)) and Pd with real quantum hardware, using the OSC protocol.
+
+_OSC-Qasm_ works in a Server-Client logic. The Server side hosts a OSC python server that listens to incoming messages. It expects to receive [OpenQASM](https://en.wikipedia.org/wiki/OpenQASM) (Open Quantum Assembly Language) scripts from any OSC client, describing quantum circuits. Then, _OSC-Qasm_ executes the assembly code, using either Qiskit's [qasm_simulator](https://www.youtube.com/watch?v=V4CwN4rEtVQ) or a real [IBMQ](https://quantum-computing.ibm.com/) Quantum machine. The job results are sent back to the same (or another) OSC client. The Client's task is to send OpenQASM scripts to the server using OSC, receive the resulting counts from an executed quantum circuit and make some music out of it!
+
+Please click the <img src="https://cdn-icons-png.flaticon.com/512/151/151917.png" width="15" height="15"> icon on the top left corner of this Readme.md file viewer on [github](https://github.com/iccmr-quantum/OSC-Qasm/) to access the table of contents.
 
 ## Running Server
 
 With the launch of _OSC-Qasm 2.0_, you can now run the server side in two ways - with the graphical user interface ([GUI](#gui)), or headless with the command line interface ([CLI](#cli)).
 
 ### GUI
-The GUI implementation requires google chrome browser installed.
+The GUI implementation requires [google chrome](https://chromeenterprise.google/browser/download) browser installed.
 
 If you downloaded the compiled application for your OS from the [releases page](https://github.com/iccmr-quantum/OSC-Qasm/releases) (recommended), simply double click the application icon to launch it.
 
@@ -211,7 +215,7 @@ The first time this is done, it will ask you to either log into your _LogMeIn ID
 
 ![UK02.png](./docs/imgs/UK02.png)
 
-In this example, since we've created the network in the previous step we will just join the previously created network. It is important to note that the first field is not the network name, but the `Network ID` (retrieved in the LogMeIn website or by hovering the mouse over the network name in the hamachi application). Once everything is set, you should see the new network listed together with its users. The LED in front of each user indicates if they are online or offline. Right clicking an online user in this list will allow you to copy its IP address.
+In this example, since we've created the network in the previous step we will just join the previously created network. It is important to note that the first field is not the network name, but the `Network ID` (retrieved in the LogMeIn website or by hovering the mouse over the network name in the hamachi application). Once everything is set, you should see the new network listed together with its users. The 'LED' in front of each user indicates if they are online or offline. Right clicking an online user in this list will allow you to copy its IP address.
 
 ![UK03.png](./docs/imgs/UK03.png)
 
@@ -292,7 +296,7 @@ Note: you might need to edit the `.spec` file to make sure lines 3 to 8 correctl
 After compilation, you will find the app executable under the `dist` directory.
 
 Finally, you can leave the virtual environment with:
-- on mac/linux & windows: `deactivate`
+- on mac, linux & windows: `deactivate`
 
 ## Feedback and Getting help
 Please open a [new issue](https://github.com/iccmr-quantum/OSC-Qasm/issues/new).
