@@ -7,7 +7,7 @@ authors:
 - family-names: "Itaboraí"
   given-names: "Paulo"
 title: "OSC-Qasm"
-version: 1.3.0
-doi: 10.5281/zenodo.6291913
-date-released: 2022-04-06
+version: 2.0.0
+doi: 10.5281/zenodo.6426326
+date-released: 2022-05-10
 url: "https://github.com/iccmr-quantum/OSC-Qasm"
