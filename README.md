@@ -254,7 +254,7 @@ We've noted that, on some systems, in order to have the new `osc` external libra
 Please also note that, as explained in the [Running Server](#running-server) section above, the first job usually takes additional time to complete, as some resources need to be loaded in the server.
 
 ### SuperCollider
-In order to try the SC client, make sure you have [Supercollider]('https://supercollider.github.io/') installed.
+In order to try the SC client, make sure you have [SuperCollider](https://supercollider.github.io/) installed.
 
 You can download the `Client_SC.zip` from the [releases page](https://github.com/iccmr-quantum/OSC-Qasm/releases), or you can simply download (or clone) the entire repository.
 
