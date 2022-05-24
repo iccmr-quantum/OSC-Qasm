@@ -1,3 +1,10 @@
+// =====================================================================
+//                     OSC-Qasm 2 SuperCollider Example
+//    Running Quantum Circuits (openQASM scripts) on OSC-Qasm using SC
+//                       by Itaborala @ QuTune (2022)
+//                     https://iccmr-quantum.github.io
+// =====================================================================
+
 // If you are using sclang/SCIDE, you don't need to boot the SC server
 // for sending/receiving OSC messages.
 // s.boot;

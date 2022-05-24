@@ -253,6 +253,21 @@ We've noted that, on some systems, in order to have the new `osc` external libra
 
 Please also note that, as explained in the [Running Server](#running-server) section above, the first job usually takes additional time to complete, as some resources need to be loaded in the server.
 
+### SuperCollider
+In order to try the SC client, make sure you have [Supercollider]('https://supercollider.github.io/') installed.
+
+You can download the `Client_SC.zip` from the [releases page](https://github.com/iccmr-quantum/OSC-Qasm/releases), or you can simply download (or clone) the entire repository.
+
+Open the `osc_qasm.scd` script in SuperCollider IDE. Press `Ctrl + Enter` with your cursor inside the first block of code (lines 13-22). It will define how SC will handle incoming messages from _OSC-Qasm_. Then, put your cursor inside the second block (lines 25-28) and press `Ctrl + Enter` again. This will open an UDP receive port and load a Port & IP address for sending messages.
+
+Now you can run the third block of code (`Ctrl + Enter` on lines 31-42) to send the Qasm code to the _OSC-Qasm_ server.
+
+![osc_qasm-SC](docs/imgs/osc_qasm-SC.PNG)
+
+Note that you Don't need to boot _scsynth_ (`s.boot` command) in order to send or receive OSC messages inside the SuperCollider IDE.
+
+Please also note that, as explained in the [Running Server](#running-server) section above, the first job usually takes additional time to complete, as some resources need to be loaded in the server.
+
 ## Build
 Before starting, make sure you have [Python](https://www.python.org/) 3.7+ in your system.
 - when using the installer on windows make sure to select the option `Add Python X to PATH`
