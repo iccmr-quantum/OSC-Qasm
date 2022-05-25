@@ -36,32 +36,33 @@
 								</th>
 								<th style="white-space: nowrap; text-align: left;">
 									<div style="width: 149px">
-										<label for="ibmq_check">IBM-Quantum:</label>
-										<input type="checkbox" id="ibmq_check" name="ibmq_check" onclick='ibmq_checkbox(this);'><br><br>
+										<label title="Check this box if you want to run circuits on IBM-Quantum real quantum hardware" for="ibmq_check">IBM-Quantum:</label>
+										<input title="Check this box if you want to run circuits on IBM-Quantum real quantum hardware" type="checkbox" id="ibmq_check" name="ibmq_check" onclick='ibmq_checkbox(this);'><br><br>
 									</div>
 								</th>
 							</tr>
 							<tr>
 								<td>
-									<label for="receive_port">Receive port:</label><br>
-									<input type="number" id="receive_port" name="receive_port" value="1416"><br><br>
-									<label for="send_port">Send port:</label><br>
-									<input type="number" id="send_port" name="send_port" value="1417"><br><br>
-									<label for="ip">Client IP:</label><br>
-									<input type="text" id="ip" name="ip" value="127.0.0.1"><br><br>
-									<label for="remote">Remote:</label><br>
-									<input type="checkbox" id="remote_check" name="remote_check" onclick='remote_checkbox(this);'>
-									<input type="text" id="remote" name="remote" value="Default" size="16" disabled>
+									<label title="The port where the OSC-Qasm Server will listen for incoming messages" for="receive_port">Receive port:</label><br>
+									<input title="The port where the OSC-Qasm Server will listen for incoming messages" type="number" id="receive_port" name="receive_port" value="1416"><br><br>
+									<label title="The port that OSC-Qasm will use to send messages back to the Client (the client's listening port)" for="send_port">Send port:</label><br>
+									<input title="The port that OSC-Qasm will use to send messages back to the Client (the client's listening port)" type="number" id="send_port" name="send_port" value="1417"><br><br>
+									<label title="The IP address to where the retrieved results will be sent to (Where the Client is located)" for="ip">Client IP:</label><br>
+									<input title="The IP address to where the retrieved results will be sent to (Where the Client is located)" type="text" id="ip" name="ip" value="127.0.0.1"><br><br>
+									<label title="Declare this as a remote server. In this case, OSC-Qasm will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, declare it on the unlocked text field" for="remote">Remote:</label><br>
+									<input title="Declare this as a remote server. In this case, OSC-Qasm will be listenning to messages coming into the network adapter address." type="checkbox" id="remote_check" name="remote_check" onclick='remote_checkbox(this);'>
+									<input title="If there is a specific network adapter IP you want to listen in, declare it here" type="text" id="remote" name="remote" value="Default" size="16" disabled>
 								</td>
 								<td>
-									<div id="ibmq" style="display:none;"><label for="token">Token:</label><br>
-										<input type="password" id="token" name="token" value="false"><br><br>
-										<label for="hub">Hub:</label><br>
-										<input type="text" id="hub" name="hub" value="ibm-q"><br><br>
-										<label for="group">Group:</label><br>
-										<input type="text" id="group" name="group" value="open"><br><br>
-										<label for="project">Project:</label><br>
-										<input type="text" id="project" name="project" value="main">
+									<div id="ibmq" style="display:none;">
+										<label title="You need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)" for="token">Token:</label><br>
+										<input title="You need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)" type="password" id="token" name="token" value="false"><br><br>
+										<label title="You need to provide your IBMQ Hub (see https://quantum-computing.ibm.com/account)" for="hub">Hub:</label><br>
+										<input title="You need to provide your IBMQ Hub (see https://quantum-computing.ibm.com/account)" type="text" id="hub" name="hub" value="ibm-q"><br><br>
+										<label title="you need to provide your IBMQ Group (see https://quantum-computing.ibm.com/account)" for="group">Group:</label><br>
+										<input title="you need to provide your IBMQ Group (see https://quantum-computing.ibm.com/account)" type="text" id="group" name="group" value="open"><br><br>
+										<label title="You need to provide your IBMQ Project (see https://quantum-computing.ibm.com/account)" for="project">Project:</label><br>
+										<input title="You need to provide your IBMQ Project (see https://quantum-computing.ibm.com/account)" type="text" id="project" name="project" value="main">
 									</div>
 								</td>
 							</tr>
