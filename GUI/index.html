@@ -51,7 +51,7 @@
 									<input title="The IP address to where the retrieved results will be sent to (Where the Client is located)" type="text" id="ip" name="ip" value="127.0.0.1"><br><br>
 									<label title="Declare this as a remote server. In this case, OSC-Qasm will be listenning to messages coming into the network adapter address. If there is a specific network adapter IP you want to listen in, declare it on the unlocked text field" for="remote">Remote:</label><br>
 									<input title="Declare this as a remote server. In this case, OSC-Qasm will be listenning to messages coming into the network adapter address." type="checkbox" id="remote_check" name="remote_check" onclick='remote_checkbox(this);'>
-									<input title="If there is a specific network adapter IP you want to listen in, declare it here" type="text" id="remote" name="remote" value="Default" size="16" disabled>
+									<input title="If there is a specific network adapter IP you want to listen in, declare it here" type="text" id="remote" name="remote" value="Default" size="15" style="color:grey" disabled>
 								</td>
 								<td>
 									<div id="ibmq" style="display:none;">
@@ -158,8 +158,10 @@
 		function remote_checkbox(check){
 			if (check.checked) {
 				document.getElementById('remote').disabled = false;
+				document.getElementById('remote').style.color = "white";
 			} else {
 				document.getElementById('remote').disabled = true;
+				document.getElementById('remote').style.color = "grey";
 			}
 		}
 
