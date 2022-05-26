@@ -5,7 +5,8 @@ authors:
   given-names: "Omar Costa"
   orcid: "https://orcid.org/0000-0001-5077-853X"
 - family-names: "Itaboraí"
-  given-names: "Paulo"
+  given-names: "Paulo Vitor"
+  orcid: "https://orcid.org/0000-0002-4956-2958"
 title: "OSC-Qasm"
 version: 2.1.0
 doi: 10.5281/zenodo.6582378
