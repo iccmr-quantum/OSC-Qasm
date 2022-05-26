@@ -271,7 +271,7 @@ if __name__ == '__main__':
             eel.print(*message)
 
     uiprint('================================================')
-    uiprint(' OSC_QASM by OCH & Itaborala @ QuTune (v2.1.0) ')
+    uiprint(' OSC_QASM by OCH & Itaborala @ QuTune (v2.1.1) ')
     uiprint(' https://iccmr-quantum.github.io               ')
     uiprint('================================================')
 

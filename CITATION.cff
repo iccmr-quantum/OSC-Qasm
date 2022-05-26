@@ -8,7 +8,7 @@ authors:
   given-names: "Paulo Vitor"
   orcid: "https://orcid.org/0000-0002-4956-2958"
 title: "OSC-Qasm"
-version: 2.1.0
+version: 2.1.1
 doi: 10.5281/zenodo.6582378
 date-released: 2022-05-25
 url: "https://github.com/iccmr-quantum/OSC-Qasm"
