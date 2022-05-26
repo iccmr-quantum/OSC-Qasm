@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1576.0, 366.0, 520.0, 485.0 ],
+		"rect" : [ 330.0, 277.0, 520.0, 485.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -95,7 +95,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 47.0, 351.0, 268.0, 33.0 ],
-									"presentation_linecount" : 3,
 									"text" : "read the reference page (click the ? tab) to learn about all the available attributes and arguments"
 								}
 
@@ -346,7 +345,6 @@
 					}
 ,
 					"patching_rect" : [ 41.0, 56.5, 71.0, 22.0 ],
-					"presentation_linecount" : 3,
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -440,7 +438,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 1576.0, 392.0, 520.0, 459.0 ],
+						"rect" : [ 330.0, 303.0, 520.0, 459.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -476,7 +474,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 230.0, 233.0, 241.0, 60.0 ],
+									"patching_rect" : [ 230.0, 233.0, 243.0, 60.0 ],
 									"text" : "osc_qasm receives a qasm message which will be sent to the OSC-Qasm backend. Download the backend server application at: github.com/iccmr-quantum/OSC-Qasm",
 									"textjustification" : 2
 								}
@@ -587,8 +585,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 47.0, 177.0, 225.0, 35.0 ],
-									"text" : "QuantumCircuit qc 2 2, qc h 0, qc cx 0 1, qc m 0 0, qc m 1 1, sim get_qasm"
+									"patching_rect" : [ 47.0, 177.0, 279.0, 35.0 ],
+									"text" : "QuantumCircuit qc 2 2, qc h 0, qc cx 0 1, qc m 0 0, qc m 1 1, Simulator sim qc, sim get_qasm"
 								}
 
 							}
