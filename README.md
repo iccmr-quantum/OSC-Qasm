@@ -258,9 +258,9 @@ In order to try the SC client, make sure you have [SuperCollider](https://superc
 
 You can download the `Client_SC.zip` from the [releases page](https://github.com/iccmr-quantum/OSC-Qasm/releases), or you can simply download (or clone) the entire repository.
 
-Open the `osc_qasm.scd` script in SuperCollider IDE. Press `Ctrl + Enter` with your cursor inside the first block of code (lines 13-22). It will define how SC will handle incoming messages from _OSC-Qasm_. Then, put your cursor inside the second block (lines 25-28) and press `Ctrl + Enter` again. This will open an UDP receive port and load a Port & IP address for sending messages.
+Open the `osc_qasm.scd` script in SuperCollider IDE. Press `Ctrl + Enter` with your cursor inside the first block of code (lines 14-21) to load the backend names. Then run the same command inside lines 24-34 - It will define how SC will handle incoming messages from _OSC-Qasm_. Then, put your cursor inside the third block (lines 37-42) and press `Ctrl + Enter` again. This will open an UDP receive port and load a Port & IP address for sending messages.
 
-Now you can run the third block of code (`Ctrl + Enter` on lines 31-42) to send the Qasm code to the _OSC-Qasm_ server.
+Now you can run the last block of code (`Ctrl + Enter` in lines 46-56) to send the Qasm code to the _OSC-Qasm_ server.
 
 ![osc_qasm-SC](docs/imgs/osc_qasm-SC.PNG)
 
