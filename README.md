@@ -1,7 +1,7 @@
 # OSC-Qasm
 [![DOI](https://zenodo.org/badge/432225522.svg)](https://zenodo.org/badge/latestdoi/432225522)
 
-A simple multi-platform OSC Python interface for executing Qasm code. Or a simple way to connect creative programming environments like Max ([_The QAC Toolkit_](https://quantumland.art/qac)) and Pd with real quantum hardware, using the OSC protocol.
+A simple cross-platform OSC Python-based interface for executing Qasm code. Or a simple way to connect creative programming environments like Max ([_The QAC Toolkit_](https://quantumland.art/qac)) and Pd with real quantum hardware, using the OSC protocol.
 
 _OSC-Qasm_ works in a Server-Client logic. The Server side hosts a OSC python server that listens to incoming messages. It expects to receive [OpenQASM](https://en.wikipedia.org/wiki/OpenQASM) (Open Quantum Assembly Language) scripts from any OSC client, describing quantum circuits. Then, _OSC-Qasm_ executes the assembly code, using either Qiskit's [qasm_simulator](https://www.youtube.com/watch?v=V4CwN4rEtVQ) or a real [IBMQ](https://quantum-computing.ibm.com/) Quantum hardware. The job results are sent back to the same (or [another](#network-distribution)) OSC client. The Client's tasks are to send OpenQASM scripts to the server using OSC, receive the resulting counts from an executed quantum circuit, and use it in a creative way!
 
