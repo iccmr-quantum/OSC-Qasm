@@ -109,10 +109,8 @@ Version 1.3.0 brought new options for facilitating distributed network scenarios
 
 You can now have: a client machine (C1) sending `qasm` jobs via OSC (e.g. using [osc_qasm.maxpat](https://github.com/iccmr-quantum/OSC-Qasm/blob/main/osc_qasm-Max/osc_qasm.maxpat)); a different server machine (S1) running _OSC-Qasm_ server, receiving and processing the job requests; and even a third client machine (C2) receiving the results.
 
-```mermaid
-flowchart LR
-C1 -- qasm --> S1 -- results --> C2
-```
+![NET_DARK.png](./docs/imgs/NET_DARK.png#gh-dark-mode-only)
+![NET_LIGHT.png](./docs/imgs/NET_LIGHT.png#gh-light-mode-only)
 
 To that end, _OSC-Qasm_ has an optional flag/argument called `--remote`. When used, the _OSC-Qasm_ server will listen to the default IP address assigned to the machine for the local area network, instead of "127.0.0.1". Additionally, you can add an argument after the flag to specify the IP address to use (useful in a scenario with multiple network adapters, each giving the machine a different IP address for each network).
 
