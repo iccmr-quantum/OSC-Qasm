@@ -1,4 +1,4 @@
-#N canvas 0 21 1718 1384 12;
+#N canvas 0 23 888 341 12;
 #X obj 194 203 packOSC;
 #X msg 28 140 disconnect;
 #X obj 21 233 netsend -u -b;
@@ -16,9 +16,9 @@
 #X obj 589 188 route /info /error /counts;
 #X obj 588 286 print OSCQasm-counts;
 #X obj 736 286 print OSCQasm;
-#X text 17 269 OSC-Qasm 2 Pd example by OCH & Itaborala @ QuTune https://iccmr-quantum.github.io
-09-05-2022;
 #X obj 21 24 loadbang;
+#X text 17 269 OSC-Qasm Pd client by OCH & Itaborala @ QuTune https://iccmr-quantum.github.io
+09-05-2022;
 #X connect 0 0 2 0;
 #X connect 1 0 2 0;
 #X connect 3 0 2 0;
@@ -33,4 +33,4 @@
 #X connect 13 1 12 0;
 #X connect 13 2 14 0;
 #X connect 13 3 15 0;
-#X connect 17 0 3 0;
+#X connect 16 0 3 0;

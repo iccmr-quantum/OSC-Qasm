@@ -1,5 +1,5 @@
 // =====================================================================
-//                     OSC-Qasm 2 SuperCollider Example
+//                     OSC-Qasm SuperCollider Client
 //    Running Quantum Circuits (openQASM scripts) on OSC-Qasm using SC
 //                       by Itaborala @ QuTune (2022)
 //                     https://iccmr-quantum.github.io

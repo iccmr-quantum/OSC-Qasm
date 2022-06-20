@@ -260,7 +260,8 @@ Open the `osc_qasm.scd` script in SuperCollider IDE. Press `Ctrl + Enter` with y
 
 Now you can run the last block of code (`Ctrl + Enter` in lines 46-56) to send the Qasm code to the _OSC-Qasm_ server.
 
-![osc_qasm-SC](docs/imgs/osc_qasm-SC.PNG)
+![oscqasmSC_long_dark.PNG](docs/imgs/oscqasmSC_long_dark.PNG#gh-dark-mode-only)
+![oscqasmSC_long_light.PNG](docs/imgs/oscqasmSC_long_light.PNG#gh-light-mode-only)
 
 Note that you Don't need to boot _scsynth_ (`s.boot` command) in order to send or receive OSC messages inside the SuperCollider IDE.
 
