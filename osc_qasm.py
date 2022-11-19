@@ -15,6 +15,7 @@ import sys
 import eel
 import socket
 import asyncio
+import importlib
 
 class FileLikeOutputOSC(object):
     ''' This class emulates a File-Like object
@@ -125,10 +126,19 @@ def parse_qasm(*args):
     counts_list = " ".join(counts_list)
     client.send_message("/counts", counts_list)
 
+def parse_custom(*args):
+    uiprint("Running custom function")
+    uiprint(args)
+    
+    custom = importlib.import_module(args[1])
+    uiprint(dir(custom))
+    func = getattr(custom, args[2])
+    func()
+    
 # Mapping the OSC Server callback function
 callback = dispatcher.Dispatcher()
 callback.map("/QuTune", parse_qasm)
-
+callback.map("/Custom", parse_custom)
 
 def CLI(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
 
