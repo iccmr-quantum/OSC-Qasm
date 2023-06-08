@@ -326,4 +326,6 @@ Also, please consider learning more about Max [here](https://cycling74.com/get-s
 ## Acknowledgements
 _OSC-Qasm_ is inspired by Jack Woehr's [Qisjob project](https://zenodo.org/record/4554481), and a direct descendant of the och.qisjob [Max object](https://www.quantumland.art/phd).
 
+On April 12, of 2023, this project was presented at the EvoMUSART conference. This included a [poster](./docs/imgs/EvoMUSART_poster_143_x1589.png) presentation. We also wrote a paper that is part of the conference proceedings, and was published [here](https://link.springer.com/chapter/10.1007/978-3-031-29956-8_24) by Springer.
+
 This repo was created by [Omar Costa Hamido](https://omarcostahamido.com) and [Paulo Itaboraí](https://itabora.space) as part of the [QuTune Project](https://iccmr-quantum.github.io/).
