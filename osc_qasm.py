@@ -12,9 +12,13 @@ from qiskit.test.mock import *
 from qiskit.tools import job_monitor
 import argparse
 import sys
+from iqm.qiskit_iqm import IQMProvider
 import eel
 import socket
 import asyncio
+from hardware.hardware_library import HardwareLibrary
+
+server_url = 'https://demo.qc.iqm.fi/cocos'
 
 class FileLikeOutputOSC(object):
     ''' This class emulates a File-Like object
@@ -62,6 +66,7 @@ class FileLikeErrorOSC(object):
 
 
 def run_circuit(qc, shots, backend_name):
+    global IQM, hwi
 
     uiprint("Running circuit on {}...".format(backend_name))
     client.send_message("/info", "Running circuit on {}...".format(backend_name) )
@@ -89,6 +94,9 @@ def run_circuit(qc, shots, backend_name):
             backend = provider.get_backend(backend_name)
             job = execute(qc, shots=shots, backend=backend)
             job_monitor(job, output=flosc, line_discipline="") # 'flosc' (FileLikeOutputOSC) reroutes the output from stdout to the OSC client
+    elif IQM:
+        print('here')
+        job = execute(qc, shots=shots, backend=hwi.backend)
     else:
         backend = Aer.get_backend('qasm_simulator')
         job = execute(qc, shots=shots, backend=backend)
@@ -130,13 +138,17 @@ callback = dispatcher.Dispatcher()
 callback.map("/QuTune", parse_qasm)
 
 
-def CLI(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE):
+def CLI(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE, IQM_MODE):
 
-    global client, provider, ERR_SEP
+    global client, provider, ERR_SEP, server_url, IQM, hwi
     ERR_SEP = '----------------------------------------' # For FileLikeErrorOSC() class
     provider=None
     local_ip="127.0.0.1"
-
+    if IQM_MODE:
+        hwi = HardwareLibrary().get_hardware_interface('iqm')
+        hwi.connect()
+        hwi.get_backend()
+        provider = hwi.provider
     if TOKEN:
         IBMQ.enable_account(TOKEN, 'https://auth.quantum-computing.ibm.com/api', HUB, GROUP, PROJECT)
         provider=IBMQ.get_provider(hub=HUB, group=GROUP, project=PROJECT)
@@ -227,12 +239,14 @@ def GUI():
 
 
 if __name__ == '__main__':
-    global HEADLESS
+    global HEADLESS, IQM
+    IQM = False
     p = argparse.ArgumentParser()
 
     p.add_argument('receive_port', type=int, nargs='?', default=1416, help='The port where the OSC-Qasm Server will listen for incoming messages. Default port is 1416')
     p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that OSC-Qasm will use to send messages back to the Client (the client\'s listening port). Default port is 1417')
     p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address to where the retrieved results will be sent to (Where the Client is located). Default IP is 127.0.0.1 (localhost)')
+    p.add_argument('--iqm_mode', nargs='?', type=bool, const=True, default=False, help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
     p.add_argument('--token', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
     p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
@@ -269,6 +283,8 @@ if __name__ == '__main__':
             print(*message)
         else:
             eel.print(*message)
+    if args.iqm_mode:
+        IQM = True
 
     uiprint('================================================')
     uiprint(' OSC_QASM by OCH & Itaborala @ QuTune (v2.1.2) ')
@@ -276,6 +292,6 @@ if __name__ == '__main__':
     uiprint('================================================')
 
     if HEADLESS:
-        CLI(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project, args.remote)
+        CLI(args.ip, args.receive_port, args.send_port, args.token, args.hub, args.group, args.project, args.remote, args.iqm_mode)
     else:
         GUI()
