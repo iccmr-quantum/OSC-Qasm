@@ -95,7 +95,8 @@ def run_circuit(qc, shots, backend_name):
             job = execute(qc, shots=shots, backend=backend)
             job_monitor(job, output=flosc, line_discipline="") # 'flosc' (FileLikeOutputOSC) reroutes the output from stdout to the OSC client
     elif IQM:
-        print('here')
+        print(f'Actually running IQM {hwi}')
+        print(f'Hardware url: {hwi.url}')
         job = execute(qc, shots=shots, backend=hwi.backend)
     else:
         backend = Aer.get_backend('qasm_simulator')
