@@ -11,8 +11,12 @@ class IQMHardwareInterface(QuantumHardwareInterface):
         self.provider = None
         self.backend = None
 
-    def connect(self):
-        self.provider = IQMProvider(server_url)
+    def connect(self, url=None):
+        if url is None:
+            self.provider = IQMProvider(server_url)
+        else:
+            self.provider = IQMProvider(url)
+            print(f'Connecting to {url}')
 
     def get_backend(self, backend_name=None):
         self.backend = self.provider.get_backend()

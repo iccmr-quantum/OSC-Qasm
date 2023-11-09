@@ -18,7 +18,7 @@ import socket
 import asyncio
 from hardware.hardware_library import HardwareLibrary
 
-server_url = 'https://demo.qc.iqm.fi/cocos'
+global server_url
 
 class FileLikeOutputOSC(object):
     ''' This class emulates a File-Like object
@@ -146,7 +146,7 @@ def CLI(UDP_IP, RECEIVE_PORT, SEND_PORT, TOKEN, HUB, GROUP, PROJECT, REMOTE, IQM
     local_ip="127.0.0.1"
     if IQM_MODE:
         hwi = HardwareLibrary().get_hardware_interface('iqm')
-        hwi.connect()
+        hwi.connect(server_url)
         hwi.get_backend()
         provider = hwi.provider
     if TOKEN:
@@ -239,7 +239,9 @@ def GUI():
 
 
 if __name__ == '__main__':
-    global HEADLESS, IQM
+    global HEADLESS, IQM, server_url
+    server_url = 'https://demo.qc.iqm.fi/cocos'
+
     IQM = False
     p = argparse.ArgumentParser()
 
@@ -247,6 +249,7 @@ if __name__ == '__main__':
     p.add_argument('send_port', type=int, nargs='?', default=1417, help='The port that OSC-Qasm will use to send messages back to the Client (the client\'s listening port). Default port is 1417')
     p.add_argument('ip', nargs='?', default='127.0.0.1', help='The IP address to where the retrieved results will be sent to (Where the Client is located). Default IP is 127.0.0.1 (localhost)')
     p.add_argument('--iqm_mode', nargs='?', type=bool, const=True, default=False, help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
+    p.add_argument('--real', nargs='?', type=bool, const=True, default=False, help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
     p.add_argument('--token', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ token (see https://quantum-computing.ibm.com/account)')
     p.add_argument('--hub', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Hub')
     p.add_argument('--group', help='If you want to run circuits on real quantum hardware, you need to provide your IBMQ Group')
@@ -285,6 +288,8 @@ if __name__ == '__main__':
             eel.print(*message)
     if args.iqm_mode:
         IQM = True
+        if args.real:
+            server_url = 'https://5a.qc.iqm.fi/cocos'
 
     uiprint('================================================')
     uiprint(' OSC_QASM by OCH & Itaborala @ QuTune (v2.1.2) ')
